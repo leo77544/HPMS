@@ -13,7 +13,7 @@ namespace ConnHelper
     {
 
         //获取web.config里的连接字符串
-        public static string strCon = " Data Source=10.1.151.19;Initial Catalog=H_PMSDB;Integrated Security=True";
+        public static string strCon = ConfigurationManager.ConnectionStrings["connStr"].ConnectionString;
         /// <summary>
         /// 增删改
         /// </summary>
