@@ -16,6 +16,7 @@ namespace H_PMS_WebApi.Controllers
         KevinManager Kevin = new KevinManager();
         MichaelManager Michael = new MichaelManager();
 
+        int q;
         #region Alan
 
         #endregion
