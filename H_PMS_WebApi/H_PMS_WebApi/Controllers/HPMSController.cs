@@ -18,6 +18,63 @@ namespace H_PMS_WebApi.Controllers
 
         #region Alan
 
+        #region 登录
+        AlanService Alan = new AlanService();
+        public Employee Login(string emp, string pwd)
+        {
+            return Alan.Login(emp, pwd);
+        }
+
+        #endregion
+
+        #region 车位管理
+
+        public int AddParkBase(ParkBase p)
+        {
+            return Alan.AddParkBase(p);
+        }
+
+        public List<ParkBase> GetParkBases()
+        {
+            // 类型 面积  价钱
+            return Alan.GetParkBases();
+        }
+
+        public int DelParkBase(int id)
+        {
+            return Alan.DelParkBase(id);
+        }
+
+        public int UptParkBase(ParkBase p)
+        {
+            return Alan.UptParkBase(p);
+        }
+        #endregion
+
+        #region 车位租出信息
+        public int AddPark(Park p)
+        {
+            return Alan.AddPark(p);
+        }
+
+        public List<Park> GetParks()
+        {
+            // 车位类型 车主  车位编号
+            return Alan.GetParks();
+        }
+
+        public int DelPark(int id)
+        {
+            return Alan.DelPark(id);
+        }
+
+        public int UptPark(Park p)
+        {
+            return Alan.UptPark(p);
+        }
+
+        #endregion
+
         #endregion
 
         #region leo
