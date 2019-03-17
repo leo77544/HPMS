@@ -16,14 +16,14 @@ namespace H_PMS_Model
           get { return parkId;}
           set { parkId=value;}
         }
-        private string parkNumber;
+        private int pBId;
         /// <summary>
         /// ³µÎ»Id
         /// </summary>
-        public string ParkNumber
+        public int PBId
         {
-          get { return parkNumber;}
-          set { parkNumber=value;}
+            get { return pBId; }
+            set { pBId = value; }
         }
         private int hostId;
         /// <summary>
