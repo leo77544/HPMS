@@ -4,6 +4,7 @@ using ConnHelper;
 using H_PMS_Model;
 using System.Data;
 using System.Data.SqlClient;
+using Newtonsoft.Json;
 
 namespace H_PMS_DAL
 {
@@ -35,9 +36,27 @@ namespace H_PMS_DAL
             SqlParameter pcode = new SqlParameter("@Code", SqlDbType.Int);
             pcode.Direction = ParameterDirection.Output;
             SqlParameter[] para = { DMNumber, HostName, DMSTime , DMName, DMWay, DMType , DMSum, Remark,pcode };
-             DBHelperProc.ExecuteNonQuery("P_dataMomey", para);
-            return Convert.ToInt32(pcode);
+            int result=DBHelperProc.ExecuteNonQuery("P_dataMomey", para);
+            return Convert.ToInt32(pcode)+result;
+
         }
+        /// <summary>
+        /// 查看缴费信息
+        /// </summary>
+        /// <returns></returns>
+        static public List<DataMoney> GetDataMoney()
+        {
+            return JsonConvert.DeserializeObject<List<DataMoney>>(JsonConvert.SerializeObject(DBHelper.GetDataTable("selcect * from DataMoney")));
+        }
+        /// <summary>
+        /// 查看报表信息
+        /// </summary>
+        /// <returns></returns>
+        static public List<RecordInfo> GetRecordInfo()
+        {
+            return JsonConvert.DeserializeObject<List<RecordInfo>>(JsonConvert.SerializeObject(DBHelper.GetDataTable("selcect * from RecordInfo")));
+        }
+
     }
 }
 

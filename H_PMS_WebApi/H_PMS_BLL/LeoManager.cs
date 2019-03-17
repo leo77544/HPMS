@@ -18,6 +18,22 @@ namespace H_PMS_BLL
 
             return LeoService.AddDataMoney(m);
          }
+        /// <summary>
+        /// 查看缴费信息
+        /// </summary>
+        /// <returns></returns>
+        static public List<DataMoney> GetDataMoney()
+        {
+            return LeoService.GetDataMoney();
+        }
+        /// <summary>
+        /// 查看报表信息
+        /// </summary>
+        /// <returns></returns>
+        static public List<RecordInfo> GetRecordInfo()
+        {
+            return LeoService.GetRecordInfo();
+        }
 
     }
 }
