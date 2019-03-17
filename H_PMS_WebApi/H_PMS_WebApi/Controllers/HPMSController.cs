@@ -78,7 +78,15 @@ namespace H_PMS_WebApi.Controllers
         #endregion
 
         #region leo
-
+        /// <summary>
+        /// 添加收费信息
+        /// </summary>
+        /// <param name="m"></param>
+        /// <returns></returns>
+        static public int AddDataMoney(DataMoney m)
+        {
+            return LeoManager.AddDataMoney(m);
+        }
         #endregion
 
         #region Kevin
