@@ -50,7 +50,7 @@ namespace H_PMS_DAL
         /// <returns></returns>
         static public List<DataMoney> GetDataMoney()
         {
-            return JsonConvert.DeserializeObject<List<DataMoney>>(JsonConvert.SerializeObject(DBHelper.GetDataTable("selcect * from DataMoney")));
+            return JsonConvert.DeserializeObject<List<DataMoney>>(JsonConvert.SerializeObject(DBHelper.GetDataTable("select * from DataMoney")));
         }
         #endregion
 
@@ -61,7 +61,7 @@ namespace H_PMS_DAL
         /// <returns></returns>
         static public List<RecordInfo> GetRecordInfo()
         {
-            return JsonConvert.DeserializeObject<List<RecordInfo>>(JsonConvert.SerializeObject(DBHelper.GetDataTable("selcect * from RecordInfo")));
+            return JsonConvert.DeserializeObject<List<RecordInfo>>(JsonConvert.SerializeObject(DBHelper.GetDataTable("select * from RecordInfo")));
         } 
         #endregion
 

@@ -84,7 +84,7 @@ namespace H_PMS_WebApi.Controllers
         /// <returns></returns>
         /// 
         [HttpPost]
-        static public int AddDataMoney(DataMoney m)
+         public int AddDataMoney(DataMoney m)
         {
             return LeoManager.AddDataMoney(m);
         }
@@ -95,7 +95,7 @@ namespace H_PMS_WebApi.Controllers
         /// <returns></returns>
         /// 
         [HttpGet]
-        static public List<DataMoney> GetDataMoney()
+         public List<DataMoney> GetDataMoney()
         {
             return LeoManager.GetDataMoney();
         }
@@ -105,7 +105,7 @@ namespace H_PMS_WebApi.Controllers
         /// <returns></returns>
         /// 
         [HttpGet]
-        static public List<RecordInfo> GetRecordInfo()
+         public List<RecordInfo> GetRecordInfo()
         {
             return LeoManager.GetRecordInfo();
         }
