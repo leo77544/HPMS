@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using WebApiHelper;
 using H_PMS_Model;
+using Newtonsoft.Json;
+
 namespace H_PMS_Client.Controllers
 {
     public class HPMSController : Controller
@@ -12,9 +14,24 @@ namespace H_PMS_Client.Controllers
         // GET: HPMS
         public ActionResult Index()
         {
-         //   ApiResult.GetAPIResult();
+            //   ApiResult.GetAPIResult();
             return View();
         }
 
+        #region Kevin
+        public ActionResult K_GetEmp()
+        {
+            string json = ApiResult.GetAPIResult("GetEmployees", "get");
+            List<GetEmp> list = JsonConvert.DeserializeObject<List<GetEmp>>(json);
+            ViewBag.getEmp = list;
+            return PartialView();
+        }
+
+        public ActionResult K_AddEmp()
+        {
+            return PartialView();
+        }
+
+        #endregion
     }
 }

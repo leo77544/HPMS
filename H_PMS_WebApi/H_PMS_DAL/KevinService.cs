@@ -20,7 +20,7 @@ namespace H_PMS_DAL
         /// <returns></returns>
         public List<GetEmp> GetEmployees(string EName = "", int DId = -1)
         {
-            string sql = $"select e.EName,e.ESex,e.EAge,e.ESalary,e.EStarTime,d.DName from Employee e join Duty d on Employee.DId=Duty.DId where EName like '%%{EName}' ";
+            string sql = $"select e.EmployeeId,e.EName,e.ESex,e.EAge,e.ESalary,e.EStartTime,d.DName from Employee e join Duty d on e.DId=d.DutyId where EName like '%{EName}%' ";
             if (DId != -1)
             {
                 sql += " and DId=" + DId;
