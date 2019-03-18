@@ -19,7 +19,6 @@ namespace H_PMS_WebApi.Controllers
         #region Alan
 
         #region 登录
-        AlanService Alan = new AlanService();
         public Employee Login(string emp, string pwd)
         {
             return Alan.Login(emp, pwd);

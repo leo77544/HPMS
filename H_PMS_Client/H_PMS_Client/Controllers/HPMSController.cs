@@ -15,5 +15,6 @@ namespace H_PMS_Client.Controllers
          //   ApiResult.GetAPIResult();
             return View();
         }
+
     }
 }
