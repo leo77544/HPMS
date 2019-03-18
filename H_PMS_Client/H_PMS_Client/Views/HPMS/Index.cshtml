@@ -31,6 +31,7 @@
     <!-- ace settings handler -->
 
     <script src="~/assets/js/ace-extra.min.js"></script>
+    
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -146,7 +147,7 @@
 
                         <ul class="submenu">
                             <li>
-                                <a href="release.html">
+                                <a href="#">
                                     <i class="icon-double-angle-right"></i>
                                     入户登记
                                 </a>
@@ -211,23 +212,23 @@
 
                         <ul class="submenu">
                             <li>
-                                <a href="money.html">
+                                <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#kevin" href="/HPMS/K_GetEmp/">
                                     <i class="icon-double-angle-right"></i>
-                                    余额充值
+                                    员工入职
                                 </a>
                             </li>
 
                             <li>
-                                <a href="recharge.html">
+                                <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#kevin" href="K_GetEmp">
                                     <i class="icon-double-angle-right"></i>
-                                    充值记录
+                                    员工信息
                                 </a>
                             </li>
 
                             <li>
-                                <a href="change.html">
+                                <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#kevin" href="/HPMS/K_GetEmp/">
                                     <i class="icon-double-angle-right"></i>
-                                    密码设定
+                                    岗位调动
                                 </a>
                             </li>
                         </ul>
@@ -326,7 +327,7 @@
                 </script>
             </div>
 
-            <div class="main-content">
+            <div class="main-content" id="kevin">
                 <div class="breadcrumbs" id="breadcrumbs">
                     <script type="text/javascript">
                         try { ace.settings.check('breadcrumbs', 'fixed') } catch (e) { }
@@ -475,6 +476,7 @@
     <script src="~/assets/js/flot/jquery.flot.min.js"></script>
     <script src="~/assets/js/flot/jquery.flot.pie.min.js"></script>
     <script src="~/assets/js/flot/jquery.flot.resize.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
 
     <!-- ace scripts -->
 
@@ -482,6 +484,7 @@
     <script src="~/assets/js/ace.min.js"></script>
 
     <!-- inline scripts related to this page -->
+
 
     <script type="text/javascript">
         jQuery(function ($) {
@@ -701,5 +704,4 @@
     </script>
 </body>
 </html>
-
 
