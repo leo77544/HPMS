@@ -110,6 +110,10 @@
       <Project>{5fd181cf-a52d-4d2a-80e6-5f2904ac7602}</Project>
       <Name>H_PMS_BLL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\H_PMS_DAL\H_PMS_DAL.csproj">
+      <Project>{39535371-39C9-462C-8C5F-F090CC2A3A3A}</Project>
+      <Name>H_PMS_DAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\H_PMS_Model\H_PMS_Model.csproj">
       <Project>{76021851-35bd-4848-9ff0-430601b2c42b}</Project>
       <Name>H_PMS_Model</Name>
