@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using WebApiHelper;
 using H_PMS_Model;
 using Newtonsoft.Json;
+
 namespace H_PMS_Client.Controllers
 {
     public class HPMSController : Controller
@@ -17,6 +18,22 @@ namespace H_PMS_Client.Controllers
             return View();
         }
 
+        #region Kevin
+        public ActionResult K_GetEmp()
+        {
+            string json = ApiResult.GetAPIResult("GetEmployees", "get");
+            List<GetEmp> list = JsonConvert.DeserializeObject<List<GetEmp>>(json);
+            ViewBag.getEmp = list;
+            return PartialView();
+        }
+
+        public ActionResult K_AddEmp()
+        {
+            return PartialView();
+        }
+
+        #endregion
+=========
         /// <summary>
         /// 缴费管理
         /// </summary>
@@ -36,21 +53,12 @@ namespace H_PMS_Client.Controllers
             List<DataMoney> list = JsonConvert.DeserializeObject<List<DataMoney>>(ApiResult.GetAPIResult("GetDataMoney", "get"));
             return PartialView("_ChargeRecord", list);
         }
-        #region Kevin
-        public ActionResult K_GetEmp()
-        {
-            string json = ApiResult.GetAPIResult("GetEmployees", "get");
-            List<GetEmp> list = JsonConvert.DeserializeObject<List<GetEmp>>(json);
-            ViewBag.getEmp = list;
-            return PartialView();
-        }
 
-        public ActionResult K_AddEmp()
-        {
-            return PartialView();
-        }
+        //    public List<DataMoney> GetDataMoney()
+        //    {
 
-        #endregion
 
+        //    }
+        //}
     }
 }
