@@ -1,0 +1,76 @@
+﻿
+<div class="main-content" style="margin-left:0px;" id="kevin">
+    <div class="breadcrumbs" id="breadcrumbs">
+        <script type="text/javascript">
+            try { ace.settings.check('breadcrumbs', 'fixed') } catch (e) { }
+        </script>
+
+        <ul class="breadcrumb">
+            <li>
+                <i class="icon-home home-icon"></i>
+                <a href="#">首页</a>
+            </li>
+            <li class="active">安居客控制台</li>
+            <li class="active">员工管理</li>
+            <li class="active">员工信息</li>
+        </ul><!-- .breadcrumb -->
+    </div>
+
+    <div class="page-content">
+        <div class="row">
+
+            <div class="col-xs-12">
+
+                <div class="table-responsive">
+                    <table id="sample-table-1" class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th class="center">
+                                    <label>
+                                        <input type="checkbox" class="ace" />
+                                        <span class="lbl"></span>
+                                    </label>
+                                </th>
+                                <th>员工姓名</th>
+                                <th>性别</th>
+                                <th>年龄</th>
+                                <th>职务名称</th>
+                                <th>入职时间</th>
+                                <th>薪资</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var item in ViewBag.getEmp)
+                                {
+                                <tr>
+                                    <td class="center">
+                                        <label>
+                                            <input type="checkbox" class="ace" />
+                                            <span class="lbl"></span>
+                                        </label>
+                                    </td>
+
+                                    <td>@item.EName</td>
+                                    <td>@item.ESex</td>
+                                    <td>@item.EAge</td>
+                                    <td>@item.DName</td>
+                                    <td>@item.EStartTime</td>
+                                    <td>@item.ESalary</td>
+                                    <td>
+                                        <button class="btn">编辑</button>
+                                        <button class="btn btn-danger">删除</button>
+                                    </td>
+
+                                </tr>
+                                }
+
+                        </tbody>
+                    </table>
+                </div><!-- /.table-responsive -->
+            </div><!-- /span -->
+        </div><!-- /row -->
+
+    </div><!-- /.page-content -->
+</div><!-- /.main-content -->

@@ -8,7 +8,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>安居客</title>
+    <title>幸福里</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- basic styles -->
     <link href="~/assets/css/bootstrap.min.css" rel="stylesheet" />
@@ -31,6 +31,7 @@
     <!-- ace settings handler -->
 
     <script src="~/assets/js/ace-extra.min.js"></script>
+    
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -40,8 +41,6 @@
 </head>
 
 <body>
-
-
     <div class="navbar navbar-default" id="navbar">
         <script type="text/javascript">
             try { ace.settings.check('navbar', 'fixed') } catch (e) { }
@@ -52,7 +51,7 @@
                 <a href="#" class="navbar-brand">
                     <small>
                         <i class="icon-leaf"></i>
-                        安居客房源系统
+                        幸福里物业管理系统
                     </small>
                 </a><!-- /.brand -->
             </div><!-- /.navbar-header -->
@@ -132,9 +131,9 @@
 
                 <ul class="nav nav-list">
                     <li class="active">
-                        <a href="index.html">
+                        <a href="#">
                             <i class="icon-dashboard"></i>
-                            <span class="menu-text"> 安居客控制台 </span>
+                            <span class="menu-text"> 幸福里物业管理系统 </span>
                         </a>
                     </li>
 
@@ -148,7 +147,7 @@
 
                         <ul class="submenu">
                             <li>
-                                <a href="release.html">
+                                <a href="#">
                                     <i class="icon-double-angle-right"></i>
                                     入户登记
                                 </a>
@@ -213,23 +212,23 @@
 
                         <ul class="submenu">
                             <li>
-                                <a href="money.html">
+                                <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#kevin" href="/HPMS/K_GetEmp/">
                                     <i class="icon-double-angle-right"></i>
-                                    余额充值
+                                    员工入职
                                 </a>
                             </li>
 
                             <li>
-                                <a href="recharge.html">
+                                <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#kevin" href="K_GetEmp">
                                     <i class="icon-double-angle-right"></i>
-                                    充值记录
+                                    员工信息
                                 </a>
                             </li>
 
                             <li>
-                                <a href="change.html">
+                                <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#kevin" href="/HPMS/K_GetEmp/">
                                     <i class="icon-double-angle-right"></i>
-                                    密码设定
+                                    岗位调动
                                 </a>
                             </li>
                         </ul>
@@ -237,7 +236,7 @@
 
                     <li>
                         <a href="#" class="dropdown-toggle">
-                            <i class="icon-list"></i>
+                            <i class="icon-dashboard"></i>
                             <span class="menu-text"> 收费管理 </span>
 
                             <b class="arrow icon-angle-down"></b>
@@ -245,25 +244,25 @@
 
                         <ul class="submenu">
                             <li>
-                                <a href="money.html">
+                                <a href="JavaScript:charge()">
                                     <i class="icon-double-angle-right"></i>
-                                    余额充值
+                                    缴费管理
                                 </a>
                             </li>
 
                             <li>
-                                <a href="recharge.html">
+                                <a href="JavaScript:chargeRecord()">
                                     <i class="icon-double-angle-right"></i>
-                                    充值记录
+                                    缴费记录
                                 </a>
                             </li>
 
-                            <li>
-                                <a href="change.html">
-                                    <i class="icon-double-angle-right"></i>
-                                    密码设定
-                                </a>
-                            </li>
+                            @*<li>
+                    <a href="change.html">
+                        <i class="icon-double-angle-right"></i>
+                        密码设定
+                    </a>
+                </li>*@
                         </ul>
                     </li>
 
@@ -277,7 +276,10 @@
 
                         <ul class="submenu">
                             <li>
-                                <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#main-show" href="/HPMS/PBShow/"><i class="icon-double-angle-right"></i> <span>车位信息</span></a>
+                                <a href="form-elements.html">
+                                    <i class="icon-double-angle-right"></i>
+                                    发布公告
+                                </a>
                             </li>
 
                             <li>
@@ -289,7 +291,31 @@
 
                         </ul>
                     </li>
+                    <li>
+                        <a href="#" class="dropdown-toggle">
+                            <i class="icon-list"></i>
+                            <span class="menu-text"> 报表管理 </span>
 
+                            <b class="arrow icon-angle-down"></b>
+                        </a>
+
+                        <ul class="submenu">
+                            <li>
+                                <a href="form-elements.html">
+                                    <i class="icon-double-angle-right"></i>
+                                    发布公告
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="form-wizard.html">
+                                    <i class="icon-double-angle-right"></i>
+                                    进入论坛
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
                 </ul><!-- /.nav-list -->
 
                 <div class="sidebar-collapse" id="sidebar-collapse">
@@ -301,11 +327,61 @@
                 </script>
             </div>
 
-            <div class="main-content" id="main-show" style="margin-left:0px">
-                
+            <div class="main-content" id="kevin">
+                <div class="breadcrumbs" id="breadcrumbs">
+                    <script type="text/javascript">
+                        try { ace.settings.check('breadcrumbs', 'fixed') } catch (e) { }
+                    </script>
 
-            </div>
-            
+                    <ul class="breadcrumb">
+                        <li>
+                            <i class="icon-home home-icon"></i>
+                            <a href="#">首页</a>
+                        </li>
+                        <li class="active">安居客控制台</li>
+                    </ul><!-- .breadcrumb -->
+                </div>
+
+                <div class="page-content">
+                    <div class="page-header">
+                        <h1>
+                            安居客控制台
+                            <small>
+                                <i class="icon-double-angle-right"></i>
+                                查看
+                            </small>
+                        </h1>
+                    </div><!-- /.page-header -->
+
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <!-- PAGE CONTENT BEGINS -->
+
+                            <div class="alert alert-block alert-success">
+                                <button type="button" class="close" data-dismiss="alert">
+                                    <i class="icon-remove"></i>
+                                </button>
+
+                                <i class="icon-ok green"></i>
+
+                                欢迎使用
+                                <strong class="green">
+                                    安居客房源系统
+                                    <small>(v1.2)</small>
+                                </strong>
+                                ,这里为你提供更更全面的房源信息管理.
+                            </div>
+
+
+
+
+
+                            <!-- PAGE CONTENT ENDS -->
+                        </div><!-- /.col -->
+                    </div><!-- /.row -->
+                </div><!-- /.page-content -->
+            </div><!-- /.main-content -->
+
             <div class="ace-settings-container" id="ace-settings-container">
                 <div class="btn btn-app btn-xs btn-warning ace-settings-btn" id="ace-settings-btn">
                     <i class="icon-cog bigger-150"></i>
@@ -400,7 +476,7 @@
     <script src="~/assets/js/flot/jquery.flot.min.js"></script>
     <script src="~/assets/js/flot/jquery.flot.pie.min.js"></script>
     <script src="~/assets/js/flot/jquery.flot.resize.min.js"></script>
-    <script src="~/assets/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
 
     <!-- ace scripts -->
 
@@ -408,6 +484,7 @@
     <script src="~/assets/js/ace.min.js"></script>
 
     <!-- inline scripts related to this page -->
+
 
     <script type="text/javascript">
         jQuery(function ($) {
@@ -604,7 +681,27 @@
 
         })
     </script>
+
+    <script>
+        function charge() {
+            $.ajax({
+                url: "/hpms/Charge/",
+                success: function (data) {
+                    $(".page-content").empty();
+                    $(".page-content").append(data);
+                }
+            })
+        }
+        function chargeRecord() {
+            $.ajax({
+                url: "/hpms/ChargeRecord/",
+                success: function (data) {
+                    $(".page-content").empty();
+                    $(".page-content").append(data);
+                }
+            })
+        }
+    </script>
 </body>
 </html>
-
 

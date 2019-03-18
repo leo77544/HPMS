@@ -14,7 +14,7 @@ namespace H_PMS_Client.Controllers
         // GET: HPMS
         public ActionResult Index()
         {
-         //   ApiResult.GetAPIResult();
+            //   ApiResult.GetAPIResult();
             return View();
         }
         public ActionResult PBAddIndex()
