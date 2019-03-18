@@ -263,7 +263,9 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\HPMS\Index.cshtml" />
-    <Content Include="Views\HPMS\K_GetEmp.cshtml" />
+	    <Content Include="Views\HPMS\_Charge.cshtml" />
+    <Content Include="Views\HPMS\_ChargeRecord.cshtml" />
+	  <Content Include="Views\HPMS\K_GetEmp.cshtml" />
     <Content Include="Views\HPMS\K_AddEmp.cshtml" />
   </ItemGroup>
   <ItemGroup>

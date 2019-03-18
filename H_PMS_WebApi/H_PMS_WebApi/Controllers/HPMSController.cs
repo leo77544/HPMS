@@ -82,9 +82,32 @@ namespace H_PMS_WebApi.Controllers
         /// </summary>
         /// <param name="m"></param>
         /// <returns></returns>
-        static public int AddDataMoney(DataMoney m)
+        /// 
+        [HttpPost]
+         public int AddDataMoney(DataMoney m)
         {
             return LeoManager.AddDataMoney(m);
+        }
+
+        /// <summary>
+        /// 查看缴费信息
+        /// </summary>
+        /// <returns></returns>
+        /// 
+        [HttpGet]
+         public List<DataMoney> GetDataMoney()
+        {
+            return LeoManager.GetDataMoney();
+        }
+        /// <summary>
+        /// 查看报表信息
+        /// </summary>
+        /// <returns></returns>
+        /// 
+        [HttpGet]
+         public List<RecordInfo> GetRecordInfo()
+        {
+            return LeoManager.GetRecordInfo();
         }
         #endregion
 

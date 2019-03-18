@@ -8,7 +8,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>安居客</title>
+    <title>幸福里</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- basic styles -->
     <link href="~/assets/css/bootstrap.min.css" rel="stylesheet" />
@@ -51,7 +51,7 @@
                 <a href="#" class="navbar-brand">
                     <small>
                         <i class="icon-leaf"></i>
-                        安居客房源系统
+                        幸福里物业管理系统
                     </small>
                 </a><!-- /.brand -->
             </div><!-- /.navbar-header -->
@@ -131,9 +131,9 @@
 
                 <ul class="nav nav-list">
                     <li class="active">
-                        <a href="index.html">
+                        <a href="#">
                             <i class="icon-dashboard"></i>
-                            <span class="menu-text"> 安居客控制台 </span>
+                            <span class="menu-text"> 幸福里物业管理系统 </span>
                         </a>
                     </li>
 
@@ -236,7 +236,7 @@
 
                     <li>
                         <a href="#" class="dropdown-toggle">
-                            <i class="icon-list"></i>
+                            <i class="icon-dashboard"></i>
                             <span class="menu-text"> 收费管理 </span>
 
                             <b class="arrow icon-angle-down"></b>
@@ -244,25 +244,25 @@
 
                         <ul class="submenu">
                             <li>
-                                <a href="money.html">
+                                <a href="JavaScript:charge()">
                                     <i class="icon-double-angle-right"></i>
-                                    余额充值
+                                    缴费管理
                                 </a>
                             </li>
 
                             <li>
-                                <a href="recharge.html">
+                                <a href="JavaScript:chargeRecord()">
                                     <i class="icon-double-angle-right"></i>
-                                    充值记录
+                                    缴费记录
                                 </a>
                             </li>
 
-                            <li>
-                                <a href="change.html">
-                                    <i class="icon-double-angle-right"></i>
-                                    密码设定
-                                </a>
-                            </li>
+                            @*<li>
+                    <a href="change.html">
+                        <i class="icon-double-angle-right"></i>
+                        密码设定
+                    </a>
+                </li>*@
                         </ul>
                     </li>
 
@@ -291,7 +291,31 @@
 
                         </ul>
                     </li>
+                    <li>
+                        <a href="#" class="dropdown-toggle">
+                            <i class="icon-list"></i>
+                            <span class="menu-text"> 报表管理 </span>
 
+                            <b class="arrow icon-angle-down"></b>
+                        </a>
+
+                        <ul class="submenu">
+                            <li>
+                                <a href="form-elements.html">
+                                    <i class="icon-double-angle-right"></i>
+                                    发布公告
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="form-wizard.html">
+                                    <i class="icon-double-angle-right"></i>
+                                    进入论坛
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
                 </ul><!-- /.nav-list -->
 
                 <div class="sidebar-collapse" id="sidebar-collapse">
@@ -656,6 +680,27 @@
 
 
         })
+    </script>
+
+    <script>
+        function charge() {
+            $.ajax({
+                url: "/hpms/Charge/",
+                success: function (data) {
+                    $(".page-content").empty();
+                    $(".page-content").append(data);
+                }
+            })
+        }
+        function chargeRecord() {
+            $.ajax({
+                url: "/hpms/ChargeRecord/",
+                success: function (data) {
+                    $(".page-content").empty();
+                    $(".page-content").append(data);
+                }
+            })
+        }
     </script>
 </body>
 </html>
