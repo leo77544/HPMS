@@ -36,12 +36,21 @@ namespace H_PMS_Client.Controllers
             List<DataMoney> list = JsonConvert.DeserializeObject<List<DataMoney>>(ApiResult.GetAPIResult("GetDataMoney", "get"));
             return PartialView("_ChargeRecord", list);
         }
+        #region Kevin
+        public ActionResult K_GetEmp()
+        {
+            string json = ApiResult.GetAPIResult("GetEmployees", "get");
+            List<GetEmp> list = JsonConvert.DeserializeObject<List<GetEmp>>(json);
+            ViewBag.getEmp = list;
+            return PartialView();
+        }
 
-        //    public List<DataMoney> GetDataMoney()
-        //    {
+        public ActionResult K_AddEmp()
+        {
+            return PartialView();
+        }
 
+        #endregion
 
-        //    }
-        //}
     }
 }

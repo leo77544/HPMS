@@ -45,13 +45,16 @@
     <Compile Include="DataMoney.cs" />
     <Compile Include="Duty.cs" />
     <Compile Include="Employee.cs" />
+    <Compile Include="GetEmp.cs" />
     <Compile Include="HostInfo.cs" />
     <Compile Include="HouseInfo.cs" />
     <Compile Include="Park.cs" />
     <Compile Include="ParkBase.cs" />
+    <Compile Include="Patrol.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RecordInfo.cs" />
     <Compile Include="Repair.cs" />
+    <Compile Include="Visitor.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
