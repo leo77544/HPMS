@@ -107,7 +107,7 @@ namespace H_PMS_DAL
         }
 
         /// <summary>
-        /// 添加投诉
+        /// 添加投诉信息
         /// </summary>
         /// <param name="TheComplain"></param>
         /// <returns></returns>
