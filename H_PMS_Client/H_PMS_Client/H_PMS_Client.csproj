@@ -170,6 +170,8 @@
     <Content Include="assets\css\sb-admin-2.css" />
     <Content Include="assets\css\select2.css" />
     <Content Include="assets\css\ui.jqgrid.css" />
+    <Content Include="assets\jquery.unobtrusive-ajax.js" />
+    <Content Include="assets\jquery.unobtrusive-ajax.min.js" />
     <Content Include="assets\js\ace-elements.min.js" />
     <Content Include="assets\js\ace-extra.min.js" />
     <Content Include="assets\js\ace.min.js" />
@@ -232,11 +234,27 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="LoginCss\css\style.css" />
+    <Content Include="LoginCss\imgs\icons\auth_code.svg" />
+    <Content Include="LoginCss\imgs\icons\icp_record_filing.svg" />
+    <Content Include="LoginCss\imgs\icons\lock.svg" />
+    <Content Include="LoginCss\imgs\icons\national_emblem.svg" />
+    <Content Include="LoginCss\imgs\icons\qq.svg" />
+    <Content Include="LoginCss\imgs\icons\user.svg" />
+    <Content Include="LoginCss\imgs\icons\wechat.svg" />
+    <Content Include="LoginCss\imgs\icons\weibo.svg" />
+    <Content Include="LoginCss\imgs\logo.svg" />
+    <Content Include="LoginCss\imgs\logo_z.svg" />
+    <Content Include="LoginCss\imgs\qr.png" />
+    <Content Include="LoginCss\imgs\timg.jpg" />
+    <Content Include="LoginCss\js\login.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="assets\avatars\Thumbs.db" />
     <Content Include="assets\css\images\Thumbs.db" />
     <Content Include="assets\font\fontawesome-webfont.woff" />
+    <Content Include="LoginCss\imgs\.DS_Store" />
+    <Content Include="LoginCss\imgs\icons\.DS_Store" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -260,6 +278,9 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\HPMS\Index.cshtml" />
+    <Content Include="Views\HPMS\PBAddIndex.cshtml" />
+    <Content Include="Views\HPMS\PBShow.cshtml" />
+    <Content Include="Views\HPMS\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -304,9 +325,10 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>63347</DevelopmentServerPort>
-          <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:63347/</IISUrl>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerVPath>
+          </DevelopmentServerVPath>
+          <IISUrl>http://localhost:60076/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

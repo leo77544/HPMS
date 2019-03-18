@@ -40,6 +40,8 @@
 </head>
 
 <body>
+
+
     <div class="navbar navbar-default" id="navbar">
         <script type="text/javascript">
             try { ace.settings.check('navbar', 'fixed') } catch (e) { }
@@ -275,10 +277,7 @@
 
                         <ul class="submenu">
                             <li>
-                                <a href="form-elements.html">
-                                    <i class="icon-double-angle-right"></i>
-                                    发布公告
-                                </a>
+                                <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#main-show" href="/HPMS/PBShow/"><i class="icon-double-angle-right"></i> <span>车位信息</span></a>
                             </li>
 
                             <li>
@@ -302,61 +301,11 @@
                 </script>
             </div>
 
-            <div class="main-content">
-                <div class="breadcrumbs" id="breadcrumbs">
-                    <script type="text/javascript">
-                        try { ace.settings.check('breadcrumbs', 'fixed') } catch (e) { }
-                    </script>
+            <div class="main-content" id="main-show" style="margin-left:0px">
+                
 
-                    <ul class="breadcrumb">
-                        <li>
-                            <i class="icon-home home-icon"></i>
-                            <a href="#">首页</a>
-                        </li>
-                        <li class="active">安居客控制台</li>
-                    </ul><!-- .breadcrumb -->
-                </div>
-
-                <div class="page-content">
-                    <div class="page-header">
-                        <h1>
-                            安居客控制台
-                            <small>
-                                <i class="icon-double-angle-right"></i>
-                                查看
-                            </small>
-                        </h1>
-                    </div><!-- /.page-header -->
-
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <!-- PAGE CONTENT BEGINS -->
-
-                            <div class="alert alert-block alert-success">
-                                <button type="button" class="close" data-dismiss="alert">
-                                    <i class="icon-remove"></i>
-                                </button>
-
-                                <i class="icon-ok green"></i>
-
-                                欢迎使用
-                                <strong class="green">
-                                    安居客房源系统
-                                    <small>(v1.2)</small>
-                                </strong>
-                                ,这里为你提供更更全面的房源信息管理.
-                            </div>
-
-
-
-
-
-                            <!-- PAGE CONTENT ENDS -->
-                        </div><!-- /.col -->
-                    </div><!-- /.row -->
-                </div><!-- /.page-content -->
-            </div><!-- /.main-content -->
-
+            </div>
+            
             <div class="ace-settings-container" id="ace-settings-container">
                 <div class="btn btn-app btn-xs btn-warning ace-settings-btn" id="ace-settings-btn">
                     <i class="icon-cog bigger-150"></i>
@@ -451,6 +400,7 @@
     <script src="~/assets/js/flot/jquery.flot.min.js"></script>
     <script src="~/assets/js/flot/jquery.flot.pie.min.js"></script>
     <script src="~/assets/js/flot/jquery.flot.resize.min.js"></script>
+    <script src="~/assets/jquery.unobtrusive-ajax.js"></script>
 
     <!-- ace scripts -->
 
