@@ -104,6 +104,9 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="Webdiyer.MvcPager">
+      <HintPath>D:\配置文件\Webdiyer.MvcPager.dll</HintPath>
+    </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
       <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
@@ -287,6 +290,7 @@
     <Content Include="Views\HPMS\PBShow.cshtml" />
     <Content Include="Views\HPMS\Login.cshtml" />
     <Content Include="Views\HPMS\_Charge.cshtml" />
+    <Content Include="Views\HPMS\_DataList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

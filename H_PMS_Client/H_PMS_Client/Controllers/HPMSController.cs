@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using WebApiHelper;
 using H_PMS_Model;
 using Newtonsoft.Json;
-
+using Webdiyer.WebControls.Mvc;
 namespace H_PMS_Client.Controllers
 {
     public class HPMSController : Controller
@@ -35,6 +35,7 @@ namespace H_PMS_Client.Controllers
 
 
 
+        #region leo
         /// <summary>
         /// 缴费管理
         /// </summary>
@@ -49,14 +50,22 @@ namespace H_PMS_Client.Controllers
         /// <returns></returns>
         public ActionResult ChargeRecord()
         {
+            //DataList();                        
+            return PartialView("_ChargeRecord");
+            
 
-            //GetDataMoney();
+        }
+        public ActionResult DataList(int pageindex = 1)
+        {
             List<DataMoney> list = JsonConvert.DeserializeObject<List<DataMoney>>(ApiResult.GetAPIResult("GetDataMoney", "get"));
-            return PartialView("_ChargeRecord", list);
+            var li = list.OrderByDescending(m => m.DMId).ToPagedList(pageindex, 3);
+            return PartialView("_DataList", li);
         }
 
+        #endregion
+
         #region Alan
-        
+
         public ActionResult PBAddIndex()
         {
             return PartialView();

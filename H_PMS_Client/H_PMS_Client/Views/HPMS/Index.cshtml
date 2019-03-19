@@ -31,7 +31,7 @@
     <!-- ace settings handler -->
 
     <script src="~/assets/js/ace-extra.min.js"></script>
-    
+
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -363,11 +363,6 @@
                                 </strong>
                                 ,这里为你提供更更全面的房源信息管理.
                             </div>
-
-
-
-
-
                             <!-- PAGE CONTENT ENDS -->
                         </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -452,7 +447,7 @@
     <script type="text/javascript">
         if ("ontouchend" in document) document.write("<script src='~/assets/js/jquery.mobile.custom.min.js'>" + "<" + "script>");
     </script>
-   
+
     <script src="~/assets/js/bootstrap.min.js"></script>
     <script src="~/assets/js/typeahead-bs2.min.js"></script>
 
@@ -676,7 +671,14 @@
     </script>
 
     <script>
-        
+        //myfunction();
+        //function myfunction() {
+        //    alert();
+            
+        //}
+
+
+
         function charge() {
             $.ajax({
                 url: "/hpms/Charge/",
@@ -692,6 +694,13 @@
                 success: function (data) {
                     $(".page-content").empty();
                     $(".page-content").append(data);
+                    $.ajax({
+                        url: "/hpms/DataList/?pageindex=1",
+                        success: function (data) {
+                            alert(data);
+                            $("#tab").append(data);
+                        }
+                    })
                 }
             })
         }

@@ -1,5 +1,4 @@
-﻿@model List<H_PMS_Model.DataMoney>
-<div class="page-header">
+﻿<div class="page-header">
     <h1>
         安居客控制台
         <small>
@@ -28,101 +27,9 @@
             ,这里为你提供更更全面的房源信息管理.
         </div>
 
-        <div>
-            <table class="table table-bordered" id="table1">
-                <thead>
-                    <tr>
-                        <th>收费人员</th>
-                        <th>收费编号</th>
-                        <th>缴费日期</th>
-                        <th>缴费金额</th>
-                        <th>缴费类别</th>
-                        <th>缴费方式</th>
-                        <th>住户名称</th>
-                        <th>备注</th>
-                        <th>操作</th>
-                    </tr>
-                </thead>
+        <div id="tab">
+        @Html.Partial("_DataList")
 
-                <tbody>
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>@item.DMName</td>
-                            <td>@item.DMNumber</td>
-                            <td>@item.DMSTime</td>
-                            <td>@item.DMSum</td>
-                            <td>@item.DMType</td>
-                            <td>@item.DMWay</td>
-                            <td>@item.HostName</td>
-                            <td>@item.Remark</td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
-        <!-- PAGE CONTENT ENDS -->
-    </div><!-- /.col -->
-</div><!-- /.row -->
-<script src="~/Scripts/jquery-3.3.1.js"></script>
-<script>
-    alert();
-    $("#table1").onmouseover = function () {
-        this.alert();
-        var oldColor = "";
-        var trover = function () {//每行保存旧颜色，变为新颜色
-            oldColor = this.style.backgroundColor;
-            this.style.backgroundColor = "rgba(173, 216, 230, 0.6)";
-        };
-        let trs = s("tab").rows;
-        for (let i = 1; i < trs.length; i++) {
-            trs[i].onmouseover = trover;
-            trs[i].onmouseout = function () {//鼠标离开时恢复旧颜色
-                this.style.backgroundColor = oldColor;
-            };
-        };
-    }
-
-    //var colorOver = "#a4d3ee";//鼠标经过时的颜色
-
-    //var colorClick = "#00ee00";//鼠标单击时的颜色
-
-    //var colorNone = "#ffffff";//默认的背景色
-    //mouseoverSet();
-    //clickSet();
-    //function clickSet(Obj) {
-    //    var tb = document.getElementById("table1");
-    //    var chooseRowNo = 999;
-    //    for (i = 0; i < tb.rows.length; i++) {//设置所有行的背景色为默认背景色
-
-    //        tb.rows[i].bgColor = colorNone;
-    //        if (tb.rows[i] == Obj) {
-    //            chooseRowNo = i;
-    //        }
-    //    }
-    //    if (chooseRowNo != 999) { tb.rows[chooseRowNo].bgColor = colorClick; }
-    //}
-    //function mouseoverSet(Obj) {
-    //    var tb = document.getElementById("table1");
-    //    var mouseoverRowNo = 999;
-    //    //清除所有的其他行的鼠标通过的颜色
-
-    //    for (i = 0; i < tb.rows.length; i++) {
-    //        if (tb.rows[i].bgColor == colorOver)
-    //            tb.rows[i].bgColor = colorNone;
-    //        if (tb.rows[i] == Obj) {
-    //            mouseoverRowNo = i;
-    //        }
-    //    }
-    //    if (mouseoverRowNo != 999 && tb.rows[mouseoverRowNo].bgColor != colorClick) { tb.rows[mouseoverRowNo].bgColor = colorOver; }
-    //}
-    //function clearColor(Obj) {
-    //    var tb = document.getElementById("table1");
-    //    //清除所有的背景色为鼠标通过颜色的行
-    //    for (i = 0; i < tb.rows.length; i++) {
-    //        if (colorOver == tb.rows[i].bgColor) {
-    //            tb.rows[i].bgColor = colorNone;
-    //        }
-    //    }
-    //}
-</script>
+            <!-- PAGE CONTENT ENDS -->
+        </div><!-- /.col -->
+    </div><!-- /.row -->
