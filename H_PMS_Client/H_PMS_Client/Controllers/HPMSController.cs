@@ -17,7 +17,15 @@ namespace H_PMS_Client.Controllers
             //   ApiResult.GetAPIResult();
             return View();
         }
+
         #region Kevin
+
+        #region 员工操作
+
+        /// <summary>
+        /// 员工显示页面
+        /// </summary>
+        /// <returns></returns>
         public ActionResult K_GetEmp()
         {
             string json = ApiResult.GetAPIResult("GetEmployees", "get");
@@ -25,11 +33,70 @@ namespace H_PMS_Client.Controllers
             ViewBag.getEmp = list;
             return PartialView();
         }
-
+        /// <summary>
+        /// 员工入职页面
+        /// </summary>
+        /// <returns></returns>
         public ActionResult K_AddEmp()
         {
             return PartialView();
         }
+        /// <summary>
+        /// 添加员工
+        /// </summary>
+        /// <param name="emp"></param>
+        /// <returns></returns>
+        public int K_CreateEmp(string emp)
+        {
+            Employee employee = JsonConvert.DeserializeObject<Employee>(emp);
+            string json = ApiResult.GetAPIResult("AddEmp", "post", employee);
+            if (json != "")
+            {
+                return 1;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+        /// <summary>
+        /// 修改员工
+        /// </summary>
+        /// <param name="emp"></param>
+        /// <returns></returns>
+        public int K_PutEmp(string emp)
+        {
+            Employee employee = JsonConvert.DeserializeObject<Employee>(emp);
+            string json = ApiResult.GetAPIResult("PutEmpByEId", "put", employee);
+            if (json != "")
+            {
+                return 1;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+        /// <summary>
+        /// 根据ID删除员工
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public int K_DelEmp(int id)
+        {
+            string json = ApiResult.GetAPIResult("DelEmpByEId/EmployeeId=" + id, "delete");
+            if (json != "")
+            {
+                return 1;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+
+        #endregion
 
         #endregion
 
@@ -72,6 +139,8 @@ namespace H_PMS_Client.Controllers
         }
         public ActionResult PBShow()
         {
+            List<ParkBase> list = JsonConvert.DeserializeObject<List<ParkBase>>(ApiResult.GetAPIResult("GetParkBases", "get"));
+            ViewBag.list = list;
             return PartialView();
         }
         public ActionResult Login()
@@ -101,6 +170,19 @@ namespace H_PMS_Client.Controllers
                 return -1;
             }
         }
+        #endregion
+
+        #region Michael
+
+        /// <summary>
+        /// 住户登记视图
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult HousePView()
+        {
+            return PartialView();
+        }
+
         #endregion
     }
 }

@@ -9,6 +9,7 @@ namespace WebApiHelper
 {
     public class ApiResult
     {
+
         #region WebApi
         /// <summary>
         /// 调用API里的方法，获取需要的数据或进行相应的操作
