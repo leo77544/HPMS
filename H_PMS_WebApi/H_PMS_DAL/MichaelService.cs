@@ -25,23 +25,23 @@ namespace H_PMS_DAL
             string SqlStr = "select * from HouseInfo where 1=1";
             if (PlotName != "")
             {
-                SqlStr += "PlotName = '" + PlotName + "'";
+                SqlStr += "and PlotName = '" + PlotName + "'";
             }
             if (BulidName != "")
             {
-                SqlStr += "BulidName = '" + BulidName + "'";
+                SqlStr += "and BulidName = '" + BulidName + "'";
             }
             if (HouseType != "")
             {
-                SqlStr += "HouseType = '" + HouseType + "'";
+                SqlStr += "and HouseType = '" + HouseType + "'";
             }
             if (HouseArea != "")
             {
-                SqlStr += "HouseArea = '" + HouseArea + "'";
+                SqlStr += "and HouseArea = '" + HouseArea + "'";
             }
             if (HouseState != "")
             {
-                SqlStr += "HouseState = '" + HouseState + "'";
+                SqlStr += "and HouseState = '" + HouseState + "'";
             }
             return JsonConvert.DeserializeObject<List<HouseInfo>>(JsonConvert.SerializeObject(DBHelper.GetDataTable(SqlStr)));
         }
@@ -75,14 +75,14 @@ namespace H_PMS_DAL
         /// <returns></returns>
         public List<HostInfo> GetHostInfosByConditions(int HouseId = 0, string HostName = "")
         {
-            string SqlStr = "";
+            string SqlStr = "select * from HostInfo where 1 = 1";
             if (HouseId != 0)
             {
-                SqlStr = "select * from HostInfo where HouseId = " + HouseId + "";
+                SqlStr += "and HouseId = " + HouseId + "";
             }
             else
             {
-                SqlStr = "select * from HostInfo where HostName like '%" + HostName + "%'";
+                SqlStr += "and HostName like '%" + HostName + "%'";
             }
             return JsonConvert.DeserializeObject<List<HostInfo>>(JsonConvert.SerializeObject(DBHelper.GetDataTable(SqlStr)));
         }
@@ -97,7 +97,7 @@ namespace H_PMS_DAL
         /// <returns></returns>
         public List<Complain> GetComplainsByConditions(string CBName = "", string CRemark = "")
         {
-            string SqlStr = "select * from Complain where 1=1";
+            string SqlStr = "select * from Complain where 1 = 1";
             if (CBName != "")
             {
                 SqlStr += "CBName = '" + CBName + "'";

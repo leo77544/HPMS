@@ -17,6 +17,7 @@ namespace H_PMS_Client.Controllers
             //   ApiResult.GetAPIResult();
             return View();
         }
+
         #region Kevin
         public ActionResult K_GetEmp()
         {
@@ -94,6 +95,19 @@ namespace H_PMS_Client.Controllers
                 return -1;
             }
         }
+        #endregion
+
+        #region Michael
+
+        /// <summary>
+        /// 住户登记视图
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult HousePView()
+        {
+            return PartialView();
+        }
+
         #endregion
     }
 }
