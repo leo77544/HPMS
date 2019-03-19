@@ -268,7 +268,6 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Views\account.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -281,14 +280,13 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\HPMS\Index.cshtml" />
-		 <Content Include="Views\HPMS\_Charge.cshtml" />
-	    <Content Include="Views\HPMS\_Charge.cshtml" />
     <Content Include="Views\HPMS\_ChargeRecord.cshtml" />
     <Content Include="Views\HPMS\K_GetEmp.cshtml" />
     <Content Include="Views\HPMS\K_AddEmp.cshtml" />
-	<Content Include="Views\HPMS\PBAddIndex.cshtml" />
+    <Content Include="Views\HPMS\PBAddIndex.cshtml" />
     <Content Include="Views\HPMS\PBShow.cshtml" />
     <Content Include="Views\HPMS\Login.cshtml" />
+    <Content Include="Views\HPMS\_Charge.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
