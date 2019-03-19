@@ -10,6 +10,7 @@ namespace H_PMS_DAL
 {
     public class MichaelService
     {
+        #region 房屋信息
         /// <summary>
         /// 根据条件查询房屋信息
         /// </summary>
@@ -24,23 +25,23 @@ namespace H_PMS_DAL
             string SqlStr = "select * from HouseInfo where 1=1";
             if (PlotName != "")
             {
-                SqlStr += "PlotName = '" + PlotName + "'";
+                SqlStr += "and PlotName = '" + PlotName + "'";
             }
             if (BulidName != "")
             {
-                SqlStr += "BulidName = '" + BulidName + "'";
+                SqlStr += "and BulidName = '" + BulidName + "'";
             }
             if (HouseType != "")
             {
-                SqlStr += "HouseType = '" + HouseType + "'";
+                SqlStr += "and HouseType = '" + HouseType + "'";
             }
             if (HouseArea != "")
             {
-                SqlStr += "HouseArea = '" + HouseArea + "'";
+                SqlStr += "and HouseArea = '" + HouseArea + "'";
             }
             if (HouseState != "")
             {
-                SqlStr += "HouseState = '" + HouseState + "'";
+                SqlStr += "and HouseState = '" + HouseState + "'";
             }
             return JsonConvert.DeserializeObject<List<HouseInfo>>(JsonConvert.SerializeObject(DBHelper.GetDataTable(SqlStr)));
         }
@@ -51,7 +52,7 @@ namespace H_PMS_DAL
         /// <param name="HouseId">房屋Id</param>
         /// <param name="HouseState">房屋状态</param>
         /// <returns></returns>
-        public int ChangeHouseState(int HouseId,string HouseState)
+        public int ChangeHouseState(int HouseId, string HouseState)
         {
             return DBHelper.ExecuteNonQuery("update HouseInfo set HouseState = '" + HouseState + "' where HouseId = " + HouseId + "");
         }
@@ -74,27 +75,29 @@ namespace H_PMS_DAL
         /// <returns></returns>
         public List<HostInfo> GetHostInfosByConditions(int HouseId = 0, string HostName = "")
         {
-            string SqlStr = "";
+            string SqlStr = "select * from HostInfo where 1 = 1";
             if (HouseId != 0)
             {
-                SqlStr = "select * from HostInfo where HouseId = " + HouseId + "";
+                SqlStr += "and HouseId = " + HouseId + "";
             }
             else
             {
-                SqlStr = "select * from HostInfo where HostName like '%" + HostName + "%'";
+                SqlStr += "and HostName like '%" + HostName + "%'";
             }
             return JsonConvert.DeserializeObject<List<HostInfo>>(JsonConvert.SerializeObject(DBHelper.GetDataTable(SqlStr)));
         }
+        #endregion
 
+        #region 投诉建议
         /// <summary>
         /// 根据条件查询投诉信息
         /// </summary>
         /// <param name="CBName">投诉住户名</param>
         /// <param name="CRemark">投诉状态-受理待处理 处理待反馈 需再处理 归档</param>
         /// <returns></returns>
-        public List<Complain> GetComplainsByConditions(string CBName = "",string CRemark = "")
+        public List<Complain> GetComplainsByConditions(string CBName = "", string CRemark = "")
         {
-            string SqlStr = "select * from Complain where 1=1";
+            string SqlStr = "select * from Complain where 1 = 1";
             if (CBName != "")
             {
                 SqlStr += "CBName = '" + CBName + "'";
@@ -116,16 +119,17 @@ namespace H_PMS_DAL
             return DBHelper.ExecuteNonQuery("insert into Complain values('" + TheComplain.CBName + "','" + TheComplain.ReceptionEmp + "',getdate(),'" + TheComplain.Ccontent + "','受理待处理')");
         }
 
-        /// <summary>
+        /// <summary> 
         /// 投诉跟进
         /// </summary>
         /// <param name="CSId">投诉记录Id</param>
         /// <param name="Ccontent">投诉详情</param>
         /// <param name="CRemark">投诉状态</param>
         /// <returns></returns>
-        public int FollowComplain(int CSId, string Ccontent,string CRemark)
+        public int FollowComplain(int CSId, string Ccontent, string CRemark)
         {
             return DBHelper.ExecuteNonQuery("update Complain set Ccontent = Ccontent+'" + Ccontent + "',CRemark = '" + CRemark + "' where CSId = " + CSId + "");
-        }
+        } 
+        #endregion
     }
 }

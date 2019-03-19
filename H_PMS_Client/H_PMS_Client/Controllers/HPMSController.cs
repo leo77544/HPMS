@@ -17,6 +17,7 @@ namespace H_PMS_Client.Controllers
             //   ApiResult.GetAPIResult();
             return View();
         }
+
         #region Kevin
 
         #region 员工操作
@@ -121,22 +122,33 @@ namespace H_PMS_Client.Controllers
             return PartialView("_ChargeRecord", list);
         }
 
+        #region Alan
+        
         public ActionResult PBAddIndex()
         {
             return PartialView();
         }
         public ActionResult PBShow()
         {
+            List<ParkBase> list = JsonConvert.DeserializeObject<List<ParkBase>>(ApiResult.GetAPIResult("GetParkBases", "get"));
+            ViewBag.list = list;
             return PartialView();
         }
         public ActionResult Login()
         {
-            return View();
+            if (Session["TheU"] is null)
+            {
+                return View();
+            }
+            else
+            {
+                Session["TheU"] = null;
+                return View();
+            }
         }
-        [HttpPost]
-        public int Login(string name, string pwd)
+        public int LoginUser(string name, string pwd)
         {
-            string json = WebApiHelper.ApiResult.GetAPIResult("Login/?account=" + name + "&pwd=" + pwd, "get");
+            string json = WebApiHelper.ApiResult.GetAPIResult("Login?emp=" + name + "&pwd=" + pwd, "get");
             Employee emp = JsonConvert.DeserializeObject<Employee>(json);
 
             if (emp != null)
@@ -149,6 +161,19 @@ namespace H_PMS_Client.Controllers
                 return -1;
             }
         }
+        #endregion
 
+        #region Michael
+
+        /// <summary>
+        /// 住户登记视图
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult HousePView()
+        {
+            return PartialView();
+        }
+
+        #endregion
     }
 }
