@@ -63,6 +63,8 @@ namespace H_PMS_Client.Controllers
         }
         public ActionResult PBShow()
         {
+            List<ParkBase> list = JsonConvert.DeserializeObject<List<ParkBase>>(ApiResult.GetAPIResult("GetParkBases", "get"));
+            ViewBag.list = list;
             return PartialView();
         }
         public ActionResult Login()
