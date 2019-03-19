@@ -19,6 +19,7 @@ namespace H_PMS_WebApi.Controllers
         #region Alan
 
         #region 登录
+        [HttpGet]
         public Employee Login(string emp, string pwd)
         {
             return Alan.Login(emp, pwd);
@@ -27,23 +28,23 @@ namespace H_PMS_WebApi.Controllers
         #endregion
 
         #region 车位管理
-
+        [HttpPost]
         public int AddParkBase(ParkBase p)
         {
             return Alan.AddParkBase(p);
         }
-
+        [HttpGet]
         public List<ParkBase> GetParkBases()
         {
             // 类型 面积  价钱
             return Alan.GetParkBases();
         }
-
+        [HttpDelete]
         public int DelParkBase(int id)
         {
             return Alan.DelParkBase(id);
         }
-
+        [HttpPut]
         public int UptParkBase(ParkBase p)
         {
             return Alan.UptParkBase(p);
@@ -51,22 +52,23 @@ namespace H_PMS_WebApi.Controllers
         #endregion
 
         #region 车位租出信息
+        [HttpPost]
         public int AddPark(Park p)
         {
             return Alan.AddPark(p);
         }
-
+        [HttpGet]
         public List<Park> GetParks()
         {
             // 车位类型 车主  车位编号
             return Alan.GetParks();
         }
-
+        [HttpDelete]
         public int DelPark(int id)
         {
             return Alan.DelPark(id);
         }
-
+        [HttpPut]
         public int UptPark(Park p)
         {
             return Alan.UptPark(p);

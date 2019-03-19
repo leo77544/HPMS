@@ -10,7 +10,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>幸福里</title>
     <link rel="stylesheet" href="~/LoginCss/css/style.css">
 </head>
 <body>
@@ -18,14 +18,6 @@
         <nav class="b_clear">
             <div class="nav_logo l_float">
                 <img src="~/LoginCss/imgs/logo.svg" alt="">
-            </div>
-            <div class="nav_link r_float">
-                <ul>
-                    <li><a href="#">返回首页</a></li>
-                    <li><a href="#">关于我们</a></li>
-                    <li><a href="#">联系我们</a></li>
-
-                </ul>
             </div>
         </nav>
     </header>
@@ -64,9 +56,7 @@
 
                         </div>
                         <div class="b_clear submit">
-
-                            <button type="button" onclick="Login()">登&nbsp;&nbsp;录</button>
-                            <a href="#" class="r_float">忘记密码？</a>
+                            <button type="button" style="width:150px;height:50px;background-color:blue;border-radius:10px;color:white;font-weight:bold;border:none;margin-left:30px" onclick="Login()">登&nbsp;&nbsp;录</button>
                             <p class="tips hidden">登录失败，请检查您的账户与密码</p>
                         </div>
                     </form>
@@ -92,15 +82,16 @@
     </div>
 
     <script src="~/LoginCss/js/login.js"></script>
+
 </body>
 </html>
+<script src="~/assets/js/jquery-1.10.2.min.js"></script>
 <script>
     function Login() {
         var name = $("#user_name").val();
         var pwd = $("#user_pwd").val();
         $.ajax({
-            
-            url: "/HPMS/Login/",
+            url: "/HPMS/LoginUser",
             data: { name: name, pwd: pwd },
             dataType: "json",
             async: true,
