@@ -20,7 +20,7 @@ namespace H_PMS_DAL
         /// <returns></returns>
         public List<GetEmp> GetEmployees(string EName = "", int DId = -1)
         {
-            string sql = $"select e.EmployeeId,e.EName,e.ESex,e.EAge,e.ESalary,e.EStartTime,d.DName from Employee e join Duty d on e.DId=d.DutyId where EName like '%{EName}%' ";
+            string sql = $"select e.EmployeeId,e.EName,e.ESex,e.EAge,e.ESalary,e.EStartTime,d.DName from Employee e join Duty d on e.DId=d.DutyId where EName like '%{EName}%' and DId!=0 ";
             if (DId != -1)
             {
                 sql += " and DId=" + DId;
@@ -36,6 +36,15 @@ namespace H_PMS_DAL
         public int AddEmp(Employee employee)
         {
             return DBHelper.ExecuteNonQuery($"insert into Employee values('{employee.EName}','{employee.ESex}','{employee.EAge}','{employee.ESalary}','{employee.EStartTime}','{employee.DId}')");
+        }
+        /// <summary>
+        /// 根据ID获取Emp对象
+        /// </summary>
+        /// <param name="EId"></param>
+        /// <returns></returns>
+        public Employee GetEmployeeByEId(int EId)
+        {
+            return JsonConvert.DeserializeObject<List<Employee>>(JsonConvert.SerializeObject(DBHelper.GetDataTable("select * from Employee where EmployeeId=" + EId)))[0];
         }
         /// <summary>
         /// 修改员工
@@ -99,9 +108,9 @@ namespace H_PMS_DAL
             return DBHelper.ExecuteNonQuery($"update Visitor set EndTime='{visitor.EndTime}' where Visitorid={visitor.Visitorid}");
         }
         #endregion
-         
+
         #region 值班-打卡
-        
+
         /// <summary>
         /// 添加值班
         /// </summary>

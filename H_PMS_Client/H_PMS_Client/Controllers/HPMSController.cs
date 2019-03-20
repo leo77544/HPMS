@@ -68,6 +68,16 @@ namespace H_PMS_Client.Controllers
             }
         }
         /// <summary>
+        /// 修改员工页面
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public void K_PutEmpById(int id)
+        {
+            Employee employee = JsonConvert.DeserializeObject<Employee>(ApiResult.GetAPIResult("GetEmployeeByEId/?EId=" + id, "get"));
+            ViewBag.PutEmpById = employee;
+        }
+        /// <summary>
         /// 修改员工
         /// </summary>
         /// <param name="emp"></param>

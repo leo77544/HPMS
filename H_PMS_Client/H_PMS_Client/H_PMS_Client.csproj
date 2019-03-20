@@ -292,7 +292,8 @@
     <Content Include="Views\HPMS\_Charge.cshtml" />
     <Content Include="Views\HPMS\_DataList.cshtml" />
     <Content Include="Views\HPMS\HousePView.cshtml" />
-    <Content Include="Views\HPMS\DataIndex.cshtml" />
+	<Content Include="Views\HPMS\DataIndex.cshtml" />
+	 <Content Include="Views\HPMS\K_PutEmpById.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
