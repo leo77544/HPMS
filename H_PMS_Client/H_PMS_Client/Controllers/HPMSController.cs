@@ -138,12 +138,52 @@ namespace H_PMS_Client.Controllers
         {
             return PartialView();
         }
+        [HttpPost]
+        public int PBAddIndex(string stingP)
+        {
+            int n = 0;
+
+            ParkBase p = JsonConvert.DeserializeObject<ParkBase>(stingP);
+
+            string json = WebApiHelper.ApiResult.GetAPIResult("GetPBMax", "get");
+            ParkBase emp = JsonConvert.DeserializeObject<ParkBase>(json);
+
+            if (emp.PBNumber == null)
+            {
+                n = -1;
+            }
+            else
+            {
+                int number = int.Parse(emp.PBNumber.Substring(1, 5));
+                if (p.PBType == "地下停车场")
+                {
+                    p.PBNumber = "D" + number;
+                }
+                else
+                {
+                    p.PBNumber = "H" + number;
+                }
+                p.Remark = "空闲";
+                n = int.Parse(ApiResult.GetAPIResult("AddParkBase", "post", p));
+                
+            }
+            return n;
+        }
+
         public ActionResult PBShow()
         {
             List<ParkBase> list = JsonConvert.DeserializeObject<List<ParkBase>>(ApiResult.GetAPIResult("GetParkBases", "get"));
             ViewBag.list = list;
             return PartialView();
         }
+
+        public int DelParkBase(int Id)
+        {
+            int n = int.Parse(ApiResult.GetAPIResult("AddParkBase?id="+Id, "delete"));
+            return n;
+        }
+        #region 登录
+
         public ActionResult Login()
         {
             if (Session["TheU"] is null)
@@ -170,6 +210,12 @@ namespace H_PMS_Client.Controllers
             {
                 return -1;
             }
+        }
+
+        #endregion
+        public ActionResult ParkShow()
+        {
+            return PartialView();
         }
         #endregion
 

@@ -19,6 +19,12 @@ namespace H_PMS_DAL
             return list.FirstOrDefault();
         }
 
+        public ParkBase GetPBMax()
+        {
+            List<ParkBase> list = JsonConvert.DeserializeObject<List<ParkBase>>(JsonConvert.SerializeObject(DBHelper.GetDataTable("select  PBNumber from  ParkBase where PBId =(select  max(PBId) from  ParkBase)")));
+            return list.FirstOrDefault();
+        }
+
         #endregion
 
         #region 车位管理
