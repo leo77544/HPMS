@@ -141,7 +141,23 @@ namespace H_PMS_Client.Controllers
             
 
         }
-       
+        /// <summary>
+        /// 账单管理
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult BillManage()
+        {
+            return PartialView("_BillManage");
+        }
+        /// <summary>
+        /// 收支管理
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult InComeManage()
+        {
+            return PartialView("_InComeManage");
+        }
+
         #endregion
 
         #region Alan
