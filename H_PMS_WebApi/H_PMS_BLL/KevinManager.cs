@@ -30,6 +30,15 @@ namespace H_PMS_BLL
             return service.AddEmp(employee);
         }
         /// <summary>
+        /// 根据ID获取Emp对象
+        /// </summary>
+        /// <param name="EId"></param>
+        /// <returns></returns>
+        public Employee GetEmployeeByEId(int EId)
+        {
+            return service.GetEmployeeByEId(EId);
+        }
+        /// <summary>
         /// 修改员工
         /// </summary>
         /// <param name="employee"></param>

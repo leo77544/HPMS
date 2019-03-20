@@ -1,5 +1,6 @@
 ﻿
 
+
 <div class="main-content" style="margin-left:0px;" id="kevin_addemp">
     <div class="breadcrumbs" id="breadcrumbs">
         <script type="text/javascript">
@@ -13,7 +14,7 @@
             </li>
             <li class="active">安居客控制台</li>
             <li class="active">员工管理</li>
-            <li class="active">员工入职</li>
+            <li class="active">员工信息修改</li>
         </ul><!-- .breadcrumb -->
     </div>
 
@@ -28,7 +29,7 @@
                         <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 员工姓名 </label>
 
                         <div class="col-sm-9">
-                            <input type="text" id="ename" placeholder="请输入员工姓名" class="col-xs-10 col-sm-5" />
+                            <input type="text" id="ename" placeholder="请输入员工姓名" class="col-xs-10 col-sm-5" value="@ViewBag.PutEmpById.EName" />
                         </div>
                     </div>
 
@@ -51,7 +52,7 @@
                         <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 员工年龄 </label>
 
                         <div class="col-sm-9">
-                            <input type="text" id="eage" placeholder="请填写员工年龄（如：30）！" class="col-xs-10 col-sm-5" />
+                            <input type="text" id="eage" placeholder="请填写员工年龄（如：30）！" class="col-xs-10 col-sm-5" value="@ViewBag.PutEmpById.EAge" />
                         </div>
 
                     </div>
@@ -73,7 +74,7 @@
                         <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 员工月薪 </label>
 
                         <div class="col-sm-9" style="z-index:2;">
-                            <input type="text" id="esalary" placeholder="请填写员工月薪（如：3000）" class="col-xs-10 col-sm-5" />
+                            <input type="text" id="esalary" placeholder="请填写员工月薪（如：3000）" class="col-xs-10 col-sm-5" value="@ViewBag.PutEmpById.ESalary" />
                         </div>
                     </div>
                     <div class="hr hr-24"></div>
@@ -100,11 +101,18 @@
             </div><!-- /span -->
         </div><!-- /row -->
 
+        <text id="PutESex" style="display:none">@ViewBag.PutEmpById.ESex</text>
+        <text id="PutEZhiWu" style="display:none">@ViewBag.PutEmpById.DId</text>
+
         <div class="box" id="box" style="width:250px;height:80px;z-index:9999;font-size:24px;font-family:微软雅黑;line-height:80px;padding-left:75px;background-color:#bcf5c2;float:left;margin-left:40%;color:#159753;display:none">添加成功！</div>
 
     </div><!-- /.page-content -->
 </div><!-- /.main-content -->
 <script>
+    $(function () {
+        $("#PutESex").text = 1 ? ($("#esex").check = true) : ($("#Radio1").check = true);
+        $("#zhiwu").val() = $("#PutEZhiWu").text;
+    })
     $("#eage").blur(function () {
         var num = document.getElementById('eage').value;
         if (num) {
@@ -146,7 +154,7 @@
             document.getElementById('esalary').placeholder = "信息未录入，请填写员工月薪！";
         }
         $.ajax({
-            url: "/HPMS/K_CreateEmp", 
+            url: "/HPMS/K_CreateEmp",
             type: "post",
             dataType: "json",
             data: { emp: JSON.stringify(p) },
