@@ -1,4 +1,6 @@
 ﻿
+@using Webdiyer.WebControls.Mvc;
+@model PagedList<H_PMS_Model.DataMoney>
 
 @{
     Layout = null;
@@ -31,7 +33,7 @@
     <!-- ace settings handler -->
 
     <script src="~/assets/js/ace-extra.min.js"></script>
-    
+
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -218,11 +220,11 @@
                             </li>
 
                             @*<li>
-                    <a href="change.html">
-                        <i class="icon-double-angle-right"></i>
-                        密码设定
-                    </a>
-                </li>*@
+                                    <a href="change.html">
+                                        <i class="icon-double-angle-right"></i>
+                                        密码设定
+                                    </a>
+                                </li>*@
                         </ul>
                     </li>
 
@@ -352,7 +354,7 @@
                     </ul><!-- .breadcrumb -->
                 </div>
 
-                <div class="page-content">
+                <div class="page-content" id="tab">
                     <div class="page-header">
                         <h1>
                             幸福里控制台
@@ -365,7 +367,7 @@
 
                     <div class="row">
                         <div class="col-xs-12">
-                            <!-- PAGE CONTENT BEGINS -->
+                            <!-- page content begins -->
 
                             <div class="alert alert-block alert-success">
                                 <button type="button" class="close" data-dismiss="alert">
@@ -386,8 +388,9 @@
 
 
 
-                            <!-- PAGE CONTENT ENDS -->
+                            <!-- page content ends -->
                         </div><!-- /.col -->
+                   
                     </div><!-- /.row -->
                 </div><!-- /.page-content -->
             </div><!-- /.main-content -->
@@ -470,7 +473,7 @@
     <script type="text/javascript">
         if ("ontouchend" in document) document.write("<script src='~/assets/js/jquery.mobile.custom.min.js'>" + "<" + "script>");
     </script>
-   
+
     <script src="~/assets/js/bootstrap.min.js"></script>
     <script src="~/assets/js/typeahead-bs2.min.js"></script>
 
@@ -706,7 +709,7 @@
         }
         function chargeRecord() {
             $.ajax({
-                url: "/hpms/ChargeRecord/",
+                url: "/hpms/dataindex",
                 success: function (data) {
                     $(".page-content").empty();
                     $(".page-content").append(data);

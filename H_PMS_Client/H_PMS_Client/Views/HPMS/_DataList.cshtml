@@ -32,5 +32,5 @@
         }
     </tbody>
 </table>
-@Ajax.Pager(Model, new PagerOptions { PageIndexParameterName = "pageindex", ContainerTagName = "ul", CssClass = "pagination", CurrentPagerItemTemplate = "<li class=\"active\"><a href=\"#\">{0}</a></li>", DisabledPagerItemTemplate = "<li class=\"disabled\"><a>{0}</a></li>", PagerItemTemplate = "<li>{0}</li>", FirstPageText = "首页", PrevPageText = "上一页", NextPageText = "下一页", LastPageText = "尾页" }, new MvcAjaxOptions { HttpMethod = "post", UpdateTargetId = "divGoods", DataFormId = "form0" })
+@Ajax.Pager(Model, new PagerOptions { PageIndexParameterName = "pageindex", ContainerTagName = "ul", CssClass = "pagination", CurrentPagerItemTemplate = "<li class=\"active\"><a href=\"#\">{0}</a></li>", DisabledPagerItemTemplate = "<li class=\"disabled\"><a>{0}</a></li>", PagerItemTemplate = "<li>{0}</li>", FirstPageText = "首页", PrevPageText = "上一页", NextPageText = "下一页", LastPageText = "尾页" }, new MvcAjaxOptions { HttpMethod = "get", UpdateTargetId = "tab", DataFormId = "form0" })
 

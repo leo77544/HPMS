@@ -12,6 +12,14 @@ namespace H_PMS_Client.Controllers
     public class HPMSController : Controller
     {
         // GET: HPMS
+      //  [HttpPost]
+        public ActionResult DataIndex(int pageindex = 1)
+        {
+            List<DataMoney> list = JsonConvert.DeserializeObject<List<DataMoney>>(ApiResult.GetAPIResult("GetDataMoney", "get"));
+            var li = list.OrderByDescending(m => m.DMId).ToPagedList(pageindex, 3);
+            return View(li);
+        }
+        // GET: HPMS
         public ActionResult Index()
         {
             //   ApiResult.GetAPIResult();
@@ -117,18 +125,13 @@ namespace H_PMS_Client.Controllers
         /// <returns></returns>
         public ActionResult ChargeRecord()
         {
-            //DataList();                        
+            //DataList();
+           
             return PartialView("_ChargeRecord");
             
 
         }
-        public ActionResult DataList(int pageindex = 1)
-        {
-            List<DataMoney> list = JsonConvert.DeserializeObject<List<DataMoney>>(ApiResult.GetAPIResult("GetDataMoney", "get"));
-            var li = list.OrderByDescending(m => m.DMId).ToPagedList(pageindex, 3);
-            return PartialView("_DataList", li);
-        }
-
+       
         #endregion
 
         #region Alan

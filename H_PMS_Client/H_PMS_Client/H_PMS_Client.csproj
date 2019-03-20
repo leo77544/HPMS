@@ -283,8 +283,6 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\HPMS\Index.cshtml" />
-		 <Content Include="Views\HPMS\_Charge.cshtml" />
-	    <Content Include="Views\HPMS\_Charge.cshtml" />
     <Content Include="Views\HPMS\_ChargeRecord.cshtml" />
     <Content Include="Views\HPMS\K_GetEmp.cshtml" />
     <Content Include="Views\HPMS\K_AddEmp.cshtml" />
@@ -292,8 +290,9 @@
     <Content Include="Views\HPMS\PBShow.cshtml" />
     <Content Include="Views\HPMS\Login.cshtml" />
     <Content Include="Views\HPMS\_Charge.cshtml" />
-	<Content Include="Views\HPMS\_DataList.cshtml" />
-	<Content Include="Views\HPMS\HousePView.cshtml" />
+    <Content Include="Views\HPMS\_DataList.cshtml" />
+    <Content Include="Views\HPMS\HousePView.cshtml" />
+    <Content Include="Views\HPMS\DataIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
