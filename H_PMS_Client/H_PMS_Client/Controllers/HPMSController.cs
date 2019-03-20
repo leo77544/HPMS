@@ -60,6 +60,16 @@ namespace H_PMS_Client.Controllers
             }
         }
         /// <summary>
+        /// 修改员工页面
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public void K_PutEmpById(int id)
+        {
+            Employee employee = JsonConvert.DeserializeObject<Employee>(ApiResult.GetAPIResult("GetEmployeeByEId/?EId=" + id, "get"));
+            ViewBag.PutEmpById = employee;
+        }
+        /// <summary>
         /// 修改员工
         /// </summary>
         /// <param name="emp"></param>
@@ -123,7 +133,7 @@ namespace H_PMS_Client.Controllers
         }
 
         #region Alan
-        
+
         public ActionResult PBAddIndex()
         {
             return PartialView();
@@ -218,6 +228,22 @@ namespace H_PMS_Client.Controllers
         public ActionResult HousePView()
         {
             return PartialView();
+        }
+        
+        /// <summary>
+        /// 根据条件查询房屋信息
+        /// </summary>
+        /// <param name="PlotName">区域名称</param>
+        /// <param name="BulidName">单元号</param>
+        /// <param name="HouseType">户型</param>
+        /// <param name="HouseArea">占地面积</param>
+        /// <param name="HouseState">状态-空闲 入住 招租 待修</param>
+        /// <returns></returns>
+        //public List<HouseInfo> GetHouseInfosByConditions(string PlotName, string BulidName, string HouseType, string HouseArea, string HouseState)
+        public string GetHouseInfosByConditions(string PlotName, string BulidName, string HouseType, string HouseArea, string HouseState)
+        {
+            //return JsonConvert.DeserializeObject<List<HouseInfo>>(ApiResult.GetAPIResult("GetHouseInfosByConditions?PlotName=" + PlotName + "&BulidName=" + BulidName + "&HouseType=" + HouseType + "&HouseArea=" + HouseArea + "&HouseState=" + HouseState + "", "get"));
+            return ApiResult.GetAPIResult("GetHouseInfosByConditions?PlotName=" + PlotName + "&BulidName=" + BulidName + "&HouseType=" + HouseType + "&HouseArea=" + HouseArea + "&HouseState=" + HouseState + "", "get");
         }
 
         #endregion

@@ -23,23 +23,23 @@ namespace H_PMS_DAL
         public List<HouseInfo> GetHouseInfosByConditions(string PlotName = "", string BulidName = "", string HouseType = "", string HouseArea = "", string HouseState = "")
         {
             string SqlStr = "select * from HouseInfo where 1=1";
-            if (PlotName != "")
+            if (PlotName != "请选择区域")
             {
                 SqlStr += "and PlotName = '" + PlotName + "'";
             }
-            if (BulidName != "")
+            if (BulidName != "请选择单元")
             {
                 SqlStr += "and BulidName = '" + BulidName + "'";
             }
-            if (HouseType != "")
+            if (HouseType != "请选择户型")
             {
                 SqlStr += "and HouseType = '" + HouseType + "'";
             }
-            if (HouseArea != "")
+            if (HouseArea != "请选择面积")
             {
                 SqlStr += "and HouseArea = '" + HouseArea + "'";
             }
-            if (HouseState != "")
+            if (HouseState != "请选择状态")
             {
                 SqlStr += "and HouseState = '" + HouseState + "'";
             }

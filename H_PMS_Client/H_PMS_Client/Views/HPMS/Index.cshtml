@@ -139,21 +139,21 @@
 
                         <ul class="submenu">
                             <li>
-                                <a href="JavaScript:HousePView()">
+                                <a href="JavaScript:HousePView('住户登记')">
                                     <i class="icon-double-angle-right"></i>
                                     住户登记
                                 </a>
                             </li>
 
                             <li>
-                                <a href="JavaScript:HousePView()">
+                                <a href="JavaScript:HousePView('房产变更')">
                                     <i class="icon-double-angle-right"></i>
                                     房产变更
                                 </a>
                             </li>
 
                             <li>
-                                <a href="JavaScript:HousePView()">
+                                <a href="JavaScript:HousePView('住户查询')">
                                     <i class="icon-double-angle-right"></i>
                                     住户查询
                                 </a>
@@ -179,7 +179,7 @@
                             </li>
 
                             <li>
-                                <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#kevin" href="K_GetEmp">
+                                <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#kevin" href="/HPMS/K_GetEmp">
                                     <i class="icon-double-angle-right"></i>
                                     员工信息
                                 </a>
@@ -218,11 +218,11 @@
                             </li>
 
                             @*<li>
-                    <a href="change.html">
-                        <i class="icon-double-angle-right"></i>
-                        密码设定
-                    </a>
-                </li>*@
+                                    <a href="change.html">
+                                        <i class="icon-double-angle-right"></i>
+                                        密码设定
+                                    </a>
+                                </li>*@
                         </ul>
                     </li>
 
@@ -350,6 +350,7 @@
                         </li>
                         <li class="active">幸福里控制台</li>
                     </ul><!-- .breadcrumb -->
+                    <input id="WindowsCode" type="hidden" value="" />
                 </div>
 
                 <div class="page-content">
@@ -470,7 +471,7 @@
     <script type="text/javascript">
         if ("ontouchend" in document) document.write("<script src='~/assets/js/jquery.mobile.custom.min.js'>" + "<" + "script>");
     </script>
-   
+
     <script src="~/assets/js/bootstrap.min.js"></script>
     <script src="~/assets/js/typeahead-bs2.min.js"></script>
 
@@ -694,7 +695,6 @@
     </script>
 
     <script>
-        var WindowsCode = 0;
         function charge() {
             $.ajax({
                 url: "/hpms/Charge/",
@@ -713,11 +713,12 @@
                 }
             })
         }
-        function HousePView() {
+        function HousePView(WinCode) {
             $.ajax({
                 url: "/HPMS/HousePView",
                 success: function (data) {
                     $(".page-content").empty();
+                    $("#WindowsCode").val(WinCode);
                     $(".page-content").append(data);
                 }
             })

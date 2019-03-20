@@ -129,6 +129,7 @@ namespace H_PMS_WebApi.Controllers
         /// <param name="EName"></param>
         /// <param name="DId"></param>
         /// <returns></returns>
+        [HttpGet]
         public List<GetEmp> GetEmployees(string EName = "", int DId = -1)
         {
             return Kevin.GetEmployees(EName, DId);
@@ -138,15 +139,27 @@ namespace H_PMS_WebApi.Controllers
         /// </summary>
         /// <param name="employee"></param>
         /// <returns></returns>
+        [HttpPost]
         public int AddEmp(Employee employee)
         {
             return Kevin.AddEmp(employee);
+        }
+        /// <summary>
+        /// 根据ID获取Emp对象
+        /// </summary>
+        /// <param name="EId"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public Employee GetEmployeeByEId(int EId)
+        {
+            return Kevin.GetEmployeeByEId(EId);
         }
         /// <summary>
         /// 修改员工
         /// </summary>
         /// <param name="employee"></param>
         /// <returns></returns>
+        [HttpPut]
         public int PutEmpByEId(Employee employee)
         {
             return Kevin.PutEmpByEId(employee);
@@ -156,6 +169,7 @@ namespace H_PMS_WebApi.Controllers
         /// </summary>
         /// <param name="EmployeeId"></param>
         /// <returns></returns>
+        [HttpDelete]
         public int DelEmpByEId(int EmployeeId)
         {
             return Kevin.DelEmpByEId(EmployeeId);
@@ -168,6 +182,7 @@ namespace H_PMS_WebApi.Controllers
         /// </summary>
         /// <param name="repair"></param>
         /// <returns></returns>
+        [HttpPost]
         public int AddRepair(Repair repair)
         {
             return Kevin.AddRepair(repair);
@@ -177,6 +192,7 @@ namespace H_PMS_WebApi.Controllers
         /// </summary>
         /// <param name="repair"></param>
         /// <returns></returns>
+        [HttpPut]
         public int PutRepair(Repair repair)
         {
             return Kevin.PutRepair(repair);
@@ -189,6 +205,7 @@ namespace H_PMS_WebApi.Controllers
         /// </summary>
         /// <param name="visitor"></param>
         /// <returns></returns>
+        [HttpPost]
         public int AddVisitor(Visitor visitor)
         {
             return Kevin.AddVisitor(visitor);
@@ -198,6 +215,7 @@ namespace H_PMS_WebApi.Controllers
         /// </summary>
         /// <param name="visitor"></param>
         /// <returns></returns>
+        [HttpPut]
         public int PutVisitor(Visitor visitor)
         {
             return Kevin.PutVisitor(visitor);
@@ -211,6 +229,7 @@ namespace H_PMS_WebApi.Controllers
         /// </summary>
         /// <param name="patrol"></param>
         /// <returns></returns>
+        [HttpPost]
         public int AddPatrol(Patrol patrol)
         {
             return Kevin.AddPatrol(patrol);
