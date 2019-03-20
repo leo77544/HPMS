@@ -8,6 +8,10 @@ namespace H_PMS_BLL
 {
    public class AlanManager
    {
+        public ParkBase GetPBMax()
+        {
+            return dal.GetPBMax();
+        }
         #region µÇÂ¼
         AlanService dal = new AlanService();
         public Employee Login(string emp, string pwd)

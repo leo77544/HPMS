@@ -280,16 +280,15 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\HPMS\Index.cshtml" />
-		 <Content Include="Views\HPMS\_Charge.cshtml" />
-	    <Content Include="Views\HPMS\_Charge.cshtml" />
+    <Content Include="Views\HPMS\_Charge.cshtml" />
     <Content Include="Views\HPMS\_ChargeRecord.cshtml" />
     <Content Include="Views\HPMS\K_GetEmp.cshtml" />
     <Content Include="Views\HPMS\K_AddEmp.cshtml" />
     <Content Include="Views\HPMS\PBAddIndex.cshtml" />
     <Content Include="Views\HPMS\PBShow.cshtml" />
     <Content Include="Views\HPMS\Login.cshtml" />
-    <Content Include="Views\HPMS\_Charge.cshtml" />
     <Content Include="Views\HPMS\HousePView.cshtml" />
+    <Content Include="Views\HPMS\ParkShow.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -337,7 +336,7 @@
           <DevelopmentServerPort>0</DevelopmentServerPort>
           <DevelopmentServerVPath>
           </DevelopmentServerVPath>
-          <IISUrl>http://localhost:60076/</IISUrl>
+          <IISUrl>http://localhost:51739/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

@@ -28,6 +28,13 @@ namespace H_PMS_WebApi.Controllers
         #endregion
 
         #region 车位管理
+
+        [HttpGet]
+        public ParkBase GetPBMax()
+        {
+            return Alan.GetPBMax();
+        }
+
         [HttpPost]
         public int AddParkBase(ParkBase p)
         {

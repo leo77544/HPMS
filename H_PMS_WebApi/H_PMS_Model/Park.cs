@@ -25,23 +25,14 @@ namespace H_PMS_Model
             get { return pBId; }
             set { pBId = value; }
         }
-        private int hostId;
+        private string hostId;
         /// <summary>
         /// 车主id
         /// </summary>
-        public int HostId
+        public string HostId
         {
-          get { return hostId;}
-          set { hostId=value;}
-        }
-        private string hostName;
-        /// <summary>
-        /// 住户名称
-        /// </summary>
-        public string HostName
-        {
-          get { return hostName;}
-          set { hostName=value;}
+            get { return hostId; }
+            set { hostId = value; }
         }
         private DateTime inRentSTime;
         /// <summary>
