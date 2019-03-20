@@ -141,6 +141,7 @@
           </CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
+
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>

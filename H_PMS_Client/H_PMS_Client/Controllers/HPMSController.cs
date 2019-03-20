@@ -166,12 +166,52 @@ namespace H_PMS_Client.Controllers
         {
             return PartialView();
         }
+        [HttpPost]
+        public int PBAddIndex(string stingP)
+        {
+            int n = 0;
+
+            ParkBase p = JsonConvert.DeserializeObject<ParkBase>(stingP);
+
+            string json = WebApiHelper.ApiResult.GetAPIResult("GetPBMax", "get");
+            ParkBase emp = JsonConvert.DeserializeObject<ParkBase>(json);
+
+            if (emp.PBNumber == null)
+            {
+                n = -1;
+            }
+            else
+            {
+                int number = int.Parse(emp.PBNumber.Substring(1, 5));
+                if (p.PBType == "地下停车场")
+                {
+                    p.PBNumber = "D" + number;
+                }
+                else
+                {
+                    p.PBNumber = "H" + number;
+                }
+                p.Remark = "空闲";
+                n = int.Parse(ApiResult.GetAPIResult("AddParkBase", "post", p));
+                
+            }
+            return n;
+        }
+
         public ActionResult PBShow()
         {
             List<ParkBase> list = JsonConvert.DeserializeObject<List<ParkBase>>(ApiResult.GetAPIResult("GetParkBases", "get"));
             ViewBag.list = list;
             return PartialView();
         }
+
+        public int DelParkBase(int Id)
+        {
+            int n = int.Parse(ApiResult.GetAPIResult("AddParkBase?id="+Id, "delete"));
+            return n;
+        }
+        #region 登录
+
         public ActionResult Login()
         {
             if (Session["TheU"] is null)
@@ -199,6 +239,12 @@ namespace H_PMS_Client.Controllers
                 return -1;
             }
         }
+
+        #endregion
+        public ActionResult ParkShow()
+        {
+            return PartialView();
+        }
         #endregion
 
         #region Michael
@@ -210,6 +256,22 @@ namespace H_PMS_Client.Controllers
         public ActionResult HousePView()
         {
             return PartialView();
+        }
+        
+        /// <summary>
+        /// 根据条件查询房屋信息
+        /// </summary>
+        /// <param name="PlotName">区域名称</param>
+        /// <param name="BulidName">单元号</param>
+        /// <param name="HouseType">户型</param>
+        /// <param name="HouseArea">占地面积</param>
+        /// <param name="HouseState">状态-空闲 入住 招租 待修</param>
+        /// <returns></returns>
+        //public List<HouseInfo> GetHouseInfosByConditions(string PlotName, string BulidName, string HouseType, string HouseArea, string HouseState)
+        public string GetHouseInfosByConditions(string PlotName, string BulidName, string HouseType, string HouseArea, string HouseState)
+        {
+            //return JsonConvert.DeserializeObject<List<HouseInfo>>(ApiResult.GetAPIResult("GetHouseInfosByConditions?PlotName=" + PlotName + "&BulidName=" + BulidName + "&HouseType=" + HouseType + "&HouseArea=" + HouseArea + "&HouseState=" + HouseState + "", "get"));
+            return ApiResult.GetAPIResult("GetHouseInfosByConditions?PlotName=" + PlotName + "&BulidName=" + BulidName + "&HouseType=" + HouseType + "&HouseArea=" + HouseArea + "&HouseState=" + HouseState + "", "get");
         }
 
         #endregion
