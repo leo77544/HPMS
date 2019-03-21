@@ -1,4 +1,6 @@
 ﻿
+@using Webdiyer.WebControls.Mvc;
+@model PagedList<H_PMS_Model.DataMoney>
 
 @{
     Layout = null;
@@ -31,7 +33,7 @@
     <!-- ace settings handler -->
 
     <script src="~/assets/js/ace-extra.min.js"></script>
-    
+
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -218,11 +220,11 @@
                             </li>
 
                             @*<li>
-                                    <a href="change.html">
-                                        <i class="icon-double-angle-right"></i>
-                                        密码设定
-                                    </a>
-                                </li>*@
+                    <a href="change.html">
+                        <i class="icon-double-angle-right"></i>
+                        密码设定
+                    </a>
+                </li>*@
                         </ul>
                     </li>
 
@@ -272,16 +274,16 @@
 
                         <ul class="submenu">
                             <li>
-                                <a href="form-elements.html">
+                                <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#tab" href="/HPMS/BillManage">
                                     <i class="icon-double-angle-right"></i>
-                                    发布公告
+                                    账单管理
                                 </a>
                             </li>
 
                             <li>
-                                <a href="form-wizard.html">
+                                <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#tab" href="/HPMS/InComeManage">
                                     <i class="icon-double-angle-right"></i>
-                                    进入论坛
+                                    收支明细
                                 </a>
                             </li>
 
@@ -353,7 +355,7 @@
                     <input id="WindowsCode" type="hidden" value="" />
                 </div>
 
-                <div class="page-content">
+                <div class="page-content" id="tab">
                     <div class="page-header">
                         <h1>
                             幸福里控制台
@@ -366,7 +368,7 @@
 
                     <div class="row">
                         <div class="col-xs-12">
-                            <!-- PAGE CONTENT BEGINS -->
+                            <!-- page content begins -->
 
                             <div class="alert alert-block alert-success">
                                 <button type="button" class="close" data-dismiss="alert">
@@ -387,8 +389,54 @@
 
 
 
-                            <!-- PAGE CONTENT ENDS -->
+
+
+                            <div class="alert alert-block alert-success">
+                                <button type="button" class="close" data-dismiss="alert">
+                                    <i class="icon-remove"></i>
+                                </button>
+
+                                <p>住户变更</p>
+                                <p>****住户入住</p>
+                              
+                            </div>
+                            <div class="alert alert-block alert-success">
+                                <button type="button" class="close" data-dismiss="alert">
+                                    <i class="icon-remove"></i>
+                                </button>
+
+                                <p>***住户投诉</p>
+                                <p>***住户报修</p>
+                               
+                            </div>
+                            <div class="alert alert-block alert-success">
+                                <button type="button" class="close" data-dismiss="alert">
+                                    <i class="icon-remove"></i>
+                                </button>
+
+                                <p>***住户欠费</p>
+                                <p>***车位已到期</p>
+                              
+                            </div>
+                            <div class="alert alert-block alert-success">
+                                <button type="button" class="close" data-dismiss="alert">
+                                    <i class="icon-remove"></i>
+                                </button>
+                                <p>***保安</p>
+                                <p>当前待办事项</p>
+                                
+                            </div>
+                            @*<div style="width:40%;height:25%;float:left;background-color:red"></div>
+                            <div style="width:40%;height:25%;background-color:forestgreen;float:left;margin-left:50px;"></div>
+                            <div style="width:40%;height:25%;background-color:yellow;float:left"></div>
+                            <div style="width:40%;height:300px;background-color:blue;float:left;margin-left:50px;"></div>*@
+
+
+
+
+                            <!-- page content ends -->
                         </div><!-- /.col -->
+                   
                     </div><!-- /.row -->
                 </div><!-- /.page-content -->
             </div><!-- /.main-content -->
@@ -706,7 +754,7 @@
         }
         function chargeRecord() {
             $.ajax({
-                url: "/hpms/ChargeRecord/",
+                url: "/hpms/dataindex",
                 success: function (data) {
                     $(".page-content").empty();
                     $(".page-content").append(data);
