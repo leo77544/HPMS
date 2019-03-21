@@ -15,7 +15,7 @@ namespace H_PMS_WebApi.Controllers
         LeoManager leo = new LeoManager();
         KevinManager Kevin = new KevinManager();
         MichaelManager Michael = new MichaelManager();
-        
+
         #region Alan
 
         #region 登录
@@ -93,7 +93,7 @@ namespace H_PMS_WebApi.Controllers
         /// <returns></returns>
         /// 
         [HttpPost]
-         public int AddDataMoney(DataMoney m)
+        public int AddDataMoney(DataMoney m)
         {
             return LeoManager.AddDataMoney(m);
         }
@@ -104,7 +104,7 @@ namespace H_PMS_WebApi.Controllers
         /// <returns></returns>
         /// 
         [HttpGet]
-         public List<DataMoney> GetDataMoney()
+        public List<DataMoney> GetDataMoney()
         {
             return LeoManager.GetDataMoney();
         }
@@ -114,7 +114,7 @@ namespace H_PMS_WebApi.Controllers
         /// <returns></returns>
         /// 
         [HttpGet]
-         public List<RecordInfo> GetRecordInfo()
+        public List<RecordInfo> GetRecordInfo()
         {
             return LeoManager.GetRecordInfo();
         }
@@ -275,9 +275,9 @@ namespace H_PMS_WebApi.Controllers
         /// <param name="TheHost"></param>
         /// <returns></returns>
         [HttpPost]
-        public int HostRegister(HostInfo TheHost)
+        public int HostRegister(string HostName, string HostPhone, string IDCard, string Role, int HouseId)
         {
-            return Michael.HostRegister(TheHost);
+            return Michael.HostRegister(HostName, HostPhone, IDCard, Role, HouseId);
         }
 
         /// <summary>
