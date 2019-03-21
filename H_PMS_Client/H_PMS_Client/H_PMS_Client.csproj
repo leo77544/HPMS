@@ -278,13 +278,15 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Views\Web.config" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\HPMS\Index.cshtml" />
-		 <Content Include="Views\HPMS\_Charge.cshtml" />
-	    <Content Include="Views\HPMS\_Charge.cshtml" />
+    <Content Include="Views\HPMS\_Charge.cshtml" />
+    <Content Include="Views\HPMS\_Charge.cshtml" />
     <Content Include="Views\HPMS\_ChargeRecord.cshtml" />
     <Content Include="Views\HPMS\K_GetEmp.cshtml" />
     <Content Include="Views\HPMS\K_AddEmp.cshtml" />
@@ -295,12 +297,10 @@
     <Content Include="Views\HPMS\HousePView.cshtml" />
     <Content Include="Views\HPMS\DataIndex.cshtml" />
     <Content Include="Views\HPMS\K_PutEmpById.cshtml" />
-	    <Content Include="Views\HPMS\_Charge.cshtml" />
+    <Content Include="Views\HPMS\_Charge.cshtml" />
     <Content Include="Views\HPMS\_BillManage.cshtml" />
     <Content Include="Views\HPMS\_InComeManage.cshtml" />
-	    <Content Include="Views\HPMS\ParkShow.cshtml" />
-
-
+    <Content Include="Views\HPMS\ParkShow.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -347,6 +347,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>0</DevelopmentServerPort>
           <DevelopmentServerVPath>
+          </DevelopmentServerVPath>
           <IISUrl>http://localhost:60076/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>

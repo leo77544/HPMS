@@ -9,10 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "H_PMS_Model", "H_PMS_Model\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiHelper", "WebApiHelper\WebApiHelper.csproj", "{C268ABBA-61A3-413A-B70C-153C4652BA8B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication1", "C:\Users\封心锁爱\Desktop\ZhifubaoPay\WebApplication1\WebApplication1.csproj", "{807A27B6-AE86-4A58-BDBA-95258DE9ADC5}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AopSdk", "D:\资料\支付宝接口测试\alipay.trade.page.pay-DoNet-UTF-8\alipay-sdk-NET20170615110549\AopSdk.csproj", "{9C11CAE5-5188-4E71-825B-68FC3135728A}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,14 +27,6 @@ Global
 		{C268ABBA-61A3-413A-B70C-153C4652BA8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C268ABBA-61A3-413A-B70C-153C4652BA8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C268ABBA-61A3-413A-B70C-153C4652BA8B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{807A27B6-AE86-4A58-BDBA-95258DE9ADC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{807A27B6-AE86-4A58-BDBA-95258DE9ADC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{807A27B6-AE86-4A58-BDBA-95258DE9ADC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{807A27B6-AE86-4A58-BDBA-95258DE9ADC5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9C11CAE5-5188-4E71-825B-68FC3135728A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9C11CAE5-5188-4E71-825B-68FC3135728A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9C11CAE5-5188-4E71-825B-68FC3135728A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9C11CAE5-5188-4E71-825B-68FC3135728A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
