@@ -1,16 +1,18 @@
-﻿<div class="page-header">
-<h1>
-    幸福里控制台
-    <small>
-        <i class="icon-double-angle-right"></i>
-        查看
-    </small>
-</h1>
-                    </div><!-- /.page-header -->
+﻿@model List<H_PMS_Model.RecordInfo>
+@*<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>*@
+<div class="page-header">
+    <h1>
+        幸福里控制台
+        <small>
+            <i class="icon-double-angle-right"></i>
+            查看
+        </small>
+    </h1>
+</div><!-- /.page-header -->
 
 <div class="row">
     <div class="col-xs-12">
-        <!-- page content begins -->
+        <!-- PAGE CONTENT BEGINS -->
 
         <div class="alert alert-block alert-success">
             <button type="button" class="close" data-dismiss="alert">
@@ -19,12 +21,43 @@
 
             <i class="icon-ok green"></i>
 
-            欢迎使用
             <strong class="green">
                 幸福里物业系统
                 <small>(v1.0)</small>
             </strong>
             ,这里为您提供更更方便的物业管理。
         </div>
-    </div>
-</div>
+
+        <div id="divGoods">
+            <table class="table table-hover table-bordered table-hover tab-content table-condensed tab-pane">
+                <thead>
+                    <tr>
+                        <th>费用名称</th>
+                        <th>费用金额</th>
+                        <th>统计日期</th>
+                        <th>收支状态</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.CostName</td>
+                            <td>@item.CostPricce</td>
+                            <td>@item.TjStime</td>
+                            <td>@item.SZState</td>
+                            <td></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+
+
+        </div>
+        <!-- PAGE CONTENT ENDS -->
+    </div><!-- /.col -->
+
+</div><!-- /.row -->

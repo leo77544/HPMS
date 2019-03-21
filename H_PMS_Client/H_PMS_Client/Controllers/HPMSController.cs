@@ -125,9 +125,9 @@ namespace H_PMS_Client.Controllers
         /// 缴费管理
         /// </summary>
         /// <returns></returns>
-        public ActionResult Charge()
+        public ActionResult JiaoFei()
         {
-            return PartialView("_Charge");
+            return PartialView("_JiaoFei");
         }
         /// <summary>
         /// 缴费记录
@@ -142,11 +142,32 @@ namespace H_PMS_Client.Controllers
 
         }
         /// <summary>
+        /// 添加
+        /// </summary>
+        /// <param name="m"></param>
+        public void AddDataMoney(DataMoney m)
+        {
+            m.DMSTime = DateTime.Now;
+            m.DMNumber = DateTime.Now.ToString("yyyyMMddhhmmss");
+            m.Remark = "无";
+            int result = Convert.ToInt32(ApiResult.GetAPIResult("AddDataMoney", "post", m));
+            if (result>1)
+            {
+                Response.Write("<script>alert('缴费成功')</script>");
+            }
+            else
+            {
+                Response.Write("<script>alert('缴费失败')</script>");
+
+            }
+        }
+        /// <summary>
         /// 账单管理
         /// </summary>
         /// <returns></returns>
         public ActionResult BillManage()
         {
+           
             return PartialView("_BillManage");
         }
         /// <summary>
@@ -155,7 +176,8 @@ namespace H_PMS_Client.Controllers
         /// <returns></returns>
         public ActionResult InComeManage()
         {
-            return PartialView("_InComeManage");
+            List<RecordInfo> list = JsonConvert.DeserializeObject<List<RecordInfo>>(ApiResult.GetAPIResult("GetRecordInfo", "get"));
+            return PartialView("_InComeManage",list);
         }
 
         #endregion

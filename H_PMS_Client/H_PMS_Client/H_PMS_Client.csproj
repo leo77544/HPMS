@@ -285,8 +285,6 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\HPMS\Index.cshtml" />
-    <Content Include="Views\HPMS\_Charge.cshtml" />
-    <Content Include="Views\HPMS\_Charge.cshtml" />
     <Content Include="Views\HPMS\_ChargeRecord.cshtml" />
     <Content Include="Views\HPMS\K_GetEmp.cshtml" />
     <Content Include="Views\HPMS\K_AddEmp.cshtml" />
@@ -297,10 +295,10 @@
     <Content Include="Views\HPMS\HousePView.cshtml" />
     <Content Include="Views\HPMS\DataIndex.cshtml" />
     <Content Include="Views\HPMS\K_PutEmpById.cshtml" />
-    <Content Include="Views\HPMS\_Charge.cshtml" />
     <Content Include="Views\HPMS\_BillManage.cshtml" />
     <Content Include="Views\HPMS\_InComeManage.cshtml" />
     <Content Include="Views\HPMS\ParkShow.cshtml" />
+    <Content Include="Views\HPMS\_JiaoFei.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

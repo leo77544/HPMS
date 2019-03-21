@@ -38,7 +38,7 @@ namespace H_PMS_DAL
             pcode.Direction = ParameterDirection.Output;
             SqlParameter[] para = { DMNumber, HostName, DMSTime, DMName, DMWay, DMType, DMSum, Remark, pcode };
             int result = DBHelperProc.ExecuteNonQuery("P_dataMomey", para);
-            return Convert.ToInt32(pcode) + result;
+            return result;
 
         }
         #endregion
