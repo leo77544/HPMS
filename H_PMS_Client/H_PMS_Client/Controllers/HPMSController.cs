@@ -6,23 +6,19 @@ using System.Web.Mvc;
 using WebApiHelper;
 using H_PMS_Model;
 using Newtonsoft.Json;
-using Webdiyer.WebControls.Mvc;
 namespace H_PMS_Client.Controllers
 {
     public class HPMSController : Controller
     {
         // GET: HPMS
       //  [HttpPost]
-        public ActionResult DataIndex(int pageindex = 1)
-        {
-            List<DataMoney> list = JsonConvert.DeserializeObject<List<DataMoney>>(ApiResult.GetAPIResult("GetDataMoney", "get"));
-            var li = list.OrderByDescending(m => m.DMId).ToPagedList(pageindex, 3);
-            return View(li);
-        }
+        
         // GET: HPMS
         public ActionResult Index()
         {
             //   ApiResult.GetAPIResult();
+            string str = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
+            GetDayRecord(str);
             return View();
         }
 
@@ -162,13 +158,28 @@ namespace H_PMS_Client.Controllers
             }
         }
         /// <summary>
+        /// 获取数据
+        /// </summary>
+        /// <returns></returns>
+        public string DataIndex(int page, int size)
+        {
+            return ApiResult.GetAPIResult("SelectDataMoney?page=" + page + "&size=" + size, "get");
+        }
+        /// <summary>
         /// 账单管理
         /// </summary>
         /// <returns></returns>
         public ActionResult BillManage()
-        {
-           
+        { 
             return PartialView("_BillManage");
+        }
+        /// <summary>
+        /// 获取数据
+        /// </summary>
+        /// <returns></returns>
+        public string Recordlist(int page, int size)
+        {
+            return ApiResult.GetAPIResult("SelectRecord?page=" + page + "&size=" + size, "get");
         }
         /// <summary>
         /// 收支管理
@@ -176,9 +187,15 @@ namespace H_PMS_Client.Controllers
         /// <returns></returns>
         public ActionResult InComeManage()
         {
-            List<RecordInfo> list = JsonConvert.DeserializeObject<List<RecordInfo>>(ApiResult.GetAPIResult("GetRecordInfo", "get"));
-            return PartialView("_InComeManage",list);
+            return PartialView("_InComeManage");
         }
+
+        public string GetDayRecord(string str)
+        {
+            string q= ApiResult.GetAPIResult("GetDayCount?str=" + str, "get");
+            return q;
+        }
+
 
         #endregion
 

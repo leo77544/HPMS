@@ -47,6 +47,7 @@
     <Compile Include="GetEmp.cs" />
     <Compile Include="HostInfo.cs" />
     <Compile Include="HouseInfo.cs" />
+    <Compile Include="PageList.cs" />
     <Compile Include="Park.cs" />
     <Compile Include="ParkBase.cs" />
     <Compile Include="Patrol.cs" />

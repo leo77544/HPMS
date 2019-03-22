@@ -1,7 +1,4 @@
 ﻿
-@using Webdiyer.WebControls.Mvc;
-@model PagedList<H_PMS_Model.DataMoney>
-
 @{
     Layout = null;
 }
@@ -166,7 +163,7 @@
 
                     <li>
                         <a href="#" class="dropdown-toggle">
-                            <i class="glyphicon glyphicon-user"></i>
+                            <i class="icon-user"></i>
                             <span class="menu-text"> 员工管理 </span>
 
                             <b class="arrow icon-angle-down"></b>
@@ -230,7 +227,7 @@
 
                     <li>
                         <a href="#" class="dropdown-toggle">
-                            <i class="glyphicon glyphicon-retweet"></i>
+                            <i class="icon-off "></i>
                             <span class="menu-text"> 车位管理 </span>
 
                             <b class="arrow icon-angle-down"></b>
@@ -498,8 +495,13 @@
 
     <!-- inline scripts related to this page -->
 
-   
+
     <script type="text/javascript">
+        $(function () {
+           
+        
+
+        })
         jQuery(function ($) {
             $('.easy-pie-chart.percentage').each(function () {
                 var $box = $(this).closest('.infobox');
@@ -708,13 +710,15 @@
         }
         function chargeRecord() {
             $.ajax({
-                url: "/hpms/dataindex",
+                url: "/hpms/ChargeRecord",
                 success: function (data) {
                     $(".page-content").empty();
                     $(".page-content").append(data);
+                   
                 }
             })
         }
+        
         function HousePView() {
             $.ajax({
                 url: "/HPMS/HousePView",
@@ -724,7 +728,11 @@
                 }
             })
         }
+        
     </script>
 </body>
 </html>
+<script>
+   
 
+</script>

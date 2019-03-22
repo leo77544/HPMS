@@ -1,7 +1,4 @@
-﻿@using Webdiyer.WebControls.Mvc;
-@model PagedList<H_PMS_Model.DataMoney>
-@*<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>*@
-<div class="page-header">
+﻿<div class="page-header">
     <h1>
         幸福里控制台
         <small>
@@ -28,46 +25,112 @@
             </strong>
             ,这里为您提供更更方便的物业管理。
         </div>
-
         <div id="divGoods">
-            <table class="table table-hover table-bordered table-hover tab-content table-condensed tab-pane">
+            <table class="table table-hover table-bordered table-hover tab-content table-condensed tab-pane" style="text-align:center">
                 <thead>
                     <tr>
-                        <th>收费人员</th>
-                        <th>收费编号</th>
-                        <th>缴费日期</th>
-                        <th>缴费金额</th>
-                        <th>缴费类别</th>
-                        <th>缴费方式</th>
-                        <th>住户名称</th>
-                        <th>备注</th>
-                        <th>操作</th>
+                        <th style="text-align:center">收费人员</th>
+                        <th style="text-align:center">缴费日期</th>
+                        <th style="text-align:center">缴费单号</th>
+                        <th style="text-align:center">缴费金额</th>
+                        <th style="text-align:center">缴费类别</th>
+                        <th style="text-align:center">缴费方式</th>
+                        <th style="text-align:center">住户名称</th>
+                        <th style="text-align:center">备注</th>
                     </tr>
                 </thead>
+                <tbody id="content"></tbody>
+               
 
-                <tbody>
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>@item.DMName</td>
-                            <td>@item.DMNumber</td>
-                            <td>@item.DMSTime</td>
-                            <td>@item.DMSum</td>
-                            <td>@item.DMType</td>
-                            <td>@item.DMWay</td>
-                            <td>@item.HostName</td>
-                            <td>@item.Remark</td>
-                            <td></td>
-                        </tr>
-                    }
-                </tbody>
             </table>
-            @Ajax.Pager(Model, new PagerOptions { PageIndexParameterName = "pageindex", ContainerTagName = "ul", CssClass = "pagination", CurrentPagerItemTemplate = "<li class=\"active\"><a href=\"#\">{0}</a></li>", DisabledPagerItemTemplate = "<li class=\"disabled\"><a>{0}</a></li>", PagerItemTemplate = "<li>{0}</li>", FirstPageText = "首页", PrevPageText = "上一页", NextPageText = "下一页", LastPageText = "尾页" }, new MvcAjaxOptions { HttpMethod = "get", UpdateTargetId = "tab1"})
+            <div id="fto" style="text-align:center;width:100%">
 
-
+            </div>
         </div>
-        @*@{ Html.RegisterMvcPagerScriptResource();}*@
         <!-- PAGE CONTENT ENDS -->
     </div><!-- /.col -->
-    
 </div><!-- /.row -->
+<style>
+    ul.pagination {
+        display: inline-block;
+        padding: 0;
+        margin: 0;
+        float: right;
+        text-align:center;
+    }
+
+        ul.pagination li {
+            display: inline;
+        }
+
+            ul.pagination li a {
+                color: black;
+                float: left;
+                padding: 8px 16px;
+                text-decoration: none;
+
+            }
+
+                ul.pagination li a.active {
+                    background-color: #12c1a6;
+                    color: white;
+                }
+
+                ul.pagination li a:hover:not(.active) {
+                    background-color: #46ba41;
+                    color:white;
+                }
+</style>
+<script>
+   
+    //当前页码
+    var index = 1;
+    //每页显示的条数
+    var size = 10;
+    //总页数
+    var allPage;
+    //总条数
+    
+    var allCount;
+    datalist(index, size);
+    function datalist(page, size) {
+        index = page;
+        $.ajax({
+            url: "/HPMs/DataIndex/?page=" + page + "&size=" + size,
+            type: "get",
+            dataType: "json",
+            success: function (data) {
+                allPage = data.TotalPage;
+                allCount = data.TotalCount;
+                $("#content").empty();
+                $(data.list).each(function () {
+                    var tr = '<tr>'
+                        + '<td>' + this.dMName + '</td>'
+                        + '<td>' + this.dMSTime.toString().substring(0, 10) +" "+ this.dMSTime.toString().substring(11,19)+ '</td>'
+                        + '<td>' + this.dMNumber + '</td>'
+                        + '<td>' + this.dMSum + '</td>'
+                        + '<td>' + this.dMType + '</td>'
+                        + '<td>' + this.dMWay + '</td>'
+                        + '<td>' + this.hostName + '</td>'
+                        + '<td>' + this.remark + '</td>'
+                        + '</tr>'
+                    $("#content").append(tr);
+                });
+                var page = "<ul class='pagination'>"
+
+                    + "<li><a href = '#' class='active'> 共" + data.TotalCount + "条记录，当前显示第" + index + " 页， 共" + data.TotalPage + "页</a></li>"
+                    + "<li><a href='javascript:datalist(1," + size + ")'>首页</a></li>"
+                    + "<li><a href='javascript:datalist(" + (index == 1 ? 1 : index - 1) + "," + size + ")'>上一页</a></li>"
+                    + "<li><a href='javascript:datalist(" + (index == allPage ? allPage : index + 1) + "," + size + ")'>下一页</a></li>"
+                    + "<li><a href='javascript:datalist(" + data.TotalPage + "," + size + ")'>尾页</a></li>"
+                    + "</ul>"
+                //var page = "共" + data.TotalCount + "条记录，当前显示" + index + " / " + data.TotalPage + "页"
+                //    + "<a href='javascript:datalist(1," + size + ")'>首页</a>"
+                //    + "<a href='javascript:datalist(" + (index == 1 ? 1 : index - 1) + "," + size + ")'>上一页</a> "
+                //    + "<a href='javascript:datalist(" + (index == allPage ? allPage : index + 1) + "," + size + ")'>下一页</a> "
+                //    + "<a href='javascript:datalist(" + data.TotalPage + "," + size + ")'>尾页</a>";
+                $("#fto").empty().append(page);
+            }
+        });
+    }
+</script>

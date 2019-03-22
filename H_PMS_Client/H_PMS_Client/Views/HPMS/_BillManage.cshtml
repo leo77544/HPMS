@@ -1,5 +1,4 @@
-﻿@model List<H_PMS_Model.RecordInfo>
-<div class="page-header">
+﻿<div class="page-header">
     <h1>
         幸福里控制台
         <small>
@@ -26,36 +25,98 @@
             </strong>
             ,这里为您提供更更方便的物业管理。
         </div>
-        <div class="alert alert-block alert-info">
-
-            <table class="table table-hover table-bordered table-hover tab-content table-condensed tab-pane">
+        <div id="divGoods">
+            <table class="table table-hover table-bordered table-hover tab-content table-condensed tab-pane" style="text-align:center">
                 <thead>
                     <tr>
-                        <th>年</th>
-                        <th>月</th>
-                        <th>日</th>
-                        <th>收入总额</th>
-                        <th>操作</th>
+                        <th style="text-align:center">名称</th>
+                        <th style="text-align:center">金额</th>
+                        <th style="text-align:center">时间</th>
+                        <th style="text-align:center">收支</th>
                     </tr>
                 </thead>
+                <tbody id="content"></tbody>
 
-                <tbody>
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>@item.CostName</td>
-                            <td>@item.CostPricce</td>
-                            <td>@item.TjStime</td>
-                            <td>@item.SZState</td>
-                            <td></td>
-                        </tr>
-                    }
-                </tbody>
+
             </table>
+            <div id="fto" style="text-align:center;width:100%">
 
+            </div>
         </div>
-
         <!-- PAGE CONTENT ENDS -->
     </div><!-- /.col -->
 
 </div><!-- /.row -->
+<style>
+    ul.pagination {
+        display: inline-block;
+        padding: 0;
+        margin: 0;
+        float: right;
+        text-align: center;
+    }
+
+        ul.pagination li {
+            display: inline;
+        }
+
+            ul.pagination li a {
+                color: black;
+                float: left;
+                padding: 8px 16px;
+                text-decoration: none;
+            }
+
+                ul.pagination li a.active {
+                    background-color: #12c1a6;
+                    color: white;
+                }
+
+                ul.pagination li a:hover:not(.active) {
+                    background-color: #46ba41;
+                    color: white;
+                }
+</style>
+<script>
+
+    //当前页码
+    var index = 1;
+    //每页显示的条数
+    var size = 10;
+    //总页数
+    var allPage;
+    //总条数
+    //+" " + this.dMSTime.toString().substring(11, 19)
+    var allCount;
+    datalist(index, size);
+    function datalist(page, size) {
+        index = page;
+        $.ajax({
+            url: "/HPMs/Recordlist/?page=" + page + "&size=" + size,
+            type: "get",
+            dataType: "json",
+            success: function (data) {
+                allPage = data.TotalPage;
+                allCount = data.TotalCount;
+                $("#content").empty();
+                $(data.relist).each(function () {
+                    var tr = '<tr>'
+                        + '<td>' + this.costName + '</td>'
+                        + '<td>' + this.costPricce + '</td>'
+                        + '<td>' + this.tjStime.toString().substring(0, 10) + " " + this.tjStime.toString().substring(11, 19)+ '</td>'
+                        + '<td>' + this.sZState + '</td>'
+                        + '</tr>'
+                    $("#content").append(tr);
+                });
+                var page = "<ul class='pagination'>"
+                    + "<li><a href = '#' class='active'> 共" + data.TotalCount + "条记录，当前显示第" + index + " 页， 共" + data.TotalPage + "页</a></li>"
+                    + "<li><a href='javascript:datalist(1," + size + ")'>首页</a></li>"
+                    + "<li><a href='javascript:datalist(" + (index == 1 ? 1 : index - 1) + "," + size + ")'>上一页</a></li>"
+                    + "<li><a href='javascript:datalist("+(index == allPage ? allPage : index + 1)+","+size+ ")'>下一页</a></li>"
+                    + "<li><a href='javascript:datalist(" + data.TotalPage + "," + size + ")'>尾页</a></li>"
+                    + "</ul>"
+                $("#fto").empty().append(page);
+            }
+        });
+    }
+</script>
