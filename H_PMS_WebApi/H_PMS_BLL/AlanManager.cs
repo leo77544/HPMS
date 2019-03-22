@@ -69,6 +69,11 @@ namespace H_PMS_BLL
 
         #endregion
 
+        public List<ParkBase> GetParkBaseByAll(string type, string area, string state)
+        {
+            return dal.GetParkBaseByAll(type, area, state);
+        }
+
     }
 }
 

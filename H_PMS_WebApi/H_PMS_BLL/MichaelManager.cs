@@ -6,7 +6,7 @@ using H_PMS_Model;
 
 namespace H_PMS_BLL
 {
-   public class MichaelManager
+    public class MichaelManager
     {
         MichaelService MDAL = new MichaelService();
 
@@ -22,7 +22,7 @@ namespace H_PMS_BLL
         /// <returns></returns>
         public List<HouseInfo> GetHouseInfosByConditions(string PlotName = "", string BulidName = "", string HouseType = "", string HouseArea = "", string HouseState = "")
         {
-            return MDAL.GetHouseInfosByConditions(PlotName,BulidName,HouseType,HouseArea,HouseState);
+            return MDAL.GetHouseInfosByConditions(PlotName, BulidName, HouseType, HouseArea, HouseState);
         }
 
         /// <summary>
@@ -41,9 +41,9 @@ namespace H_PMS_BLL
         /// </summary>
         /// <param name="TheHost"></param>
         /// <returns></returns>
-        public int HostRegister(HostInfo TheHost)
+        public int HostRegister(string HostName, string HostPhone, string IDCard, string Role, int HouseId)
         {
-            return MDAL.HostRegister(TheHost);
+            return MDAL.HostRegister(HostName, HostPhone, IDCard, Role, HouseId);
         }
 
         /// <summary>
@@ -92,6 +92,6 @@ namespace H_PMS_BLL
             return MDAL.FollowComplain(CSId, Ccontent, CRemark);
         }
         #endregion
-   }
+    }
 }
 
