@@ -62,9 +62,14 @@ namespace H_PMS_DAL
         /// </summary>
         /// <param name="TheHost"></param>
         /// <returns></returns>
-        public int HostRegister(HostInfo TheHost)
+        public int HostRegister(string HostName, string HostPhone, string IDCard, string Role, int HouseId)
         {
-            return DBHelper.ExecuteNonQuery("insert into HostInfo values('" + TheHost.HostName + "','" + TheHost.HostPhone + "','" + TheHost.IDCard + "','" + TheHost.Role + "',getdate(),'" + TheHost.MoveEtime + "','" + TheHost.Remark + "'," + TheHost.HouseId + ")");
+            if (DBHelper.ExecuteScalar("select count(IDCard) from HostInfo where IDCard = '" + IDCard + "'") > 0)
+            {
+                return -1;
+            }
+            DBHelper.ExecuteNonQuery("update HouseInfo set HouseState = 'Èë×¡' where HouseId = " + HouseId + "");
+            return DBHelper.ExecuteNonQuery("insert into HostInfo values('" + HostName + "','" + HostPhone + "','" + IDCard + "','" + Role + "',getdate(),'',''," + HouseId + ")");
         }
 
         /// <summary>
@@ -129,7 +134,7 @@ namespace H_PMS_DAL
         public int FollowComplain(int CSId, string Ccontent, string CRemark)
         {
             return DBHelper.ExecuteNonQuery("update Complain set Ccontent = Ccontent+'" + Ccontent + "',CRemark = '" + CRemark + "' where CSId = " + CSId + "");
-        } 
+        }
         #endregion
     }
 }
