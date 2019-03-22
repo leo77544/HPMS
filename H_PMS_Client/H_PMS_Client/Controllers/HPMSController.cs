@@ -134,6 +134,8 @@ namespace H_PMS_Client.Controllers
 
         #region Alan
 
+        #region 新增
+
         public ActionResult PBAddIndex()
         {
             return PartialView();
@@ -165,23 +167,45 @@ namespace H_PMS_Client.Controllers
                 }
                 p.Remark = "空闲";
                 n = int.Parse(ApiResult.GetAPIResult("AddParkBase", "post", p));
-                
+
             }
             return n;
         }
 
-        public ActionResult PBShow()
+
+        #endregion
+
+        List<ParkBase> ParkBaselist = new List<ParkBase>();
+        public ActionResult PBShow(string type = "请选择类型", string area = "请选择区域", string state = "请选择状态")
         {
-            List<ParkBase> list = JsonConvert.DeserializeObject<List<ParkBase>>(ApiResult.GetAPIResult("GetParkBases", "get"));
-            ViewBag.list = list;
+            ParkBaselist = JsonConvert.DeserializeObject<List<ParkBase>>(ApiResult.GetAPIResult("GetParkBaseByAll?type=" + type + "&area=" + area + "&state=" + state, "get"));
+            ViewBag.list = ParkBaselist;
             return PartialView();
         }
+        public string GetParkBase(string type, string area, string state)
+        {
+            List<ParkBase> list = new List<ParkBase>();
+            if (type == "请选择类型" && area == "请选择区域" && state == "请选择状态")
+            {
+                 list = ParkBaselist;
+            }
+            else
+            {
+                list = ParkBaselist.Where(m => m.PBType == type && m.PBPlace.Contains(area) && m.Remark == state).ToList();
+            }
+            return JsonConvert.SerializeObject(list);
+
+        }
+        #region 删除
 
         public int DelParkBase(int Id)
         {
-            int n = int.Parse(ApiResult.GetAPIResult("AddParkBase?id="+Id, "delete"));
+            int n = int.Parse(ApiResult.GetAPIResult("AddParkBase?id=" + Id, "delete"));
             return n;
         }
+
+        #endregion
+
         #region 登录
 
         public ActionResult Login()
@@ -229,7 +253,7 @@ namespace H_PMS_Client.Controllers
         {
             return PartialView();
         }
-        
+
         /// <summary>
         /// 根据条件查询房屋信息
         /// </summary>

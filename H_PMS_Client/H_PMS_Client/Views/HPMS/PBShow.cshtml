@@ -1,4 +1,7 @@
 ﻿
+
+<link href="~/MoTai/css/component.css" rel="stylesheet" />
+
 <div class="main-content" style="margin-left:0px">
     <div class="breadcrumbs" id="breadcrumbs">
         <script type="text/javascript">
@@ -10,8 +13,8 @@
                 <i class="icon-home home-icon"></i>
                 <a href="#">首页</a>
             </li>
-            <li class="active">房源管理</li>
-            <li class="active">发布记录</li>
+            <li class="active">车位管理</li>
+            <li class="active">车位租聘</li>
         </ul><!-- .breadcrumb -->
     </div>
 
@@ -19,27 +22,58 @@
 
     <div class="page-content">
 
+        @using (Html.BeginForm())
+        {
+
+
+        <div style="height:30px;margin-left:30px;margin-top:10px;margin-bottom:10px">
+
+            <select na="SelBulidName" name="type" style="width:150px;">
+                <option value="请选择类型">请选择类型</option>
+                <option value="地下停车场">地下停车场</option>
+                <option value="户外停车场">户外停车场</option>
+            </select>
+
+            <select id="SelPlotName" name="area" style="width:150px;">
+                <option value="请选择区域">请选择区域</option>
+                <option value="A">A区</option>
+                <option value="B">B区</option>
+                <option value="C">C区</option>
+            </select>
+
+            <select id="SelHouseState" name="state" style="width:150px;">
+                <option value="请选择状态">请选择状态</option>
+                <option style="background-color:#6ABD78;" value="空闲">空闲</option>
+                <option style="background-color:#7bbfea;" value="已租">已租</option>
+                <option style="background-color:#C7FFEC;" value="待租">待租</option>
+            </select>
+
+            <input id="Submit1" type="submit" value="查询" />
+        </div>
+
+        }
+        <div id="ShowPB">
+
+        </div>
         @{
             foreach (var item in ViewBag.list)
             {
                 if (item.Remark == "空闲")
                 {
+                    <div id="@item.PBId" style="width:200px;height:250px;margin-left:30px;margin-right:30px;margin-bottom:30px;background-color:#808080;display:inline-block;background-image:url(../../assets/avatars/TP2.jpg);background-repeat: no-repeat;background-size: 100% 100%;text-align:center;line-height:21px;">
+                        <input id="Button1" type="button" value="×" style="border:none;margin-left:174px;font-size:20px" />
+                        <p style="font-weight:bold;color:#438eb9;">面积：<span style="color:white;">@item.PBArea 平米</span> </p>
+                        <p style="font-weight:bold;color:#438eb9;">价格：<span style="color:red;font-size:24px;font-family:华文隶书">@item.PBPrice 元</span></p>
+                        <p style="font-weight:bold;color:#438eb9">车位类型：<span style="color:white;">@item.PBType</span></p>
+                        <p style="font-weight:bold;color:#438eb9">车位位置：<span style="color:white;">@item.PBPlace</span></p>
+                        <p style="font-weight:bold;color:#438eb9">车位状态：<span style="color:red;font-size:24px;font-family:华文新魏">@item.Remark</span></p>
 
-                    <div id="@item.PBId" style="width:200px;height:200px;margin-right:20px;background-color:#808080">
-                        <p>车位编号：<span>@item.PBNumber</span></p>
-                        <p>面积：<span>item.PBArea</span> 价格：<span>@item.PBPrice</span></p>
-                        <p>车位类型：<span>@item.PBType</span></p>
-                        <p>车位位置：<span>@item.PBPlace</span></p>
-                        <p>车位状态：<span>@item.Remark</span></p>
-                        <p>
-                            <input id="Button1" type="button" value="出租" />
-                            <input id="Button1" type="button" value="删除" onclick="Del('+@item.PBId+')" />
-                        </p>
+                        <p style="font-weight:bold;color:#438eb9;"><span style="color:yellow;font-family:YouYuan;font-size:24px"><a href="javascript:;" class="md-trigger btn btn-primary btn-sm" data-modal="modal-13">@item.PBNumber</a></span></p>
                     </div>
                 }
                 else
                 {
-                    <div id="@item.PBId" style="width:200px;height:200px;margin-right:20px;background-color:#f7f0f0">
+                    <div id="@item.PBId" style="width:200px;height:200px;margin-right:20px;background-color:#f7f0f0;display:inline-block">
                         <p>车位编号：<span>@item.PBNumber</span></p>
                         <p>面积：<span>item.PBArea</span> 价格：<span>@item.PBPrice</span></p>
                         <p>车位类型：<span>@item.PBType</span></p>
@@ -53,9 +87,34 @@
             }
         }
     </div><!-- /.page-content -->
+
+    <div class="md-modal md-effect-13" id="modal-13">
+        <div class="md-content">
+            <h3>Modal Dialog</h3>
+            <div>
+                <p>This is a modal window. You can do the following things with it:</p>
+                <ul>
+                    <li><strong>Read:</strong> modal windows will probably tell you something important so don't forget to read what they say.</li>
+                    <li><strong>Look:</strong> a modal window enjoys a certain kind of attention; just look at it and appreciate its presence.</li>
+                    <li><strong>Close:</strong> click on the button below to close the modal.</li>
+                </ul>
+                <button class="md-close btn-sm btn-primary">Close me!</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="md-overlay"></div>
+
 </div><!-- /.main-content -->
 
+<script src="~/MoTai/js/classie.js"></script>
+<script src="~/MoTai/js/modalEffects.js"></script>
+
+
+
+
 <script>
+
     function Del(id) {
         if (confirm("确认删除吗？")) {
             $.ajax({
