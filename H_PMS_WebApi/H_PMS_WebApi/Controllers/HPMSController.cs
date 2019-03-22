@@ -292,9 +292,9 @@ namespace H_PMS_WebApi.Controllers
         /// <param name="HostName">住户姓名</param>
         /// <returns></returns>
         [HttpGet]
-        public List<HostInfo> GetHostInfosByConditions(int HouseId = 0, string HostName = "")
+        public List<HostInfo> GetHostInfosByConditions(int HouseId = 0, string HostName = "",string HostRole = "")
         {
-            return Michael.GetHostInfosByConditions(HouseId, HostName);
+            return Michael.GetHostInfosByConditions(HouseId, HostName, HostRole);
         }
         #endregion
 
