@@ -1,6 +1,5 @@
 ﻿
 
-
 <div class="main-content" style="margin-left:0px;" id="kevin_addemp">
     <div class="breadcrumbs" id="breadcrumbs">
         <script type="text/javascript">
@@ -52,7 +51,7 @@
                         <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 员工年龄 </label>
 
                         <div class="col-sm-9">
-                            <input type="text" id="eage" placeholder="请填写员工年龄（如：30）！" class="col-xs-10 col-sm-5" value="@ViewBag.PutEmpById.EAge" />
+                            <input type="text" id="eage" placeholder="请填写员工年龄（如：30）/岁！" class="col-xs-10 col-sm-5" value="@ViewBag.PutEmpById.EAge" />
                         </div>
 
                     </div>
@@ -74,7 +73,7 @@
                         <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 员工月薪 </label>
 
                         <div class="col-sm-9" style="z-index:2;">
-                            <input type="text" id="esalary" placeholder="请填写员工月薪（如：3000）" class="col-xs-10 col-sm-5" value="@ViewBag.PutEmpById.ESalary" />
+                            <input type="text" id="esalary" placeholder="请填写员工月薪（如：3000）/元" class="col-xs-10 col-sm-5" value="@ViewBag.PutEmpById.ESalary" />
                         </div>
                     </div>
                     <div class="hr hr-24"></div>
@@ -83,9 +82,9 @@
 
                     <div class="clearfix form-actions">
                         <div class="col-md-offset-3 col-md-9">
-                            <button class="btn btn-info" type="button" onclick="addEmp()">
+                            <button class="btn btn-info" type="button" onclick="updateEmp()">
                                 <i class="icon-ok bigger-110"></i>
-                                员工入职
+                                员工信息修改
                             </button>
 
                             &nbsp; &nbsp; &nbsp;
@@ -103,6 +102,7 @@
 
         <text id="PutESex" style="display:none">@ViewBag.PutEmpById.ESex</text>
         <text id="PutEZhiWu" style="display:none">@ViewBag.PutEmpById.DId</text>
+        <text id="PutETime" style="display:none">@ViewBag.PutEmpById.EStartTime</text>
 
         <div class="box" id="box" style="width:250px;height:80px;z-index:9999;font-size:24px;font-family:微软雅黑;line-height:80px;padding-left:75px;background-color:#bcf5c2;float:left;margin-left:40%;color:#159753;display:none">添加成功！</div>
 
@@ -133,14 +133,15 @@
             }
         }
     })
-    function addEmp() {
+    function updateEmp() {
         var p = new Object();
         p.EName = $("#ename").val();
         p.ESex = $("#esex").check ? "男" : "女";
         p.EAge = $("#eage").val();
         p.ESalary = $("#esalary").val();
-        p.EStartTime = Date.now.toString();
-        p.DId = $("zhiwu").val();
+        p.EStartTime = $("#PutETime").val();
+        var option = $("#zhiwu option:selected");
+        p.DId = option.val();
         if (p.EName == "") {
             document.getElementById('ename').value = "";
             document.getElementById('ename').placeholder = "信息未录入，请填写员工姓名！";
@@ -150,11 +151,11 @@
             document.getElementById('eage').placeholder = "信息未录入，请填写员工年龄！";
         }
         if (p.ESalary == "") {
-            document.getElementById('esalary').value = "";
+            document.getElementById('esalary').value = ""; 
             document.getElementById('esalary').placeholder = "信息未录入，请填写员工月薪！";
         }
         $.ajax({
-            url: "/HPMS/K_CreateEmp",
+            url: "/HPMS/K_PutEmp",
             type: "post",
             dataType: "json",
             data: { emp: JSON.stringify(p) },

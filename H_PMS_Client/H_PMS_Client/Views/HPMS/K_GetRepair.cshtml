@@ -1,0 +1,111 @@
+﻿
+
+<div class="main-content" style="margin-left:0px;" id="kevin_addemp">
+    <div class="breadcrumbs" id="breadcrumbs">
+        <script type="text/javascript">
+            try { ace.settings.check('breadcrumbs', 'fixed') } catch (e) { }
+        </script>
+
+        <ul class="breadcrumb">
+            <li>
+                <i class="icon-home home-icon"></i>
+                <a href="#">首页</a>
+            </li>
+            <li class="active">安居客控制台</li>
+            <li class="active">报修管理</li>
+            <li class="active">提交报修</li>
+        </ul><!-- .breadcrumb -->
+    </div>
+    <style>
+        td {
+            border: 1px solid;
+            vertical-align: middle;
+            text-align: center;
+        }
+
+        #wxtd {
+            width: 100px;
+        }
+
+        #wxtd2 {
+            width: 250px;
+        }
+    </style>
+    <div class="page-content">
+        <div class="row">
+            @{
+                foreach (var item in ViewBag.GetREP)
+                {
+                    if (item.MaintainName == "")
+                    {
+                        <div style="width:750px;height:350px;margin-left:20px;margin-top:20px;background-color:#dff0d8">
+                            <table style="width:1000px;height:350px;vertical-align:middle;border:2px solid">
+                                <tr>
+                                    <td id="wxtd">维修单据：</td>
+                                    <td id="wxtd2" colspan="3">@item.ReNumber</td>
+                                </tr>
+                                <tr>
+                                    <td id="wxtd">房主姓名：</td>
+                                    <td id="wxtd2">@item.HostName</td>
+                                    <td id="wxtd">报修日期：</td>
+                                    <td id="wxtd2">@item.RSTime</td>
+                                </tr>
+                                <tr>
+                                    <td id="wxtd">维修内容：</td>
+                                    <td id="wxtd2" colspan="3">@item.ReRemark</td>
+                                </tr>
+                                <tr>
+                                    <td id="wxtd">维修人员：</td>
+                                    <td id="wxtd2">@item.MaintainName</td>
+                                    <td id="wxtd">维修日期：</td>
+                                    <td id="wxtd2">@item.MaintainTime</td>
+                                </tr>
+                                <tr>
+                                    <td id="wxtd">服务费用：</td>
+                                    <td id="wxtd2">@item.ReNumber</td>
+                                    <td id="wxtd">服务费用：</td>
+                                    <td id="wxtd2">@item.ReNumber</td>
+                                </tr>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <div style="width:750px;height:350px;margin-left:20px;margin-top:20px;background-color:#438eb9">
+                            <table style="width:1000px;height:350px;vertical-align:middle;border:2px solid">
+                                <tr>
+                                    <td id="wxtd">维修单据：</td>
+                                    <td id="wxtd2" colspan="3">@item.ReNumber</td>
+                                </tr>
+                                <tr>
+                                    <td id="wxtd">房主姓名：</td>
+                                    <td id="wxtd2">@item.HostName</td>
+                                    <td id="wxtd">报修日期：</td>
+                                    <td id="wxtd2">@item.RSTime</td>
+                                </tr>
+                                <tr>
+                                    <td id="wxtd">维修内容：</td>
+                                    <td id="wxtd2" colspan="3">@item.ReRemark</td>
+                                </tr>
+                                <tr>
+                                    <td id="wxtd">维修人员：</td>
+                                    <td id="wxtd2">@item.MaintainName</td>
+                                    <td id="wxtd">维修日期：</td>
+                                    <td id="wxtd2">@item.MaintainTime</td>
+                                </tr>
+                                <tr>
+                                    <td id="wxtd">评价：</td>
+                                    <td id="wxtd2" colspan="3">@item.Estimate</td>
+                                </tr>
+                            </table>
+                        </div>
+                    }
+                }
+            }
+
+        </div><!-- /row -->
+
+        <div class="box" id="box" style="width:250px;height:80px;z-index:1024;font-size:24px;font-family:微软雅黑;line-height:80px;padding-left:75px;background-color:#bcf5c2;float:left;margin-left:40%;color:#159753;display:none">添加成功！</div>
+
+    </div><!-- /.page-content -->
+</div>

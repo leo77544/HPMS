@@ -16,14 +16,23 @@ namespace H_PMS_Model
           get { return repairId;}
           set { repairId=value;}
         }
-        private int hostId;
+        private string hostName;
         /// <summary>
-        /// 户主id
+        /// 住户名称
         /// </summary>
-        public int HostId
+        public string HostName
         {
-          get { return hostId;}
-          set { hostId=value;}
+            get { return hostName; }
+            set { hostName = value; }
+        }
+        private int houseId;
+        /// <summary>
+        /// 房屋Id
+        /// </summary>
+        public int HouseId
+        {
+            get { return houseId; }
+            set { houseId = value; }
         }
         private string reNumber;
         /// <summary>

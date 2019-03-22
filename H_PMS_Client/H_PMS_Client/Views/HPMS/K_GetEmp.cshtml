@@ -58,7 +58,9 @@
                                     <td>@item.EStartTime</td>
                                     <td>@item.ESalary</td>
                                     <td>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;
                                         <div class="ui-pg-div" style="display:inline-block" onclick="putemp(@item.EmployeeId)"><span class="ui-icon icon-pencil blue"></span></div>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                         <div class="ui-pg-div" style="display:inline-block" onclick="delemp(@item.EmployeeId)"><span class="ui-icon icon-trash red"></span></div>
                                     </td>
                                 </tr>
@@ -90,6 +92,12 @@
             dataType: "json",
             success: function (data) {
                 if (data > 0) {
+
+                    var tab = document.getElementById("#sample-table-1");
+                    var row = document.getElementById(id);
+                    var index = row.rowIndex;//rowIndex属性为tr的索引值，从0开始  
+                    tab.deleteRow(index);  //从table中删除
+
                     $("#box").css("display", "inline");
                     setTimeout("tishiclose()", 1000);
                 } else {
@@ -107,86 +115,7 @@
             url: "/HPMS/K_PutEmpById/?id=" + id,
             type: "get",
             dataType: "json",
-            success: function (data) {
-                if (data != null) {
-
-                }
-
-            }
+            success: function (data) { }
         })
     }
-    function qdPutEmp() {
-        var p = new Object();
-        p.EName = $("#ename").val();
-        p.ESex = $("#esex").check ? "男" : "女";
-        p.EAge = $("#eage").val();
-        p.ESalary = $("#esalary").val();
-
-        var date = new Date();
-        var seperator1 = "-";
-        var year = date.getFullYear();
-        var month = date.getMonth() + 1;
-        var strDate = date.getDate();
-        if (month >= 1 && month <= 9) {
-            month = "0" + month;
-        }
-        if (strDate >= 0 && strDate <= 9) {
-            strDate = "0" + strDate;
-        }
-        var currentdate = year + seperator1 + month + seperator1 + strDate;
-
-        p.EStartTime = currentdate;
-
-        var option = $("#zhiwu option:selected");
-        p.DId = option.val();
-
-        if (p.EName == "") {
-            document.getElementById('ename').value = "";
-            document.getElementById('ename').placeholder = "信息未录入，请填写员工姓名！";
-        }
-        if (p.EAge == "") {
-            document.getElementById('eage').value = "";
-            document.getElementById('eage').placeholder = "信息未录入，请填写员工年龄！";
-        }
-        if (p.ESalary == "") {
-            document.getElementById('esalary').value = "";
-            document.getElementById('esalary').placeholder = "信息未录入，请填写员工月薪！";
-        }
-        $.ajax({
-            url: "/HPMS/K_PutEmp",
-            type: "post",
-            dataType: "json",
-            data: { emp: JSON.stringify(p) },
-            success: function (data) {
-                if (data > 0) {
-                    quxiao();
-                    $("#putEmpTanK").css("display", "inline");
-                    setTimeout("putEmpTanKclose()", 1000);
-                }
-            }
-        })
-
-    }
-    function putEmpTanKclose() {
-        $("#putEmpTanK").css("display", "none");
-    }
-</script>
-<script>
-    //显示模态框点击事件
-    $(".cart-add").click(function () {
-        $(".bg-model").fadeTo(300, 1)
-        //隐藏窗体的滚动条
-        $("body").css({ "overflow": "hidden" });
-    });
-
-    //模态框OK按钮点击事件
-    $(".bg-model-ok").click(function () {
-        $(".bg-model").hide();
-        //显示窗体的滚动条
-        $("body").css({ "overflow": "visible" });
-    }).hover(function () {
-        $(this).css({ "backgroundColor": "#8CC8C8" });
-    }, function () {
-        $(this).css({ "backgroundColor": "#8CD4E6" });
-    });
 </script>

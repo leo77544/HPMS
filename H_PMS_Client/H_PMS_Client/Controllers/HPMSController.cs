@@ -64,10 +64,11 @@ namespace H_PMS_Client.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public void K_PutEmpById(int id)
+        public ActionResult K_PutEmpById(string id)
         {
             Employee employee = JsonConvert.DeserializeObject<Employee>(ApiResult.GetAPIResult("GetEmployeeByEId/?EId=" + id, "get"));
             ViewBag.PutEmpById = employee;
+            return PartialView();
         }
         /// <summary>
         /// 修改员工
@@ -94,7 +95,7 @@ namespace H_PMS_Client.Controllers
         /// <returns></returns>
         public int K_DelEmp(int id)
         {
-            string json = ApiResult.GetAPIResult("DelEmpByEId/EmployeeId=" + id, "delete");
+            string json = ApiResult.GetAPIResult("DelEmpByEId/?EmployeeId=" + id, "delete");
             if (json != "")
             {
                 return 1;
@@ -106,6 +107,49 @@ namespace H_PMS_Client.Controllers
         }
 
 
+        #endregion
+
+        #region 报修
+        /// <summary>
+        /// 添加报修名单
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult K_AddRepair()
+        {
+           // GetEmpByRep();
+            return PartialView();
+        }
+        /// <summary>
+        /// 获取技工的信息
+        /// </summary>
+        public void GetEmpByRep()
+        {
+            List<GetEmp> list = JsonConvert.DeserializeObject<List<GetEmp>>(ApiResult.GetAPIResult("GetEmployees/?DId=5", "get"));
+            ViewBag.GetEBRP = list;
+        }
+        /// <summary>
+        /// 获取所有报修明细
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult K_GetRepair()
+        {
+            List<Repair> list = JsonConvert.DeserializeObject<List<Repair>>(ApiResult.GetAPIResult("GetRepairs", "get"));
+            ViewBag.GetREP = list;
+            return PartialView();
+        }
+        /// <summary>
+        /// 获取房屋ID及户主
+        /// </summary>
+        /// <param name="PlotName"></param>
+        /// <param name="BulidName"></param>
+        /// <param name="HouseNumber"></param>
+        /// <param name="HouseType"></param>
+        /// <returns></returns>
+        public string GetHouseInfoByHouse(string PlotName, string BulidName, string HouseNumber, string HouseType)
+        {
+            string json = ApiResult.GetAPIResult("GetHouseInfoByHouse/?PlotName=" + PlotName + "&BulidName=" + BulidName + "&HouseNumber=" + HouseNumber + "&HouseType=" + HouseType, "get");
+            return json;
+        }
         #endregion
 
         #endregion
@@ -165,7 +209,7 @@ namespace H_PMS_Client.Controllers
                 }
                 p.Remark = "空闲";
                 n = int.Parse(ApiResult.GetAPIResult("AddParkBase", "post", p));
-                
+
             }
             return n;
         }
@@ -179,7 +223,7 @@ namespace H_PMS_Client.Controllers
 
         public int DelParkBase(int Id)
         {
-            int n = int.Parse(ApiResult.GetAPIResult("AddParkBase?id="+Id, "delete"));
+            int n = int.Parse(ApiResult.GetAPIResult("AddParkBase?id=" + Id, "delete"));
             return n;
         }
         #region 登录
@@ -229,7 +273,7 @@ namespace H_PMS_Client.Controllers
         {
             return PartialView();
         }
-        
+
         /// <summary>
         /// 根据条件查询房屋信息
         /// </summary>

@@ -230,6 +230,38 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\My97DatePicker\calendar.js" />
+    <Content Include="Content\My97DatePicker\config.js" />
+    <Content Include="Content\My97DatePicker\lang\en.js" />
+    <Content Include="Content\My97DatePicker\lang\zh-cn.js" />
+    <Content Include="Content\My97DatePicker\lang\zh-tw.js" />
+    <Content Include="Content\My97DatePicker\My97DatePicker.htm" />
+    <Content Include="Content\My97DatePicker\skin\blueFresh\datepicker.css" />
+    <Content Include="Content\My97DatePicker\skin\blueFresh\img.gif" />
+    <Content Include="Content\My97DatePicker\skin\BuMen.gif" />
+    <Content Include="Content\My97DatePicker\skin\crm.GIF" />
+    <Content Include="Content\My97DatePicker\skin\datePicker.gif" />
+    <Content Include="Content\My97DatePicker\skin\default1\datepicker.css" />
+    <Content Include="Content\My97DatePicker\skin\default1\img.gif" />
+    <Content Include="Content\My97DatePicker\skin\default\datepicker.css" />
+    <Content Include="Content\My97DatePicker\skin\default\img.gif" />
+    <Content Include="Content\My97DatePicker\skin\salary.gif" />
+    <Content Include="Content\My97DatePicker\skin\WdatePicker.css" />
+    <Content Include="Content\My97DatePicker\skin\whyGreen\bg.jpg" />
+    <Content Include="Content\My97DatePicker\skin\whyGreen\datepicker.css" />
+    <Content Include="Content\My97DatePicker\skin\whyGreen\img.gif" />
+    <Content Include="Content\My97DatePicker\WdatePicker.js" />
+    <Content Include="Content\My97DatePicker\开发包\lang\en.js" />
+    <Content Include="Content\My97DatePicker\开发包\lang\zh-cn.js" />
+    <Content Include="Content\My97DatePicker\开发包\lang\zh-tw.js" />
+    <Content Include="Content\My97DatePicker\开发包\readme.txt" />
+    <Content Include="Content\My97DatePicker\开发包\skin\datePicker.gif" />
+    <Content Include="Content\My97DatePicker\开发包\skin\default\datepicker.css" />
+    <Content Include="Content\My97DatePicker\开发包\skin\default\img.gif" />
+    <Content Include="Content\My97DatePicker\开发包\skin\WdatePicker.css" />
+    <Content Include="Content\My97DatePicker\开发包\skin\whyGreen\bg.jpg" />
+    <Content Include="Content\My97DatePicker\开发包\skin\whyGreen\datepicker.css" />
+    <Content Include="Content\My97DatePicker\开发包\skin\whyGreen\img.gif" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -255,6 +287,11 @@
     <Content Include="assets\font\fontawesome-webfont.woff" />
     <Content Include="LoginCss\imgs\.DS_Store" />
     <Content Include="LoginCss\imgs\icons\.DS_Store" />
+    <Content Include="Content\My97DatePicker\lang\vssver2.scc" />
+    <Content Include="Content\My97DatePicker\skin\default1\vssver2.scc" />
+    <Content Include="Content\My97DatePicker\skin\vssver2.scc" />
+    <Content Include="Content\My97DatePicker\skin\whyGreen\vssver2.scc" />
+    <Content Include="Content\My97DatePicker\vssver2.scc" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -280,8 +317,8 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\HPMS\Index.cshtml" />
-		 <Content Include="Views\HPMS\_Charge.cshtml" />
-	    <Content Include="Views\HPMS\_Charge.cshtml" />
+    <Content Include="Views\HPMS\_Charge.cshtml" />
+    <Content Include="Views\HPMS\_Charge.cshtml" />
     <Content Include="Views\HPMS\_ChargeRecord.cshtml" />
     <Content Include="Views\HPMS\K_GetEmp.cshtml" />
     <Content Include="Views\HPMS\K_AddEmp.cshtml" />
@@ -292,6 +329,8 @@
     <Content Include="Views\HPMS\HousePView.cshtml" />
     <Content Include="Views\HPMS\K_PutEmpById.cshtml" />
     <Content Include="Views\HPMS\ParkShow.cshtml" />
+    <Content Include="Views\HPMS\K_AddRepair.cshtml" />
+    <Content Include="Views\HPMS\K_GetRepair.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -338,6 +377,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>0</DevelopmentServerPort>
           <DevelopmentServerVPath>
+          </DevelopmentServerVPath>
           <IISUrl>http://localhost:60076/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>

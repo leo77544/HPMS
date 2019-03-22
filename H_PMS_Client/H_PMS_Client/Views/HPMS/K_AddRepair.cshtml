@@ -1,0 +1,187 @@
+﻿
+<div class="main-content" style="margin-left:0px;" id="kevin">
+    <div class="breadcrumbs" id="breadcrumbs">
+        <script type="text/javascript">
+            try { ace.settings.check('breadcrumbs', 'fixed') } catch (e) { }
+        </script>
+
+        <ul class="breadcrumb">
+            <li>
+                <i class="icon-home home-icon"></i>
+                <a href="#">首页</a>
+            </li>
+            <li class="active">安居客控制台</li>
+            <li class="active">报修管理</li>
+            <li class="active">提交报修</li>
+        </ul><!-- .breadcrumb -->
+    </div>
+    <style>
+        .form-group {
+            width:1000px;
+            height:40px;
+        }
+
+    </style>
+    <div class="page-content">
+        <div class="row">
+
+            <form class="form-horizontal" role="form">
+
+                <div class="space-4"></div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 报修地点 </label>
+
+                    <div class="col-sm-9" style="z-index:2;width:600px;">
+                        <select id="PlotName">
+                            <option value="0">==小区名称==</option>
+                            <option value="A区">A区</option>
+                            <option value="B区">B区</option>
+                            <option value="C区">C区</option>
+                            <option value="D区">D区</option>
+                        </select>
+                        <select id="BulidName">
+                            <option value="0">==单元号==</option>
+                            <option value="1单元">1单元</option>
+                            <option value="2单元">2单元</option>
+                            <option value="3单元">3单元</option>
+                            <option value="4单元">4单元</option>
+                        </select>
+                        <select id="HouseNumber">
+                            <option value="0">==房屋号==</option>
+                            <option value="101">101 </option>
+                            <option value="102">102</option>
+                            <option value="201">201</option>
+                            <option value="202">202</option>
+                            <option value="301">301</option>
+                            <option value="302">302</option>
+                            <option value="401">401</option>
+                            <option value="402">402</option>
+                            <option value="501">501</option>
+                            <option value="502">502</option>
+                            <option value="601">601</option>
+                            <option value="602">602</option>
+                            <option value="701">701</option>
+                            <option value="702">702</option>
+                            <option value="801">801</option>
+                            <option value="802">802</option>
+                            <option value="901">901</option>
+                            <option value="902">902</option>
+                        </select>
+                        <select id="HouseType">
+                            <option value="0">==房型==</option>
+                            <option value="三室一厅一厨一卫">三室一厅一厨一卫</option>
+                            <option value="三室两厅一厨两卫">三室两厅一厨两卫</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="space-4"></div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 报修日期 </label>
+
+                    <div class="col-sm-9">
+                        <input type="text" id="RSTime" onclick="WdatePicker()" class="col-xs-10 col-sm-5" />
+                    </div>
+                </div>
+
+                <div class="space-4"></div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 维修内容 </label>
+
+                    <div class="col-sm-9" style="z-index:2;">
+                        <input type="text" id="ReRemark" placeholder="请填写需要维修的地方（如：厕所的马桶堵了）" class="col-xs-10 col-sm-5" />
+                    </div>
+                </div>
+
+                <div class="space-4"></div>
+
+                <div class="form-group" style="z-index:1;">
+                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 维修人员 </label>
+
+                    <div class="col-sm-9">
+                        <select id="MaintainName">
+                            <option value="0">==请选择技工==</option>
+                            @*@foreach (var item in ViewBag.GetEBRP)
+                    {
+                        <option value="@item.EmployeeId">@item.EName</option>
+                    }*@
+                        </select>
+                    </div>
+                </div>
+
+                <div class="space-4"></div>
+
+                <div class="form-group" style="z-index:1;">
+                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 维修日期 </label>
+
+                    <div class="col-sm-9" style="z-index:2;">
+                        <input type="text" id="MaintainTime" onclick="WdatePicker()" class="col-xs-10 col-sm-5" />
+                    </div>
+                </div>
+
+                <div class="space-4"></div>
+
+                <div class="form-group" style="z-index:1;">
+                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 所需材料 </label>
+
+                    <div class="col-sm-9" style="z-index:2;">
+                        <input type="text" id="GoodsPrice" placeholder="请填写所需材料的费用（如：30）/元" class="col-xs-10 col-sm-5" />
+                    </div>
+                </div>
+
+                <div class="space-4"></div>
+
+                <div class="form-group" style="z-index:1;">
+                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 服务费用 </label>
+
+                    <div class="col-sm-9" style="z-index:2;">
+                        <input type="text" id="ServePrice" placeholder="请填写此次服务所需的费用（如：10）/元" class="col-xs-10 col-sm-5" />
+                    </div>
+                </div>
+
+                <div class="hr hr-24"></div>
+
+                <div class="clearfix form-actions">
+                    <div class="col-md-offset-3 col-md-9">
+                        <button class="btn btn-info" type="button" onclick="addREP()">
+                            <i class="icon-ok bigger-110"></i>
+                            提交报修
+                        </button>
+                        &nbsp; &nbsp; &nbsp;
+                        <button class="btn" type="reset" onclick="quxiaoREP()">
+                            <i class="icon-undo bigger-110"></i>
+                            取消操作
+                        </button>
+                    </div>
+                </div>
+
+            </form>
+
+        </div><!-- /row -->
+
+        <div class="box" id="box" style="width:250px;height:80px;z-index:1024;font-size:24px;font-family:微软雅黑;line-height:80px;padding-left:75px;background-color:#bcf5c2;float:left;margin-left:40%;color:#159753;display:none">添加成功！</div>
+
+    </div><!-- /.page-content -->
+</div>
+<script>
+    var getHouseId = "";
+    var getHostName = "";
+    
+    $("#HouseType").change(function () {
+        $.ajax({
+            url: "/HPMS/GetHouseInfoByHouse/",
+            success: function (data) {
+                if (data != "") {
+                    var ar = new Array(2);
+                    ar = data.split("-");
+                    getHouseId = ar[0];
+                    getHostName = ar[1];
+                }
+            }
+        })
+    })
+
+</script>
