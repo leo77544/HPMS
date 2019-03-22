@@ -104,9 +104,6 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="Webdiyer.MvcPager">
-      <HintPath>E:\01\00辅助开发\00走你\Webdiyer.MvcPager.dll</HintPath>
-    </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
       <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
@@ -145,7 +142,10 @@
     <Content Include="assets\avatars\avatar4.png" />
     <Content Include="assets\avatars\avatar5.png" />
     <Content Include="assets\avatars\profile-pic.jpg" />
+    <Content Include="assets\avatars\TP2.jpg" />
     <Content Include="assets\avatars\user.jpg" />
+    <Content Include="assets\avatars\XX.jpg" />
+    <Content Include="assets\avatars\ZS.png" />
     <Content Include="assets\css\ace-ie.min.css" />
     <Content Include="assets\css\ace-rtl.min.css" />
     <Content Include="assets\css\ace-skins.min.css" />
@@ -251,6 +251,10 @@
     <Content Include="LoginCss\imgs\qr.png" />
     <Content Include="LoginCss\imgs\timg.jpg" />
     <Content Include="LoginCss\js\login.js" />
+    <Content Include="MoTai\css\bootstrap.css" />
+    <Content Include="MoTai\css\component.css" />
+    <Content Include="MoTai\js\classie.js" />
+    <Content Include="MoTai\js\modalEffects.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="assets\avatars\Thumbs.db" />
@@ -340,7 +344,7 @@
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>0</DevelopmentServerPort>
-          <DevelopmentServerVPath/>
+          <DevelopmentServerVPath>
           <IISUrl>http://localhost:60076/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
