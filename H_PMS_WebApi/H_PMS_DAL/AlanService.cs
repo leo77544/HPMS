@@ -84,6 +84,25 @@ namespace H_PMS_DAL
         }
 
         #endregion
+
+        public List<ParkBase> GetParkBaseByAll(string type, string area, string state)
+        {
+            string SqlStr = "select * from ParkBase where 1=1";
+            if (type != "请选择类型")
+            {
+                SqlStr += "and PBType = '" + type + "'";
+            }
+            if (area != "请选择区域")
+            {
+                SqlStr += "and PBPlace like '%" + area + "%'";
+            }
+            if (state != "请选择状态")
+            {
+                SqlStr += "and Remark = '" + state + "'";
+            }
+            
+            return JsonConvert.DeserializeObject<List<ParkBase>>(JsonConvert.SerializeObject(DBHelper.GetDataTable(SqlStr)));
+        }
     }
 }
 

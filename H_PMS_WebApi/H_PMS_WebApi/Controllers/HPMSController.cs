@@ -81,6 +81,11 @@ namespace H_PMS_WebApi.Controllers
         {
             return Alan.UptPark(p);
         }
+        [HttpGet]
+        public List<ParkBase> GetParkBaseByAll(string type, string area, string state)
+        {
+            return Alan.GetParkBaseByAll(type, area, state);
+        }
 
         #endregion
 

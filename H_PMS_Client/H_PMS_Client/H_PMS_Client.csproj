@@ -142,7 +142,10 @@
     <Content Include="assets\avatars\avatar4.png" />
     <Content Include="assets\avatars\avatar5.png" />
     <Content Include="assets\avatars\profile-pic.jpg" />
+    <Content Include="assets\avatars\TP2.jpg" />
     <Content Include="assets\avatars\user.jpg" />
+    <Content Include="assets\avatars\XX.jpg" />
+    <Content Include="assets\avatars\ZS.png" />
     <Content Include="assets\css\ace-ie.min.css" />
     <Content Include="assets\css\ace-rtl.min.css" />
     <Content Include="assets\css\ace-skins.min.css" />
@@ -230,16 +233,6 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\Nicepage-master\css\layui.css" />
-    <Content Include="Content\Nicepage-master\css\layui.mobile.css" />
-    <Content Include="Content\Nicepage-master\css\modules\code.css" />
-    <Content Include="Content\Nicepage-master\index.html" />
-    <Content Include="Content\Nicepage-master\js\jquery.min.js" />
-    <Content Include="Content\Nicepage-master\js\layui.js" />
-    <Content Include="Content\Nicepage-master\js\lay\modules\code.js" />
-    <Content Include="Content\Nicepage-master\js\lay\modules\laypage.js" />
-    <Content Include="Content\Nicepage-master\js\nicePage.js" />
-    <Content Include="Content\Nicepage-master\www.jq22.com.txt" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -258,6 +251,10 @@
     <Content Include="LoginCss\imgs\qr.png" />
     <Content Include="LoginCss\imgs\timg.jpg" />
     <Content Include="LoginCss\js\login.js" />
+    <Content Include="MoTai\css\bootstrap.css" />
+    <Content Include="MoTai\css\component.css" />
+    <Content Include="MoTai\js\classie.js" />
+    <Content Include="MoTai\js\modalEffects.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="assets\avatars\Thumbs.db" />
@@ -265,8 +262,6 @@
     <Content Include="assets\font\fontawesome-webfont.woff" />
     <Content Include="LoginCss\imgs\.DS_Store" />
     <Content Include="LoginCss\imgs\icons\.DS_Store" />
-    <Content Include="Content\Nicepage-master\jquery插件库.url" />
-    <Content Include="Content\Nicepage-master\README.md" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -287,25 +282,23 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Views\Web.config">
-      <SubType>Designer</SubType>
-    </Content>
+    <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\HPMS\Index.cshtml" />
+    <Content Include="Views\HPMS\_Charge.cshtml" />
+    <Content Include="Views\HPMS\_Charge.cshtml" />
     <Content Include="Views\HPMS\_ChargeRecord.cshtml" />
     <Content Include="Views\HPMS\K_GetEmp.cshtml" />
     <Content Include="Views\HPMS\K_AddEmp.cshtml" />
     <Content Include="Views\HPMS\PBAddIndex.cshtml" />
     <Content Include="Views\HPMS\PBShow.cshtml" />
     <Content Include="Views\HPMS\Login.cshtml" />
+    <Content Include="Views\HPMS\_Charge.cshtml" />
     <Content Include="Views\HPMS\HousePView.cshtml" />
     <Content Include="Views\HPMS\K_PutEmpById.cshtml" />
-    <Content Include="Views\HPMS\_BillManage.cshtml" />
-    <Content Include="Views\HPMS\_InComeManage.cshtml" />
     <Content Include="Views\HPMS\ParkShow.cshtml" />
-    <Content Include="Views\HPMS\_JiaoFei.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -351,8 +344,7 @@
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>0</DevelopmentServerPort>
-          <DevelopmentServerVPath>
-          </DevelopmentServerVPath>
+          <DevelopmentServerVPath></DevelopmentServerVPath>
           <IISUrl>http://localhost:60076/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
