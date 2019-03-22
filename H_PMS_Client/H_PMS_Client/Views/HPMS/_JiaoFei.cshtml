@@ -88,7 +88,6 @@
                             </div>
                         </div>
                         <div id="conent">
-                            231
                         </div>
                         @*<div class="hr hr-24" id="conent">
                             231
@@ -121,15 +120,12 @@
 </div><!-- /.row -->
 <script>
     $("#pay").change(function () {
-        alert();
-
         var str = $("#pay").val();
         if (str === "支付宝") {
-            alert(str);
-            $("#conent").append('<a href="http://www.payasp.com/alipay/">支付宝付款</a>');
+            window.open("http://www.payasp.com/alipay/");
         }
         if (str === "微信") {
-
+            window.open("http://www.PayAsp.com/Pay");
         }
     })
 

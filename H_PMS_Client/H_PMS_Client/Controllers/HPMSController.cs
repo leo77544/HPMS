@@ -153,7 +153,7 @@ namespace H_PMS_Client.Controllers
             int result = Convert.ToInt32(ApiResult.GetAPIResult("AddDataMoney", "post", m));
             if (result>1)
             {
-                Response.Write("<script>alert('缴费成功')</script>");
+                Response.Write("<script>alert('缴费成功');</script>");
             }
             else
             {

@@ -1,5 +1,4 @@
-﻿@*@model List<H_PMS_Model.RecordInfo>
-@*<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>*@
+﻿@model List<H_PMS_Model.RecordInfo>
 <div class="page-header">
     <h1>
         幸福里控制台
@@ -27,21 +26,21 @@
             </strong>
             ,这里为您提供更更方便的物业管理。
         </div>
+        <div class="alert alert-block alert-info">
 
-        <div id="divGoods">
             <table class="table table-hover table-bordered table-hover tab-content table-condensed tab-pane">
                 <thead>
                     <tr>
-                        <th>费用名称</th>
-                        <th>费用金额</th>
-                        <th>统计日期</th>
-                        <th>收支状态</th>
+                        <th>年</th>
+                        <th>月</th>
+                        <th>日</th>
+                        <th>收入总额</th>
                         <th>操作</th>
                     </tr>
                 </thead>
 
                 <tbody>
-                    @*@foreach (var item in Model)
+                    @foreach (var item in Model)
                     {
                         <tr>
                             <td>@item.CostName</td>
@@ -50,14 +49,13 @@
                             <td>@item.SZState</td>
                             <td></td>
                         </tr>
-                    }*@
+                    }
                 </tbody>
             </table>
-          
-
 
         </div>
+
         <!-- PAGE CONTENT ENDS -->
     </div><!-- /.col -->
 
-</div><!-- /.row -->*@
+</div><!-- /.row -->
