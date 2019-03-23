@@ -34,20 +34,20 @@ namespace H_PMS_Model
           get { return hostId;}
           set { hostId=value;}
         }
-        private DateTime inRentSTime;
+        private string inRentSTime;
         /// <summary>
         /// 入租时间
         /// </summary>
-        public DateTime InRentSTime
+        public string InRentSTime
         {
           get { return inRentSTime;}
           set { inRentSTime=value;}
         }
-        private DateTime outRentSTime;
+        private string outRentSTime;
         /// <summary>
         /// 结束时间
         /// </summary>
-        public DateTime OutRentSTime
+        public string OutRentSTime
         {
           get { return outRentSTime;}
           set { outRentSTime=value;}
@@ -79,5 +79,64 @@ namespace H_PMS_Model
           get { return remark;}
           set { remark=value;}
         }
+
+        #region 两表
+
+
+        private string pBNumber;
+        /// <summary>
+        /// 车位编号
+        /// </summary>
+        public string PBNumber
+        {
+            get { return pBNumber; }
+            set { pBNumber = value; }
+        }
+        private string pBArea;
+        /// <summary>
+        /// 车位面积
+        /// </summary>
+        public string PBArea
+        {
+            get { return pBArea; }
+            set { pBArea = value; }
+        }
+        private string pBType;
+        /// <summary>
+        /// 车位类型
+        /// </summary>
+        public string PBType
+        {
+            get { return pBType; }
+            set { pBType = value; }
+        }
+        private string pBPrice;
+        /// <summary>
+        /// 车位价钱
+        /// </summary>
+        public string PBPrice
+        {
+            get { return pBPrice; }
+            set { pBPrice = value; }
+        }
+        private string pBPlace;
+        /// <summary>
+        /// 车位位置
+        /// </summary>
+        public string PBPlace
+        {
+            get { return pBPlace; }
+            set { pBPlace = value; }
+        }
+        private string remark2;
+        /// <summary>
+        /// 备注
+        /// </summary>
+        public string Remark2
+        {
+            get { return remark2; }
+            set { remark2 = value; }
+        }
+        #endregion
     }
 }

@@ -28,7 +28,7 @@ namespace H_PMS_BLL
             return dal.AddParkBase(p);
         }
 
-        public List<ParkBase> GetParkBases()
+        public List<Park> GetParkBases()
         {
             // 类型 面积  价钱
             return dal.GetParkBases();
@@ -69,10 +69,6 @@ namespace H_PMS_BLL
 
         #endregion
 
-        public List<ParkBase> GetParkBaseByAll(string type, string area, string state)
-        {
-            return dal.GetParkBaseByAll(type, area, state);
-        }
 
     }
 }

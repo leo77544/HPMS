@@ -41,7 +41,7 @@ namespace H_PMS_WebApi.Controllers
             return Alan.AddParkBase(p);
         }
         [HttpGet]
-        public List<ParkBase> GetParkBases()
+        public List<Park> GetParkBases()
         {
             // 类型 面积  价钱
             return Alan.GetParkBases();
@@ -79,11 +79,6 @@ namespace H_PMS_WebApi.Controllers
         public int UptPark(Park p)
         {
             return Alan.UptPark(p);
-        }
-        [HttpGet]
-        public List<ParkBase> GetParkBaseByAll(string type, string area, string state)
-        {
-            return Alan.GetParkBaseByAll(type, area, state);
         }
 
         #endregion

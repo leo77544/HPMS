@@ -175,26 +175,69 @@ namespace H_PMS_Client.Controllers
 
         #endregion
 
-        List<ParkBase> ParkBaselist = new List<ParkBase>();
-        public ActionResult PBShow(string type = "请选择类型", string area = "请选择区域", string state = "请选择状态")
+        List<Park> Parklist = new List<Park>();
+        public ActionResult PBShow()
         {
-            ParkBaselist = JsonConvert.DeserializeObject<List<ParkBase>>(ApiResult.GetAPIResult("GetParkBaseByAll?type=" + type + "&area=" + area + "&state=" + state, "get"));
-            ViewBag.list = ParkBaselist;
+            Parklist = JsonConvert.DeserializeObject<List<Park>>(ApiResult.GetAPIResult("GetParkBases", "get"));
+            ViewBag.list = Parklist;
             return PartialView();
         }
         public string GetParkBase(string type, string area, string state)
         {
-            List<ParkBase> list = new List<ParkBase>();
-            if (type == "请选择类型" && area == "请选择区域" && state == "请选择状态")
+            List<Park> list = new List<Park>();
+
+            if (type != "请选择类型")
             {
-                 list = ParkBaselist;
+                if (area != "请选择区域")
+                {
+                    if (state != "请选择状态")
+                    {
+                        list = Parklist.Where(m => m.PBType == type && m.PBPlace.Contains(area) && m.Remark == state).ToList();
+                    }
+                    else
+                    {
+                        list = Parklist.Where(m => m.PBType == type && m.PBPlace.Contains(area)).ToList();
+                    }
+                }
+                else
+                {
+                    if (state != "请选择状态")
+                    {
+                        list = Parklist.Where(m => m.PBType == type && m.Remark == state).ToList();
+                    }
+                    else
+                    {
+                        list = Parklist.Where(m => m.PBType == type).ToList();
+                    }
+                }
             }
             else
             {
-                list = ParkBaselist.Where(m => m.PBType == type && m.PBPlace.Contains(area) && m.Remark == state).ToList();
+                if (area != "请选择区域")
+                {
+                    if (state != "请选择状态")
+                    {
+                        list = Parklist.Where(m => m.PBPlace.Contains(area) && m.Remark == state).ToList();
+                    }
+                    else
+                    {
+                        list = Parklist.Where(m => m.PBPlace.Contains(area)).ToList();
+                    }
+                }
+                else
+                {
+                    if (state != "请选择状态")
+                    {
+                        list = Parklist.Where(m => m.Remark == state).ToList();
+                    }
+                    else
+                    {
+                        list = Parklist;
+                    }
+                }
             }
-            return JsonConvert.SerializeObject(list);
 
+            return JsonConvert.SerializeObject(list);
         }
         #region 删除
 

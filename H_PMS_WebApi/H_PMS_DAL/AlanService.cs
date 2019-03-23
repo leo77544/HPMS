@@ -35,12 +35,13 @@ namespace H_PMS_DAL
             return DBHelper.ExecuteNonQuery(sql);
         }
 
-        public List<ParkBase> GetParkBases()
+        public List<Park> GetParkBases()
         {
             // 类型 面积  价钱
-            string sql = "select * from ParkBase";
+            string sql = "select HostId,InRentSTime,OutRentSTime,CarType,CarNumber,PBNumber,PBArea,PBType,PBPrice,PBPlace,b.Remark as Remark2 from Park a full join ParkBase b on  a.PBId=b.PBId ";
             DataTable dt = DBHelper.GetDataTable(sql);
-            return JsonConvert.DeserializeObject<List<ParkBase>>(JsonConvert.SerializeObject(dt));
+            List<Park> list = JsonConvert.DeserializeObject<List<Park>>(JsonConvert.SerializeObject(dt));
+            return list;
         }
 
         public int DelParkBase(int id)
@@ -84,25 +85,6 @@ namespace H_PMS_DAL
         }
 
         #endregion
-
-        public List<ParkBase> GetParkBaseByAll(string type, string area, string state)
-        {
-            string SqlStr = "select * from ParkBase where 1=1";
-            if (type != "请选择类型")
-            {
-                SqlStr += "and PBType = '" + type + "'";
-            }
-            if (area != "请选择区域")
-            {
-                SqlStr += "and PBPlace like '%" + area + "%'";
-            }
-            if (state != "请选择状态")
-            {
-                SqlStr += "and Remark = '" + state + "'";
-            }
-            
-            return JsonConvert.DeserializeObject<List<ParkBase>>(JsonConvert.SerializeObject(DBHelper.GetDataTable(SqlStr)));
-        }
     }
 }
 

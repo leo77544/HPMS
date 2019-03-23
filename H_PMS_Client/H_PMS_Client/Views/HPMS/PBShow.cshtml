@@ -46,58 +46,45 @@
 
         </div>
 
+
         <div id="ShowPB">
-
-        </div>
-        @{
-            foreach (var item in ViewBag.list)
-            {
-                if (item.Remark == "空闲")
+            @{
+                foreach (var item in ViewBag.list)
                 {
-                    <div id="@item.PBId" style="width:200px;height:250px;margin-left:30px;margin-right:30px;margin-bottom:30px;background-color:#808080;display:inline-block;background-image:url(../../assets/avatars/TP2.jpg);background-repeat: no-repeat;background-size: 100% 100%;text-align:center;line-height:21px;">
-                        <input id="Button1" type="button" value="×" style="border:none;margin-left:174px;font-size:20px" />
-                        <p style="font-weight:bold;color:#438eb9;">面积：<span style="color:white;">@item.PBArea 平米</span> </p>
-                        <p style="font-weight:bold;color:#438eb9;">价格：<span style="color:red;font-size:24px;font-family:华文隶书">@item.PBPrice 元</span></p>
-                        <p style="font-weight:bold;color:#438eb9">车位类型：<span style="color:white;">@item.PBType</span></p>
-                        <p style="font-weight:bold;color:#438eb9">车位位置：<span style="color:white;">@item.PBPlace</span></p>
-                        <p style="font-weight:bold;color:#438eb9">车位状态：<span style="color:red;font-size:24px;font-family:华文新魏">@item.Remark</span></p>
+                    <div style="width:220px;height:280px;float:left;margin-right:30px;margin-left:20px;margin-bottom:20px;background-image:@(item.Remark2 =="空闲"? "url(../../assets/avatars/TP2.jpg)" : "url(../../assets/avatars/ZS.jpg)");background-repeat: no-repeat;background-size: 100% 100%;text-align:center;">
+                        @if (item.Remark2 == "空闲")
+                        {
+                            <input id="Button1" type="button" value="×" style="border:none;margin-left:174px;font-size:20px" />
+                            <p style="font-weight:bold;color:#438eb9;">面积：<span style="color:white;">@item.PBArea 平米</span> </p>
+                            <p style="font-weight:bold;color:#438eb9;">价格：<span style="color:red;font-size:24px;font-family:华文隶书">@item.PBPrice 元</span></p>
+                            <p style="font-weight:bold;color:#438eb9">车位类型：<span style="color:white;">@item.PBType</span></p>
+                            <p style="font-weight:bold;color:#438eb9">车位位置：<span style="color:white;">@item.PBPlace</span></p>
+                            <p style="font-weight:bold;color:#438eb9">车位状态：<span style="color:red;font-size:24px;font-family:华文新魏">@item.Remark2</span></p>
 
-                        <p style="font-weight:bold;color:#438eb9;"><span style="color:yellow;font-family:YouYuan;font-size:24px"><a href="javascript:;" class="md-trigger btn btn-primary btn-sm" data-modal="modal-13">@item.PBNumber</a></span></p>
+                            <p style="font-weight:bold;color:#438eb9;"><span style="color:yellow;font-family:YouYuan;font-size:24px;"><a style="color:greenyellow;font-size:24px;font-family:YouYuan" href="javascript:;" class="md-trigger btn-sm" data-modal="modal-13" onclick="MoTai()">@item.PBNumber</a></span></p>
+                        }
+                        else
+                        {
+                            <p style="margin-top:20px;"><a style="color:greenyellow;font-size:24px;font-family:YouYuan" href="javascript:;" class="md-trigger" data-modal="modal-13" onclick="MoTai(@item.PBNumber)">@item.PBNumber</a></p>
+
+                            <p style="margin-top:50px;font-weight:bold;color:#438eb9">车位类型：<span style="color:red;font-size:24px">@item.PBType</span></p>
+                            <p style="margin-top:50px;font-weight:bold;color:#438eb9"><span style="color:red;font-size:24px;font-family:华文新魏">车位 @item.Remark2</span></p>
+
+                        }
                     </div>
-                }
-                else
-                {
-                    <div id="@item.PBId" style="width:200px;height:200px;margin-right:20px;background-color:#f7f0f0;display:inline-block">
-                        <p>车位编号：<span>@item.PBNumber</span></p>
-                        <p>面积：<span>item.PBArea</span> 价格：<span>@item.PBPrice</span></p>
-                        <p>车位类型：<span>@item.PBType</span></p>
-                        <p>车位位置：<span>@item.PBPlace</span></p>
-                        <p>车位状态：<span>@item.Remark</span></p>
-                        <p>
-                            <input id="Button1" type="button" value="查看" />
-                        </p>
-                    </div>
+
                 }
             }
-        }
+        </div>
     </div><!-- /.page-content -->
+    <a href="#" class='btn' data-toggle="modal" data-target="#myModal">
+        <div id="myModal" class="bg-model" style="position:absolute;top:0%;left:0%;display:none;background:rgba(0,0,0,0.3);width:100%;height:100%;position:fixed;z-index:9999">
+            <div class='content' style="position: absolute;left: 25%;top: 25%;border-radius: 8px;width: 50%;height: 60%;background-color: #fff;">
 
-    <div class="md-modal md-effect-13" id="modal-13">
-        <div class="md-content">
-            <h3>Modal Dialog</h3>
-            <div>
-                <p>This is a modal window. You can do the following things with it:</p>
-                <ul>
-                    <li><strong>Read:</strong> modal windows will probably tell you something important so don't forget to read what they say.</li>
-                    <li><strong>Look:</strong> a modal window enjoys a certain kind of attention; just look at it and appreciate its presence.</li>
-                    <li><strong>Close:</strong> click on the button below to close the modal.</li>
-                </ul>
-                <button class="md-close btn-sm btn-primary">Close me!</button>
             </div>
         </div>
-    </div>
 
-    <div class="md-overlay"></div>
+        <div class="md-overlay"></div>
 
 </div><!-- /.main-content -->
 
@@ -106,11 +93,49 @@
 
 
 
-
 <script>
 
+    function GetHouseInfosByConditions() {
+        $.ajax({
+            url: "/HPMS/GetParkBase?type=" + $("#SelBulidName").val() + "&area=" + $("#SelPlotName").val() + "&state=" + $("#SelHouseState").val(),
+            success: function (data) {
+                $("#ShowPB").empty();
+                $(JSON.parse(data)).each(function () {
+                    var div = "";
+                    if (this.remark2 == "空闲") {
+                        div = '<div id="' + this.PBId + '" style="width:200px;height:250px;margin-left:30px;margin-right:30px;margin-bottom:30px;background-color:#808080;display:inline-block;background-image:url(../../assets/avatars/TP2.jpg);background-repeat: no-repeat;background-size: 100% 100%;text-align:center;line-height:21px;">'
+                            + '<input id="Button1" type="button" value="×" style="border:none;margin-left:174px;font-size:20px" />'
+                            + '<p style="font-weight:bold;color:#438eb9;">面积：<span style="color:white;">' + this.PBArea + ' 平米</span> </p>'
+                            + '<p style="font-weight:bold;color:#438eb9;">价格：<span style="color:red;font-size:24px;font-family:华文隶书">' + this.PBPrice + ' 元</span></p>'
+                            + '<p style="font-weight:bold;color:#438eb9">车位类型：<span style="color:white;">' + this.PBType + '</span></p>'
+                            + '<p style="font-weight:bold;color:#438eb9">车位位置：<span style="color:white;">' + this.PBPlace + '</span></p>'
+                            + '<p style="font-weight:bold;color:#438eb9">车位状态：<span style="color:red;font-size:24px;font-family:华文新魏">' + this.Remark + '</span></p>'
+                            + '<p style="font-weight:bold;color:#438eb9;"><span style="color:yellow;font-family:YouYuan;font-size:24px"><a href="javascript:;" class="md-trigger btn btn-primary btn-sm" data-modal="modal-13">' + this.PBNumber + '</a></span></p>'
+                            + '</div>';
+                    }
+                    else {
+                        div = '<div id="' + this.PBId + '" style="width:200px;height:250px;margin-left:30px;margin-right:30px;margin-bottom:30px;background-color:#808080;display:inline-block;background-image:url(../../assets/avatars/ZS.jpg);background-repeat: no-repeat;background-size: 100% 100%;text-align:center;line-height:21px;">
+                            < input id = "Button1" type = "button" value = "×" style = "border:none;margin-left:174px;font-size:20px" />
+                                <p style="font-weight:bold;color:#438eb9;"><span style="color:yellow;font-family:YouYuan;font-size:24px"><a href="javascript:;" class="md-trigger btn btn-primary btn-sm" data-modal="modal-13">' + this.PBNumber + '</a></span></p>
+                                <p style="font-weight:bold;color:#438eb9">车位类型：<span style="color:white;">' + this.PBType + '</span></p>
+                                <p style="font-weight:bold;color:#438eb9">车位位置：<span style="color:white;">' + this.PBPlace + '</span></p>
+                                <p style="font-weight:bold;color:#438eb9">车位状态：<span style="color:red;font-size:24px;font-family:华文新魏">' + this.Remark + '</span></p>
+                            </div > ';
+                    }
+                    $("#ShowPB").append(div);
+                })
+            }
+        })
+    }
+
+    $("select").change(function () { GetHouseInfosByConditions(); })
+</script>
 
 
+<script>
+    function MoTai() {
+        alert("ui");
+    }
 
     function Del(id) {
         if (confirm("确认删除吗？")) {
@@ -127,4 +152,24 @@
             });
         }
     }
+</script>
+
+<script>
+    //显示模态框点击事件
+    $(".cart-add").click(function () {
+        $(".bg-model").fadeTo(300, 1)
+        //隐藏窗体的滚动条
+        $("body").css({ "overflow": "hidden" });
+    });
+
+    //模态框OK按钮点击事件
+    $(".bg-model-ok").click(function () {
+        $(".bg-model").hide();
+        //显示窗体的滚动条
+        $("body").css({ "overflow": "visible" });
+    }).hover(function () {
+        $(this).css({ "backgroundColor": "#8CC8C8" });
+    }, function () {
+        $(this).css({ "backgroundColor": "#8CD4E6" });
+    });
 </script>
