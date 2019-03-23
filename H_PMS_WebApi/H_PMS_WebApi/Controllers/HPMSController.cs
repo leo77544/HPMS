@@ -188,6 +188,26 @@ namespace H_PMS_WebApi.Controllers
             return Kevin.AddRepair(repair);
         }
         /// <summary>
+        /// 报修明细
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public List<Repair> GetRepairs(int lx)
+        {
+            return Kevin.GetRepairs(lx);
+        }
+        /// <summary>
+        /// 获取户主信息
+        /// </summary>
+        /// <param name="PlotName"></param>
+        /// <param name="BulidName"></param>
+        /// <param name="HouseNumber"></param>
+        /// <returns></returns>
+        public string GetHouseInfoByHouse(string PlotName, string BulidName, string HouseNumber)
+        {
+            return Kevin.GetHouseInfoByHouse(PlotName, BulidName, HouseNumber);
+        }
+        /// <summary>
         /// 更改报修单据
         /// </summary>
         /// <param name="repair"></param>

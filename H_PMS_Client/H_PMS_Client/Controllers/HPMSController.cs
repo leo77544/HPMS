@@ -64,10 +64,11 @@ namespace H_PMS_Client.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public void K_PutEmpById(int id)
+        public ActionResult K_PutEmpById(string id)
         {
             Employee employee = JsonConvert.DeserializeObject<Employee>(ApiResult.GetAPIResult("GetEmployeeByEId/?EId=" + id, "get"));
             ViewBag.PutEmpById = employee;
+            return PartialView();
         }
         /// <summary>
         /// 修改员工
@@ -94,7 +95,7 @@ namespace H_PMS_Client.Controllers
         /// <returns></returns>
         public int K_DelEmp(int id)
         {
-            string json = ApiResult.GetAPIResult("DelEmpByEId/EmployeeId=" + id, "delete");
+            string json = ApiResult.GetAPIResult("DelEmpByEId/?EmployeeId=" + id, "delete");
             if (json != "")
             {
                 return 1;
@@ -106,6 +107,67 @@ namespace H_PMS_Client.Controllers
         }
 
 
+        #endregion
+
+        #region 报修
+        /// <summary>
+        /// 添加报修名单
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult K_AddRepair()
+        {
+            // GetEmpByRep();
+            return PartialView();
+        }
+        /// <summary>
+        /// 获取技工的信息
+        /// </summary>
+        public string GetEmpByRep()
+        {
+            List<GetEmp> list = JsonConvert.DeserializeObject<List<GetEmp>>(ApiResult.GetAPIResult("GetEmployees/?DId=5", "get"));
+            return JsonConvert.SerializeObject(list);
+        }
+        /// <summary>
+        /// 添加报修信息
+        /// </summary>
+        /// <param name="rep"></param>
+        /// <returns></returns>
+        public string AddRepByEName(string rep)
+        {
+            Repair repair = JsonConvert.DeserializeObject<Repair>(rep);
+            return ApiResult.GetAPIResult("AddRepair", "post", repair);
+        }
+        /// <summary>
+        /// 获取所有报修明细
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult K_GetRepair()
+        {
+            return PartialView();
+        }
+        List<Repair> repList = new List<Repair>();
+        /// <summary>
+        ///  根据下拉列表查询
+        /// </summary>
+        /// <param name="lx"></param>
+        public string GetRepByLX(int lx)
+        {
+            repList = JsonConvert.DeserializeObject<List<Repair>>(ApiResult.GetAPIResult("GetRepairs/?lx=" + lx, "get"));
+            return JsonConvert.SerializeObject(repList);
+        }
+        /// <summary>
+        /// 获取房屋ID及户主
+        /// </summary>
+        /// <param name="PlotName"></param>
+        /// <param name="BulidName"></param>
+        /// <param name="HouseNumber"></param>
+        /// <param name="HouseType"></param>
+        /// <returns></returns>
+        public string GetHouseInfoByHouse(string PlotName, string BulidName, string HouseNumber)
+        {
+            string json = ApiResult.GetAPIResult("GetHouseInfoByHouse/?PlotName=" + PlotName + "&BulidName=" + BulidName + "&HouseNumber=" + HouseNumber, "get");
+            return json;
+        }
         #endregion
 
         #endregion

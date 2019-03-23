@@ -1,5 +1,4 @@
 ﻿
-
 <div class="main-content" style="margin-left:0px;" id="kevin_addemp">
     <div class="breadcrumbs" id="breadcrumbs">
         <script type="text/javascript">
@@ -19,7 +18,6 @@
 
     <div class="page-content">
         <div class="row">
-
 
             <div class="col-xs-12" style="float:left">
 
@@ -51,9 +49,8 @@
                         <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 员工年龄 </label>
 
                         <div class="col-sm-9">
-                            <input type="text" id="eage" placeholder="请填写员工年龄（如：30）！" class="col-xs-10 col-sm-5" />
+                            <input type="text" id="eage" placeholder="请填写员工年龄（如：30）/岁！" class="col-xs-10 col-sm-5" />
                         </div>
-
                     </div>
 
                     <div class="form-group">
@@ -61,10 +58,10 @@
 
                         <div class="col-sm-9">
                             <select id="zhiwu">
-                                <option value="TC">住宅</option>
-                                <option value="GJ">商铺</option>
-                                <option value="XL">写字楼</option>
-                                <option value="HT">别墅</option>
+                                <option value="1">会计</option>
+                                <option value="2">保安</option>
+                                <option value="3">清洁员</option>
+                                <option value="4">接待员</option>
                             </select>
                         </div>
                     </div>
@@ -73,12 +70,10 @@
                         <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 员工月薪 </label>
 
                         <div class="col-sm-9" style="z-index:2;">
-                            <input type="text" id="esalary" placeholder="请填写员工月薪（如：3000）" class="col-xs-10 col-sm-5" />
+                            <input type="text" id="esalary" placeholder="请填写员工月薪（如：3000）/元" class="col-xs-10 col-sm-5" />
                         </div>
                     </div>
                     <div class="hr hr-24"></div>
-
-
 
                     <div class="clearfix form-actions">
                         <div class="col-md-offset-3 col-md-9">
@@ -95,12 +90,11 @@
                         </div>
                     </div>
 
-
                 </form>
             </div><!-- /span -->
         </div><!-- /row -->
 
-        <div class="box" id="box" style="width:250px;height:80px;z-index:9999;font-size:24px;font-family:微软雅黑;line-height:80px;padding-left:75px;background-color:#bcf5c2;float:left;margin-left:40%;color:#159753;display:none">添加成功！</div>
+        <div class="box" id="box" style="width:250px;height:80px;z-index:1024;font-size:24px;font-family:微软雅黑;line-height:80px;padding-left:75px;background-color:#bcf5c2;float:left;margin-left:40%;color:#159753;display:none">添加成功！</div>
 
     </div><!-- /.page-content -->
 </div><!-- /.main-content -->
@@ -128,11 +122,28 @@
     function addEmp() {
         var p = new Object();
         p.EName = $("#ename").val();
-        p.ESex = $("#esex").check ? "男" : "女";
+        p.ESex = $("#esex").check ? "女" : "男";
         p.EAge = $("#eage").val();
         p.ESalary = $("#esalary").val();
-        p.EStartTime = Date.now.toString();
-        p.DId = $("zhiwu").val();
+
+        var date = new Date();
+        var seperator1 = "-";
+        var year = date.getFullYear();
+        var month = date.getMonth() + 1;
+        var strDate = date.getDate();
+        if (month >= 1 && month <= 9) {
+            month = "0" + month;
+        }
+        if (strDate >= 0 && strDate <= 9) {
+            strDate = "0" + strDate;
+        }
+        var currentdate = year + seperator1 + month + seperator1 + strDate;
+
+        p.EStartTime = currentdate;
+
+        var option = $("#zhiwu option:selected");
+        p.DId = option.val();
+
         if (p.EName == "") {
             document.getElementById('ename').value = "";
             document.getElementById('ename').placeholder = "信息未录入，请填写员工姓名！";
@@ -146,7 +157,7 @@
             document.getElementById('esalary').placeholder = "信息未录入，请填写员工月薪！";
         }
         $.ajax({
-            url: "/HPMS/K_CreateEmp", 
+            url: "/HPMS/K_CreateEmp/",
             type: "post",
             dataType: "json",
             data: { emp: JSON.stringify(p) },

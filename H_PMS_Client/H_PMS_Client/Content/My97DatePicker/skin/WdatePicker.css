@@ -1,0 +1,66 @@
+.Wdate{
+	height:20px;
+	background:#fff url(datePicker.gif) no-repeat right;
+}
+
+.Wdate_OA
+{
+    height:22px;
+	background:#F8F8F8 url(datePicker.gif) no-repeat right;
+	border-left: 1 solid black;
+    border-right: 1 solid black;
+    border-top: 1 solid black;
+    COLOR: #000066; FONT-SIZE: 12pt; FONT-STYLE: normal; FONT-VARIANT: normal; FONT-WEIGHT: normal; LINE-HEIGHT: normal;
+    border-bottom-style: double;
+    border-bottom-color: inherit;
+    border-bottom-width: 1px;
+    }
+.Wdate_Car
+{
+    height:18px;
+	background:#ffffff url(datePicker.gif) no-repeat right;
+	border:1px solid #8CCCF2;
+    }
+.WdateFmtErr{
+	font-weight:bold;
+	color:red;
+}
+
+.Wdate1{
+	
+	height:20px;
+	width:100px;
+	background:#fff url(datePicker.gif) no-repeat right;
+}
+
+.MemberStyle{
+	height:20px;
+	width:100px;
+	background:#fff url(crm.gif) no-repeat right;
+	cursor:hand;
+	
+}
+.BuMenStyle{
+	
+	height:20px;
+	width:100px;
+	background:#fff url(BuMen.gif) no-repeat right;
+	cursor:hand;
+}
+
+.QianZhiStyle{
+	
+	height:20px;
+	width:100px;
+	background:#fff url(salary.gif) no-repeat right;
+	cursor:hand;
+}
+
+.NoStyle{
+	height:16px;
+	width:100px;
+	cursor:hand;
+	background-color:#EEEEEE;
+	border:1;
+	
+}
