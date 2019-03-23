@@ -1,4 +1,7 @@
 ﻿
+@using Webdiyer.WebControls.Mvc;
+@model PagedList<H_PMS_Model.DataMoney>
+
 @{
     Layout = null;
 }
@@ -145,16 +148,16 @@
                             </li>
 
                             <li>
-                                <a href="JavaScript:HousePView('房产变更')">
+                                <a href="JavaScript:HousePView('状态变更')">
                                     <i class="icon-double-angle-right"></i>
-                                    状态变更
+                                    住户查询
                                 </a>
                             </li>
 
                             <li>
-                                <a href="JavaScript:HousePView()">
+                                <a href="JavaScript:HousePView('住户查询')">
                                     <i class="icon-double-angle-right"></i>
-                                    住户查询
+                                    状态变更
                                 </a>
                             </li>
 
@@ -283,6 +286,39 @@
                                     收支明细
                                 </a>
                             </li>
+
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" class="dropdown-toggle">
+                            <i class="icon-off"></i>
+                            <span class="menu-text"> 报修管理 </span>
+
+                            <b class="arrow icon-angle-down"></b>
+                        </a>
+
+                        <ul class="submenu">
+                            <li>
+                                <a href="/HPMS/K_AddRepair" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#kevin">
+                                    <i class="icon-double-angle-right"></i>
+                                    提交报修
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="/HPMS/K_GetRepair" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#kevin">
+                                    <i class="icon-double-angle-right"></i>
+                                    查看维修明细
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="/HPMS/K_AddRepair" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#kevin">
+                                    <i class="icon-double-angle-right"></i>
+                                    维修提交
+                                </a>
+                            </li>
+
 
                         </ul>
                     </li>
@@ -487,6 +523,9 @@
     <script src="~/assets/js/flot/jquery.flot.pie.min.js"></script>
     <script src="~/assets/js/flot/jquery.flot.resize.min.js"></script>
     <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+
+    <script src="~/Content/My97DatePicker/config.js"></script>
+    <script src="~/Content/My97DatePicker/WdatePicker.js"></script>
 
     <!-- ace scripts -->
 
