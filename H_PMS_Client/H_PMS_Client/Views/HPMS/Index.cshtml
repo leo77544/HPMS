@@ -1,4 +1,6 @@
 ﻿
+@using Webdiyer.WebControls.Mvc;
+@model PagedList<H_PMS_Model.DataMoney>
 
 @{
     Layout = null;
@@ -139,21 +141,21 @@
 
                         <ul class="submenu">
                             <li>
-                                <a href="JavaScript:HousePView('住户登记')">
+                                <a href="JavaScript:HousePView()">
                                     <i class="icon-double-angle-right"></i>
                                     住户登记
                                 </a>
                             </li>
 
                             <li>
-                                <a href="JavaScript:HousePView('住户查询')">
+                                <a href="JavaScript:HousePView('状态变更')">
                                     <i class="icon-double-angle-right"></i>
                                     住户查询
                                 </a>
                             </li>
 
                             <li>
-                                <a href="JavaScript:HousePView('状态变更')">
+                                <a href="JavaScript:HousePView('住户查询')">
                                     <i class="icon-double-angle-right"></i>
                                     状态变更
                                 </a>
@@ -164,7 +166,7 @@
 
                     <li>
                         <a href="#" class="dropdown-toggle">
-                            <i class="glyphicon glyphicon-user"></i>
+                            <i class="icon-user"></i>
                             <span class="menu-text"> 员工管理 </span>
 
                             <b class="arrow icon-angle-down"></b>
@@ -218,17 +220,17 @@
                             </li>
 
                             @*<li>
-                    <a href="change.html">
-                        <i class="icon-double-angle-right"></i>
-                        密码设定
-                    </a>
-                </li>*@
+                                    <a href="change.html">
+                                        <i class="icon-double-angle-right"></i>
+                                        密码设定
+                                    </a>
+                                </li>*@
                         </ul>
                     </li>
 
                     <li>
                         <a href="#" class="dropdown-toggle">
-                            <i class="glyphicon glyphicon-retweet"></i>
+                            <i class="icon-off "></i>
                             <span class="menu-text"> 车位管理 </span>
 
                             <b class="arrow icon-angle-down"></b>
@@ -383,7 +385,6 @@
                         </li>
                         <li class="active">幸福里控制台</li>
                     </ul><!-- .breadcrumb -->
-                    <input id="WindowsCode" type="hidden" value="" />
                 </div>
 
                 <div class="page-content" id="tab">
@@ -419,55 +420,9 @@
 
 
 
-
-
-
-                            <div class="alert alert-block alert-success">
-                                <button type="button" class="close" data-dismiss="alert">
-                                    <i class="icon-remove"></i>
-                                </button>
-
-                                <p>住户变更</p>
-                                <p>****住户入住</p>
-                              
-                            </div>
-                            <div class="alert alert-block alert-success">
-                                <button type="button" class="close" data-dismiss="alert">
-                                    <i class="icon-remove"></i>
-                                </button>
-
-                                <p>***住户投诉</p>
-                                <p>***住户报修</p>
-                               
-                            </div>
-                            <div class="alert alert-block alert-success">
-                                <button type="button" class="close" data-dismiss="alert">
-                                    <i class="icon-remove"></i>
-                                </button>
-
-                                <p>***住户欠费</p>
-                                <p>***车位已到期</p>
-                              
-                            </div>
-                            <div class="alert alert-block alert-success">
-                                <button type="button" class="close" data-dismiss="alert">
-                                    <i class="icon-remove"></i>
-                                </button>
-                                <p>***保安</p>
-                                <p>当前待办事项</p>
-                                
-                            </div>
-                            @*<div style="width:40%;height:25%;float:left;background-color:red"></div>
-                            <div style="width:40%;height:25%;background-color:forestgreen;float:left;margin-left:50px;"></div>
-                            <div style="width:40%;height:25%;background-color:yellow;float:left"></div>
-                            <div style="width:40%;height:300px;background-color:blue;float:left;margin-left:50px;"></div>*@
-
-
-
-
-                            <!-- page content ends -->
+                            <!-- PAGE CONTENT ENDS -->
                         </div><!-- /.col -->
-                   
+
                     </div><!-- /.row -->
                 </div><!-- /.page-content -->
             </div><!-- /.main-content -->
@@ -581,6 +536,11 @@
 
 
     <script type="text/javascript">
+        $(function () {
+           
+        
+
+        })
         jQuery(function ($) {
             $('.easy-pie-chart.percentage').each(function () {
                 var $box = $(this).closest('.infobox');
@@ -777,9 +737,10 @@
     </script>
 
     <script>
+        var WindowsCode = 0;
         function charge() {
             $.ajax({
-                url: "/hpms/Charge/",
+                url: "/hpms/JiaoFei/",
                 success: function (data) {
                     $(".page-content").empty();
                     $(".page-content").append(data);
@@ -788,26 +749,31 @@
         }
         function chargeRecord() {
             $.ajax({
-                url: "/hpms/dataindex",
+                url: "/hpms/ChargeRecord",
                 success: function (data) {
                     $(".page-content").empty();
                     $(".page-content").append(data);
+                   
                 }
             })
         }
-        function HousePView(WinCode) {
+        
+        function HousePView() {
             $.ajax({
                 url: "/HPMS/HousePView",
                 success: function (data) {
                     $(".page-content").empty();
-                    $("#WindowsCode").val(WinCode);
                     $(".page-content").append(data);
                 }
             })
         }
+        
     </script>
 
     
 </body>
 </html>
+<script>
+   
 
+</script>

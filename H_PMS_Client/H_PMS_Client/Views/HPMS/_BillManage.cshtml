@@ -29,18 +29,14 @@
             <table class="table table-hover table-bordered table-hover tab-content table-condensed tab-pane" style="text-align:center">
                 <thead>
                     <tr>
-                        <th style="text-align:center">收费人员</th>
-                        <th style="text-align:center">缴费日期</th>
-                        <th style="text-align:center">缴费单号</th>
-                        <th style="text-align:center">缴费金额</th>
-                        <th style="text-align:center">缴费类别</th>
-                        <th style="text-align:center">缴费方式</th>
-                        <th style="text-align:center">住户名称</th>
-                        <th style="text-align:center">备注</th>
+                        <th style="text-align:center">名称</th>
+                        <th style="text-align:center">金额</th>
+                        <th style="text-align:center">时间</th>
+                        <th style="text-align:center">收支</th>
                     </tr>
                 </thead>
                 <tbody id="content"></tbody>
-               
+
 
             </table>
             <div id="fto" style="text-align:center;width:100%">
@@ -49,6 +45,7 @@
         </div>
         <!-- PAGE CONTENT ENDS -->
     </div><!-- /.col -->
+
 </div><!-- /.row -->
 <style>
     ul.pagination {
@@ -56,7 +53,7 @@
         padding: 0;
         margin: 0;
         float: right;
-        text-align:center;
+        text-align: center;
     }
 
         ul.pagination li {
@@ -68,7 +65,6 @@
                 float: left;
                 padding: 8px 16px;
                 text-decoration: none;
-
             }
 
                 ul.pagination li a.active {
@@ -78,11 +74,11 @@
 
                 ul.pagination li a:hover:not(.active) {
                     background-color: #46ba41;
-                    color:white;
+                    color: white;
                 }
 </style>
 <script>
-   
+
     //当前页码
     var index = 1;
     //每页显示的条数
@@ -90,45 +86,35 @@
     //总页数
     var allPage;
     //总条数
-    
+    //+" " + this.dMSTime.toString().substring(11, 19)
     var allCount;
     datalist(index, size);
     function datalist(page, size) {
         index = page;
         $.ajax({
-            url: "/HPMs/DataIndex/?page=" + page + "&size=" + size,
+            url: "/HPMs/Recordlist/?page=" + page + "&size=" + size,
             type: "get",
             dataType: "json",
             success: function (data) {
                 allPage = data.TotalPage;
                 allCount = data.TotalCount;
                 $("#content").empty();
-                $(data.list).each(function () {
+                $(data.relist).each(function () {
                     var tr = '<tr>'
-                        + '<td>' + this.dMName + '</td>'
-                        + '<td>' + this.dMSTime.toString().substring(0, 10) +" "+ this.dMSTime.toString().substring(11,19)+ '</td>'
-                        + '<td>' + this.dMNumber + '</td>'
-                        + '<td>' + this.dMSum + '</td>'
-                        + '<td>' + this.dMType + '</td>'
-                        + '<td>' + this.dMWay + '</td>'
-                        + '<td>' + this.hostName + '</td>'
-                        + '<td>' + this.remark + '</td>'
+                        + '<td>' + this.costName + '</td>'
+                        + '<td>' + this.costPricce + '</td>'
+                        + '<td>' + this.tjStime.toString().substring(0, 10) + " " + this.tjStime.toString().substring(11, 19)+ '</td>'
+                        + '<td>' + this.sZState + '</td>'
                         + '</tr>'
                     $("#content").append(tr);
                 });
                 var page = "<ul class='pagination'>"
-
                     + "<li><a href = '#' class='active'> 共" + data.TotalCount + "条记录，当前显示第" + index + " 页， 共" + data.TotalPage + "页</a></li>"
                     + "<li><a href='javascript:datalist(1," + size + ")'>首页</a></li>"
                     + "<li><a href='javascript:datalist(" + (index == 1 ? 1 : index - 1) + "," + size + ")'>上一页</a></li>"
-                    + "<li><a href='javascript:datalist(" + (index == allPage ? allPage : index + 1) + "," + size + ")'>下一页</a></li>"
+                    + "<li><a href='javascript:datalist("+(index == allPage ? allPage : index + 1)+","+size+ ")'>下一页</a></li>"
                     + "<li><a href='javascript:datalist(" + data.TotalPage + "," + size + ")'>尾页</a></li>"
                     + "</ul>"
-                //var page = "共" + data.TotalCount + "条记录，当前显示" + index + " / " + data.TotalPage + "页"
-                //    + "<a href='javascript:datalist(1," + size + ")'>首页</a>"
-                //    + "<a href='javascript:datalist(" + (index == 1 ? 1 : index - 1) + "," + size + ")'>上一页</a> "
-                //    + "<a href='javascript:datalist(" + (index == allPage ? allPage : index + 1) + "," + size + ")'>下一页</a> "
-                //    + "<a href='javascript:datalist(" + data.TotalPage + "," + size + ")'>尾页</a>";
                 $("#fto").empty().append(page);
             }
         });

@@ -6,15 +6,19 @@ using System.Web.Mvc;
 using WebApiHelper;
 using H_PMS_Model;
 using Newtonsoft.Json;
-
 namespace H_PMS_Client.Controllers
 {
     public class HPMSController : Controller
     {
         // GET: HPMS
+      //  [HttpPost]
+        
+        // GET: HPMS
         public ActionResult Index()
         {
             //   ApiResult.GetAPIResult();
+            string str = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
+            GetDayRecord(str);
             return View();
         }
 
@@ -171,14 +175,17 @@ namespace H_PMS_Client.Controllers
         #endregion
 
         #endregion
-        
+
+
+
+        #region leo
         /// <summary>
         /// 缴费管理
         /// </summary>
         /// <returns></returns>
-        public ActionResult Charge()
+        public ActionResult JiaoFei()
         {
-            return PartialView("_Charge");
+            return PartialView("_JiaoFei");
         }
         /// <summary>
         /// 缴费记录
@@ -186,11 +193,73 @@ namespace H_PMS_Client.Controllers
         /// <returns></returns>
         public ActionResult ChargeRecord()
         {
+            //DataList();
+           
+            return PartialView("_ChargeRecord");
+            
 
-            //GetDataMoney();
-            List<DataMoney> list = JsonConvert.DeserializeObject<List<DataMoney>>(ApiResult.GetAPIResult("GetDataMoney", "get"));
-            return PartialView("_ChargeRecord", list);
         }
+        /// <summary>
+        /// 添加
+        /// </summary>
+        /// <param name="m"></param>
+        public void AddDataMoney(DataMoney m)
+        {
+            m.DMSTime = DateTime.Now;
+            m.DMNumber = DateTime.Now.ToString("yyyyMMddhhmmss");
+            m.Remark = "无";
+            int result = Convert.ToInt32(ApiResult.GetAPIResult("AddDataMoney", "post", m));
+            if (result>1)
+            {
+                Response.Write("<script>alert('缴费成功');</script>");
+            }
+            else
+            {
+                Response.Write("<script>alert('缴费失败')</script>");
+
+            }
+        }
+        /// <summary>
+        /// 获取数据
+        /// </summary>
+        /// <returns></returns>
+        public string DataIndex(int page, int size)
+        {
+            return ApiResult.GetAPIResult("SelectDataMoney?page=" + page + "&size=" + size, "get");
+        }
+        /// <summary>
+        /// 账单管理
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult BillManage()
+        { 
+            return PartialView("_BillManage");
+        }
+        /// <summary>
+        /// 获取数据
+        /// </summary>
+        /// <returns></returns>
+        public string Recordlist(int page, int size)
+        {
+            return ApiResult.GetAPIResult("SelectRecord?page=" + page + "&size=" + size, "get");
+        }
+        /// <summary>
+        /// 收支管理
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult InComeManage()
+        {
+            return PartialView("_InComeManage");
+        }
+
+        public string GetDayRecord(string str)
+        {
+            string q= ApiResult.GetAPIResult("GetDayCount?str=" + str, "get");
+            return q;
+        }
+
+
+        #endregion
 
         #region Alan
 
@@ -244,15 +313,66 @@ namespace H_PMS_Client.Controllers
         }
         public string GetParkBase(string type, string area, string state)
         {
+            List<Park> list = new List<Park>();
+            if (type != "请选择类型")
+            {
+                if (area != "请选择区域")
+                {
+                    if (state != "请选择状态")
+                    {
+                        list = Parklist.Where(m => m.PBType == type && m.PBPlace.Contains(area) && m.Remark == state).ToList();
+                    }
+                    else
+                    {
+                        list = Parklist.Where(m => m.PBType == type && m.PBPlace.Contains(area)).ToList();
+                    }
+                }
+                else
+                {
+                    if (state != "请选择状态")
+                    {
+                        list = Parklist.Where(m => m.PBType == type && m.Remark == state).ToList();
+                    }
+                    else
+                    {
+                        list = Parklist.Where(m => m.PBType == type).ToList();
+                    }
+                }
+            }
+            else
+            {
+                if (area != "请选择区域")
+                {
+                    if (state != "请选择状态")
+                    {
+                        list = Parklist.Where(m => m.PBPlace.Contains(area) && m.Remark == state).ToList();
+                    }
+                    else
+                    {
+                        list = Parklist.Where(m => m.PBPlace.Contains(area)).ToList();
+                    }
+                }
+                else
+                {
+                    if (state != "请选择状态")
+                    {
+                        list = Parklist.Where(m => m.Remark == state).ToList();
+                    }
+                    else
+                    {
+                        list = Parklist;
+                    }
+                }
+            }
             List<ParkBase> list = new List<ParkBase>();
-            //if (type == "请选择类型" && area == "请选择区域" && state == "请选择状态")
-            //{
-            //     list = ParkBaselist;
-            //}
-            //else
-            //{
-            //    list = ParkBaselist.Where(m => m.PBType == type && m.PBPlace.Contains(area) && m.Remark == state).ToList();
-            //}
+            if (type == "请选择类型" && area == "请选择区域" && state == "请选择状态")
+            {
+                 list = ParkBaselist;
+            }
+            else
+            {
+                list = ParkBaselist.Where(m => m.PBType == type && m.PBPlace.Contains(area) && m.Remark == state).ToList();
+            }
 
             return JsonConvert.SerializeObject(list);
         }

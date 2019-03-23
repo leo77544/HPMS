@@ -2,7 +2,7 @@ using H_PMS_DAL;
 using H_PMS_Model;
 using System;
 using System.Collections.Generic;
-
+using System.Data;
 
 namespace H_PMS_BLL
 {
@@ -34,7 +34,35 @@ namespace H_PMS_BLL
         {
             return LeoService.GetRecordInfo();
         }
+        /// <summary>
+        /// 查询当日
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        static public DataTable GetDayCount(string str)
+        {
+            return LeoService.GetDayCount( str);
+        }
+        /// <summary>
+        /// 查询当月
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        static public DataTable GetMonthCount(string str)
+        {
+            return LeoService.GetMonthCount(str);
 
+        }
+        /// <summary>
+        /// 查询当年
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        static public DataTable GetYearCount(string str)
+        {
+            return LeoService.GetYearCount(str);
+
+        }
     }
 }
 
