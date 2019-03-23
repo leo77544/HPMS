@@ -42,7 +42,7 @@ namespace H_PMS_WebApi.Controllers
             return Alan.AddParkBase(p);
         }
         [HttpGet]
-        public List<ParkBase> GetParkBases()
+        public List<Park> GetParkBases()
         {
             // 类型 面积  价钱
             return Alan.GetParkBases();
@@ -80,11 +80,6 @@ namespace H_PMS_WebApi.Controllers
         public int UptPark(Park p)
         {
             return Alan.UptPark(p);
-        }
-        [HttpGet]
-        public List<ParkBase> GetParkBaseByAll(string type, string area, string state)
-        {
-            return Alan.GetParkBaseByAll(type, area, state);
         }
 
         #endregion
@@ -267,6 +262,26 @@ namespace H_PMS_WebApi.Controllers
             return Kevin.AddRepair(repair);
         }
         /// <summary>
+        /// 报修明细
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public List<Repair> GetRepairs(int lx)
+        {
+            return Kevin.GetRepairs(lx);
+        }
+        /// <summary>
+        /// 获取户主信息
+        /// </summary>
+        /// <param name="PlotName"></param>
+        /// <param name="BulidName"></param>
+        /// <param name="HouseNumber"></param>
+        /// <returns></returns>
+        public string GetHouseInfoByHouse(string PlotName, string BulidName, string HouseNumber)
+        {
+            return Kevin.GetHouseInfoByHouse(PlotName, BulidName, HouseNumber);
+        }
+        /// <summary>
         /// 更改报修单据
         /// </summary>
         /// <param name="repair"></param>
@@ -366,9 +381,9 @@ namespace H_PMS_WebApi.Controllers
         /// <param name="HostName">住户姓名</param>
         /// <returns></returns>
         [HttpGet]
-        public List<HostInfo> GetHostInfosByConditions(int HouseId = 0, string HostName = "")
+        public List<HostInfo> GetHostInfosByConditions(int HouseId = 0, string HostName = "",string HostRole = "")
         {
-            return Michael.GetHostInfosByConditions(HouseId, HostName);
+            return Michael.GetHostInfosByConditions(HouseId, HostName, HostRole);
         }
         #endregion
 

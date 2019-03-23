@@ -68,10 +68,11 @@ namespace H_PMS_Client.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public void K_PutEmpById(int id)
+        public ActionResult K_PutEmpById(string id)
         {
             Employee employee = JsonConvert.DeserializeObject<Employee>(ApiResult.GetAPIResult("GetEmployeeByEId/?EId=" + id, "get"));
             ViewBag.PutEmpById = employee;
+            return PartialView();
         }
         /// <summary>
         /// 修改员工
@@ -98,7 +99,7 @@ namespace H_PMS_Client.Controllers
         /// <returns></returns>
         public int K_DelEmp(int id)
         {
-            string json = ApiResult.GetAPIResult("DelEmpByEId/EmployeeId=" + id, "delete");
+            string json = ApiResult.GetAPIResult("DelEmpByEId/?EmployeeId=" + id, "delete");
             if (json != "")
             {
                 return 1;
@@ -110,6 +111,67 @@ namespace H_PMS_Client.Controllers
         }
 
 
+        #endregion
+
+        #region 报修
+        /// <summary>
+        /// 添加报修名单
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult K_AddRepair()
+        {
+            // GetEmpByRep();
+            return PartialView();
+        }
+        /// <summary>
+        /// 获取技工的信息
+        /// </summary>
+        public string GetEmpByRep()
+        {
+            List<GetEmp> list = JsonConvert.DeserializeObject<List<GetEmp>>(ApiResult.GetAPIResult("GetEmployees/?DId=5", "get"));
+            return JsonConvert.SerializeObject(list);
+        }
+        /// <summary>
+        /// 添加报修信息
+        /// </summary>
+        /// <param name="rep"></param>
+        /// <returns></returns>
+        public string AddRepByEName(string rep)
+        {
+            Repair repair = JsonConvert.DeserializeObject<Repair>(rep);
+            return ApiResult.GetAPIResult("AddRepair", "post", repair);
+        }
+        /// <summary>
+        /// 获取所有报修明细
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult K_GetRepair()
+        {
+            return PartialView();
+        }
+        List<Repair> repList = new List<Repair>();
+        /// <summary>
+        ///  根据下拉列表查询
+        /// </summary>
+        /// <param name="lx"></param>
+        public string GetRepByLX(int lx)
+        {
+            repList = JsonConvert.DeserializeObject<List<Repair>>(ApiResult.GetAPIResult("GetRepairs/?lx=" + lx, "get"));
+            return JsonConvert.SerializeObject(repList);
+        }
+        /// <summary>
+        /// 获取房屋ID及户主
+        /// </summary>
+        /// <param name="PlotName"></param>
+        /// <param name="BulidName"></param>
+        /// <param name="HouseNumber"></param>
+        /// <param name="HouseType"></param>
+        /// <returns></returns>
+        public string GetHouseInfoByHouse(string PlotName, string BulidName, string HouseNumber)
+        {
+            string json = ApiResult.GetAPIResult("GetHouseInfoByHouse/?PlotName=" + PlotName + "&BulidName=" + BulidName + "&HouseNumber=" + HouseNumber, "get");
+            return json;
+        }
         #endregion
 
         #endregion
@@ -242,11 +304,11 @@ namespace H_PMS_Client.Controllers
 
         #endregion
 
-        List<ParkBase> ParkBaselist = new List<ParkBase>();
-        public ActionResult PBShow(string type = "请选择类型", string area = "请选择区域", string state = "请选择状态")
+        List<Park> Parklist = new List<Park>();
+        public ActionResult PBShow()
         {
-            ParkBaselist = JsonConvert.DeserializeObject<List<ParkBase>>(ApiResult.GetAPIResult("GetParkBaseByAll?type=" + type + "&area=" + area + "&state=" + state, "get"));
-            ViewBag.list = ParkBaselist;
+            Parklist = JsonConvert.DeserializeObject<List<Park>>(ApiResult.GetAPIResult("GetParkBases", "get"));
+            ViewBag.list = Parklist;
             return PartialView();
         }
         public string GetParkBase(string type, string area, string state)
@@ -260,8 +322,8 @@ namespace H_PMS_Client.Controllers
             {
                 list = ParkBaselist.Where(m => m.PBType == type && m.PBPlace.Contains(area) && m.Remark == state).ToList();
             }
-            return JsonConvert.SerializeObject(list);
 
+            return JsonConvert.SerializeObject(list);
         }
         #region 删除
 
@@ -347,6 +409,31 @@ namespace H_PMS_Client.Controllers
         public string HostRegister(string HostName, string HostPhone, string IDCard, string Role, int HouseId)
         {
             return ApiResult.GetAPIResult("HostRegister?HostName=" + HostName + "&HostPhone=" + HostPhone + "&IDCard=" + IDCard + "&Role=" + Role + "&HouseId=" + HouseId + "", "post");
+        }
+
+        /// <summary>
+        /// 住户查询
+        /// </summary>
+        /// <param name="HouseId"></param>
+        /// <param name="HostName"></param>
+        /// <param name="HostRole"></param>
+        /// <param name="PageIndex"></param>
+        /// <param name="PageSize"></param>
+        /// <returns></returns>
+        public string GetHostInfosByConditions(int HouseId, string HostName, string HostRole, int PageIndex, int PageSize)
+        {
+            return JsonConvert.SerializeObject(JsonConvert.DeserializeObject<List<HostInfo>>(ApiResult.GetAPIResult("GetHostInfosByConditions?HouseId=" + HouseId + "&HostName=" + HostName + "&HostRole=" + HostRole + "", "get")).Skip(PageSize * (PageIndex-1)).Take(PageSize).ToList());
+        }
+
+        /// <summary>
+        /// 修改房屋状态
+        /// </summary>
+        /// <param name="HouseId"></param>
+        /// <param name="HouseState"></param>
+        /// <returns></returns>
+        public string ChangeHouseState(string HouseId, string HouseState)
+        {
+            return ApiResult.GetAPIResult("ChangeHouseState?HouseId=" + HouseId + "&HouseState=" + HouseState + "", "put");
         }
 
         #region 根据身份证号获取基本信息

@@ -52,9 +52,9 @@ namespace H_PMS_BLL
         /// <param name="HouseId">房屋Id</param>
         /// <param name="HostName">住户姓名</param>
         /// <returns></returns>
-        public List<HostInfo> GetHostInfosByConditions(int HouseId = 0, string HostName = "")
+        public List<HostInfo> GetHostInfosByConditions(int HouseId = 0, string HostName = "", string HostRole = "")
         {
-            return MDAL.GetHostInfosByConditions(HouseId, HostName);
+            return MDAL.GetHostInfosByConditions(HouseId, HostName, HostRole);
         }
         #endregion
 
