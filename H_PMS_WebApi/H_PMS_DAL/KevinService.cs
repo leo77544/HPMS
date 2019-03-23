@@ -25,6 +25,7 @@ namespace H_PMS_DAL
             {
                 sql += " and DId=" + DId;
             }
+            sql += " order by e.EmployeeId desc";
             List<GetEmp> list = JsonConvert.DeserializeObject<List<GetEmp>>(JsonConvert.SerializeObject(DBHelper.GetDataTable(sql)));
             return list;
         }
@@ -67,7 +68,7 @@ namespace H_PMS_DAL
 
         #endregion
 
-        #region 保修管理
+        #region 报修管理
         /// <summary>
         /// 添加报修单据
         /// </summary>
@@ -75,15 +76,30 @@ namespace H_PMS_DAL
         /// <returns></returns>
         public int AddRepair(Repair repair)
         {
-            return DBHelper.ExecuteNonQuery($"insert into Repair values('{repair.HostName}','{repair.HouseId}','{repair.ReNumber}','{repair.MaintainName}','{repair.RSTime}','{repair.MaintainTime}','{repair.ServePrice}','{repair.GoodsPrice}','{repair.PriceSum}','{repair.Estimate}','{repair.ReRemark}')");
+            int n = DBHelper.ExecuteNonQuery($"insert into Repair values('{repair.HostName}','{repair.HouseId}','{repair.ReNumber}','{repair.MaintainName}','{repair.RSTime}','{repair.MaintainTime}','{repair.ServePrice}','{repair.GoodsPrice}','{repair.PriceSum}','{repair.Estimate}','{repair.ReRemark}')");
+            if (n > 0)
+            {
+                n += DBHelper.ExecuteNonQuery("update HouseInfo set HouseState='待修' where HouseId=" + repair.HouseId);
+            }
+            return n;
         }
         /// <summary>
         /// 报修明细
         /// </summary>
         /// <returns></returns>
-        public List<Repair> GetRepairs()
+        public List<Repair> GetRepairs(int lx)
         {
-            return JsonConvert.DeserializeObject<List<Repair>>(JsonConvert.SerializeObject(DBHelper.GetDataTable("select * from repair")));
+            string sql = "select * from repair where 1=1 ";
+            if (lx == 1)
+            {
+                sql += " and Estimate != '未解决'";
+            }
+            else if (lx == 2)
+            {
+                sql += " and Estimate = '未解决'";
+            }
+            sql += " order by RepairId desc";
+            return JsonConvert.DeserializeObject<List<Repair>>(JsonConvert.SerializeObject(DBHelper.GetDataTable(sql)));
         }
         /// <summary>
         /// 获取户主信息
@@ -91,13 +107,14 @@ namespace H_PMS_DAL
         /// <param name="PlotName"></param>
         /// <param name="BulidName"></param>
         /// <param name="HouseNumber"></param>
-        /// <param name="HouseType"></param>
         /// <returns></returns>
-        public string GetHouseInfoByHouse(string PlotName, string BulidName, string HouseNumber, string HouseType)
+        public string GetHouseInfoByHouse(string PlotName, string BulidName, string HouseNumber)
         {
-            HouseInfo house = JsonConvert.DeserializeObject<HouseInfo>(JsonConvert.SerializeObject(DBHelper.GetDataTable($"select * from HouseInfo where PlotName='{PlotName}' and BulidName='{BulidName}' and HouseNumber='{HouseNumber}' and HouseType='{HouseType}'")));
-            HostInfo host = JsonConvert.DeserializeObject<HostInfo>(JsonConvert.SerializeObject(DBHelper.GetDataTable($"select * from HostInfo where HouseId='{house.HouseId}'")));
-            string jg = house.HouseId + "-" + host.HostName;
+            List<HouseInfo> list = JsonConvert.DeserializeObject< List<HouseInfo>>(JsonConvert.SerializeObject(DBHelper.GetDataTable($"select * from HouseInfo where PlotName='{PlotName}' and BulidName='{BulidName}' and HouseNumber='{HouseNumber}'")));
+            HouseInfo house = list[0];
+            List < HostInfo> listh = JsonConvert.DeserializeObject< List<HostInfo>>(JsonConvert.SerializeObject(DBHelper.GetDataTable($"select * from HostInfo where HouseId='{house.HouseId}'")));
+            HostInfo host = listh[0];
+            string jg = house.HouseId + "-" + host.HostName + "-" + house.HouseState;
             return jg;
         }
         /// <summary>
@@ -107,7 +124,13 @@ namespace H_PMS_DAL
         /// <returns></returns>
         public int PutRepair(Repair repair)
         {
-            return DBHelper.ExecuteNonQuery($"updata Repair set HostName='{repair.HostName}' and HouseId='{repair.HouseId}' and  MaintainName='{repair.MaintainName}' and RSTime='{repair.RSTime}' and MaintainTime='{repair.MaintainTime}' and ServePrice='{repair.ServePrice}' and GoodsPrice='{repair.GoodsPrice}' and PriceSum='{repair.PriceSum}' and Estimate='{repair.Estimate}' and ReRemark='{repair.ReRemark}' where RepairId={repair.RepairId}");
+            string getHouseState = repair.ReRemark.Substring(2);
+            int n = DBHelper.ExecuteNonQuery($"updata Repair set HostName='{repair.HostName}' and HouseId='{repair.HouseId}' and  MaintainName='{repair.MaintainName}' and RSTime='{repair.RSTime}' and MaintainTime='{repair.MaintainTime}' and ServePrice='{repair.ServePrice}' and GoodsPrice='{repair.GoodsPrice}' and PriceSum='{repair.PriceSum}' and Estimate='{repair.Estimate}' and ReRemark='{repair.ReRemark}' where RepairId={repair.RepairId}");
+            if (n > 0)
+            {
+                n += DBHelper.ExecuteNonQuery("update HouseInfo set HouseState='" + getHouseState + "' where HouseId=" + repair.HouseId);
+            }
+            return n;
         }
         #endregion
 

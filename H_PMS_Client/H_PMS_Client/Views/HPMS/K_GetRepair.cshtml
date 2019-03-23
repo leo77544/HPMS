@@ -29,83 +29,46 @@
 
         #wxtd2 {
             width: 250px;
+            font-size: 20px;
         }
     </style>
     <div class="page-content">
         <div class="row">
-            @{
-                foreach (var item in ViewBag.GetREP)
-                {
-                    if (item.MaintainName == "")
-                    {
-                        <div style="width:750px;height:350px;margin-left:20px;margin-top:20px;background-color:#dff0d8">
-                            <table style="width:1000px;height:350px;vertical-align:middle;border:2px solid">
-                                <tr>
-                                    <td id="wxtd">维修单据：</td>
-                                    <td id="wxtd2" colspan="3">@item.ReNumber</td>
-                                </tr>
-                                <tr>
-                                    <td id="wxtd">房主姓名：</td>
-                                    <td id="wxtd2">@item.HostName</td>
-                                    <td id="wxtd">报修日期：</td>
-                                    <td id="wxtd2">@item.RSTime</td>
-                                </tr>
-                                <tr>
-                                    <td id="wxtd">维修内容：</td>
-                                    <td id="wxtd2" colspan="3">@item.ReRemark</td>
-                                </tr>
-                                <tr>
-                                    <td id="wxtd">维修人员：</td>
-                                    <td id="wxtd2">@item.MaintainName</td>
-                                    <td id="wxtd">维修日期：</td>
-                                    <td id="wxtd2">@item.MaintainTime</td>
-                                </tr>
-                                <tr>
-                                    <td id="wxtd">服务费用：</td>
-                                    <td id="wxtd2">@item.ReNumber</td>
-                                    <td id="wxtd">服务费用：</td>
-                                    <td id="wxtd2">@item.ReNumber</td>
-                                </tr>
-                            </table>
-                        </div>
-                    }
-                    else
-                    {
-                        <div style="width:750px;height:350px;margin-left:20px;margin-top:20px;background-color:#438eb9">
-                            <table style="width:1000px;height:350px;vertical-align:middle;border:2px solid">
-                                <tr>
-                                    <td id="wxtd">维修单据：</td>
-                                    <td id="wxtd2" colspan="3">@item.ReNumber</td>
-                                </tr>
-                                <tr>
-                                    <td id="wxtd">房主姓名：</td>
-                                    <td id="wxtd2">@item.HostName</td>
-                                    <td id="wxtd">报修日期：</td>
-                                    <td id="wxtd2">@item.RSTime</td>
-                                </tr>
-                                <tr>
-                                    <td id="wxtd">维修内容：</td>
-                                    <td id="wxtd2" colspan="3">@item.ReRemark</td>
-                                </tr>
-                                <tr>
-                                    <td id="wxtd">维修人员：</td>
-                                    <td id="wxtd2">@item.MaintainName</td>
-                                    <td id="wxtd">维修日期：</td>
-                                    <td id="wxtd2">@item.MaintainTime</td>
-                                </tr>
-                                <tr>
-                                    <td id="wxtd">评价：</td>
-                                    <td id="wxtd2" colspan="3">@item.Estimate</td>
-                                </tr>
-                            </table>
-                        </div>
-                    }
-                }
-            }
-
+            <div style="height:30px;margin-left:30px;margin-top:10px;">
+                <label class="col-sm-3 control-label no-padding-right" for="form-field-2" style="padding-left:300px;"> 查看报修明细 </label>
+                <select id="SelPlotName" style="width:150px;cursor:pointer;">
+                    <option value="0">请选择</option>
+                    <option value="1">未解决</option>
+                    <option value="2">已解决</option>
+                </select>
+            </div>
+            <div id="RepShowAll"></div>
         </div><!-- /row -->
-
         <div class="box" id="box" style="width:250px;height:80px;z-index:1024;font-size:24px;font-family:微软雅黑;line-height:80px;padding-left:75px;background-color:#bcf5c2;float:left;margin-left:40%;color:#159753;display:none">添加成功！</div>
-
     </div><!-- /.page-content -->
 </div>
+<script>
+    GetRepAllCNM();
+    function GetRepAllCNM() {
+        $.ajax({
+            url: "/HPMS/GetRepByLX/?lx=0",
+            success: function (data) {
+                $("#RepShowAll").empty();
+                $(JSON.parse(data)).each(function () {
+                    $("#RepShowAll").append(' <div style="width:750px;height:350px;color:' + (this.Estimate == "未解决" ? "#249ded" : "#ffffff") + ';float:left;margin-left:20px;margin-top:20px;background-color:' + (this.Estimate == "未解决" ? "#dff0d8" : "#438eb9") + '"><table style="width:1000px;height:350px;vertical-align:middle;border:2px solid"><tr><td id="wxtd">维修单据：</td><td id="wxtd2" colspan="3">' + this.ReNumber + '</td></tr><tr><td id="wxtd">房主姓名：</td><td id="wxtd2">' + this.HostName + '</td><td id="wxtd">报修日期：</td><td id="wxtd2">' + this.RSTime + '</td></tr><tr><td id="wxtd">维修内容：</td><td id="wxtd2" colspan="3">' + this.ReRemark + '</td></tr><tr><td id="wxtd">维修人员：</td><td id="wxtd2">' + this.MaintainName + '</td><td id="wxtd">维修日期：</td><td id="wxtd2">' + this.MaintainTime + '</td></tr><tr><td id="wxtd">服务费用：</td><td id="wxtd2">' + this.ReNumber + '</td><td id="wxtd">服务费用：</td><td id="wxtd2">' + this.ReNumber + '</td></tr><tr ><td id="wxtd">备注：</td><td id="wxtd2" colspan="3">' + this.Estimate + '</td></tr ></table></div>');
+                })
+            }
+        })
+    }
+    $("#SelPlotName").change(function () {
+        $.ajax({
+            url: "/HPMS/GetRepByLX/?lx=" + $("#SelPlotName").val(),
+            success: function (data) {
+                $("#RepShowAll").empty();
+                $(JSON.parse(data)).each(function () {
+                    $("#RepShowAll").append(' <div style="width:750px;height:350px;float:left;color:' + (this.Estimate == "未解决" ? "#249ded" : "#ffffff") + ';margin-left:20px;margin-top:20px;background-color:' + (this.Estimate == "未解决" ? "#dff0d8" : "#438eb9") + '"><table style="width:1000px;height:350px;vertical-align:middle;border:2px solid"><tr><td id="wxtd">维修单据：</td><td id="wxtd2" colspan="3">' + this.ReNumber + '</td></tr><tr><td id="wxtd">房主姓名：</td><td id="wxtd2">' + this.HostName + '</td><td id="wxtd">报修日期：</td><td id="wxtd2">' + this.RSTime + '</td></tr><tr><td id="wxtd">维修内容：</td><td id="wxtd2" colspan="3">' + this.ReRemark + '</td></tr><tr><td id="wxtd">维修人员：</td><td id="wxtd2">' + this.MaintainName + '</td><td id="wxtd">维修日期：</td><td id="wxtd2">' + this.MaintainTime + '</td></tr><tr><td id="wxtd">服务费用：</td><td id="wxtd2">' + this.ReNumber + '</td><td id="wxtd">服务费用：</td><td id="wxtd2">' + this.ReNumber + '</td></tr><tr ><td id="wxtd">备注：</td><td id="wxtd2" colspan="3">' + this.Estimate + '</td></tr ></table></div>');
+                })
+            }
+        })
+    })
+</script>
