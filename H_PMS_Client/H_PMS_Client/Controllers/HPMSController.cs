@@ -171,9 +171,7 @@ namespace H_PMS_Client.Controllers
         #endregion
 
         #endregion
-
-
-
+        
         /// <summary>
         /// 缴费管理
         /// </summary>
@@ -247,14 +245,14 @@ namespace H_PMS_Client.Controllers
         public string GetParkBase(string type, string area, string state)
         {
             List<ParkBase> list = new List<ParkBase>();
-            if (type == "请选择类型" && area == "请选择区域" && state == "请选择状态")
-            {
-                 list = ParkBaselist;
-            }
-            else
-            {
-                list = ParkBaselist.Where(m => m.PBType == type && m.PBPlace.Contains(area) && m.Remark == state).ToList();
-            }
+            //if (type == "请选择类型" && area == "请选择区域" && state == "请选择状态")
+            //{
+            //     list = ParkBaselist;
+            //}
+            //else
+            //{
+            //    list = ParkBaselist.Where(m => m.PBType == type && m.PBPlace.Contains(area) && m.Remark == state).ToList();
+            //}
 
             return JsonConvert.SerializeObject(list);
         }
