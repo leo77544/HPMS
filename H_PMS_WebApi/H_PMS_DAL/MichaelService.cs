@@ -54,6 +54,10 @@ namespace H_PMS_DAL
         /// <returns></returns>
         public int ChangeHouseState(int HouseId, string HouseState)
         {
+            if (HouseState == "空闲")
+            {
+                DBHelper.ExecuteNonQuery("update HostInfo set MoveEtime = getdate() where HouseId = " + HouseId + "");
+            }
             return DBHelper.ExecuteNonQuery("update HouseInfo set HouseState = '" + HouseState + "' where HouseId = " + HouseId + "");
         }
 
@@ -64,7 +68,7 @@ namespace H_PMS_DAL
         /// <returns></returns>
         public int HostRegister(string HostName, string HostPhone, string IDCard, string Role, int HouseId)
         {
-            if (DBHelper.ExecuteScalar("select count(IDCard) from HostInfo where IDCard = '" + IDCard + "'") > 0)
+            if (DBHelper.ExecuteScalar("select count(IDCard) from HostInfo where IDCard = '" + IDCard + "' and MoveEtime != '1900-01-01 00:00:00.000'") > 0)
             {
                 return -1;
             }
@@ -78,16 +82,20 @@ namespace H_PMS_DAL
         /// <param name="HouseId">房屋Id</param>
         /// <param name="HostName">住户姓名</param>
         /// <returns></returns>
-        public List<HostInfo> GetHostInfosByConditions(int HouseId = 0, string HostName = "")
+        public List<HostInfo> GetHostInfosByConditions(int HouseId = 0, string HostName = "", string HostRole = "")
         {
-            string SqlStr = "select * from HostInfo where 1 = 1";
+            string SqlStr = "select * from HostInfo where MoveEtime = '1900-01-01 00:00:00.000'";
             if (HouseId != 0)
             {
                 SqlStr += "and HouseId = " + HouseId + "";
             }
-            else
+            if (HostName != "")
             {
                 SqlStr += "and HostName like '%" + HostName + "%'";
+            }
+            if (HostRole != "请选择住户身份")
+            {
+                SqlStr += "and Role = '" + HostRole + "'";
             }
             return JsonConvert.DeserializeObject<List<HostInfo>>(JsonConvert.SerializeObject(DBHelper.GetDataTable(SqlStr)));
         }
