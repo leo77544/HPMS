@@ -1,30 +1,30 @@
 ﻿<div style="height:30px;margin-left:30px;margin-top:10px;">
-    <select id="SelPlotName" style="width:150px;cursor:pointer;">
+    <select id="SelPlotName" class="Conselect" style="width:150px;cursor:pointer;">
         <option value="请选择区域">请选择区域</option>
         <option value="A区">A区</option>
         <option value="B区">B区</option>
         <option value="C区">C区</option>
         <option value="D区">D区</option>
     </select>
-    <select id="SelBulidName" style="width:150px;cursor:pointer;">
+    <select id="SelBulidName" class="Conselect" style="width:150px;cursor:pointer;">
         <option value="请选择单元">请选择单元</option>
         <option value="1单元">1单元</option>
         <option value="2单元">2单元</option>
         <option value="3单元">3单元</option>
         <option value="4单元">4单元</option>
     </select>
-    <select id="SelHouseType" style="width:150px;cursor:pointer;">
+    <select id="SelHouseType" class="Conselect" style="width:150px;cursor:pointer;">
         <option value="请选择户型">请选择户型</option>
         <option value="三室两厅一厨两卫">三室两厅一厨两卫</option>
         <option value="三室两厅一厨一卫">三室两厅一厨一卫</option>
         <option value="三室一厅一厨两卫">三室一厅一厨两卫</option>
         <option value="三室一厅一厨一卫">三室一厅一厨一卫</option>
     </select>
-    <select id="SelHouseState" style="width:150px;cursor:pointer;">
+    <select id="SelHouseState" class="Conselect" style="width:150px;cursor:pointer;">
         <option value="请选择状态">请选择状态</option>
         <option style="background-color:#6ABD78;" value="空闲">空闲</option>
         <option style="background-color:#7bbfea;" value="入住">入住</option>
-        <option style="background-color:#C7FFEC;" value="招租">招租</option>
+        <option style="background-color:#1e90ff;" value="招租">招租</option>
         <option style="background-color:#C75610;" value="待修">待修</option>
     </select>
     <span style="line-height:30px;margin-left:10px;">怕甚么真理无穷，进一步有进一步的欢喜。</span>
@@ -32,7 +32,7 @@
 </div>
 <div id="ShowHouseDiv"></div>
 <div class="ModalHostRegisterDiv" style="width:100%;height:100%;background-color:#ccc;position:fixed;left:0%;top:0%;visibility:hidden;z-index:100;opacity:0.5;cursor:pointer;" onclick="ModalHostRegisterHidden()"></div>
-<div id="ModalDiv" class="ModalHostRegisterDiv" style="width:450px;height:540px;background-color:white;position:fixed;left:37%;top:20%;visibility:hidden;z-index:101;border-radius:25px;box-shadow:darkgrey 10px 10px 30px 5px;">
+<div id="ModalHostRegisterDiv" class="ModalHostRegisterDiv" style="width:450px;height:540px;background-color:white;position:fixed;left:37%;top:20%;visibility:hidden;z-index:101;border-radius:25px;box-shadow:darkgrey 10px 10px 30px 5px;">
     <p style="margin-top:15px;"><h2 style="margin-left:132px;">----住户登记----</h2></p>
     <p style="margin-left:85px;margin-top:30px;"><label>房屋信息：</label><input id="TxtHouseInfo" type="text" style="width:200px;" readonly="readonly" value="A区 1单元 101" /></p>
     <p style="margin-left:85px;margin-top:20px;"><label>住户姓名：</label><input id="TxtHostName" type="text" style="width:200px;" /></p>
@@ -55,22 +55,66 @@
     <p style="margin-left:160px;margin-top:20px;"><input id="BtnRegister" type="button" value="登记" style="width:110px;height:32px;background-color:white;border:1px solid #ccc;border-radius:5px;" onclick="RegisterHost()" /></p>
 </div>
 <div class="ModalHostShowDiv" style="width:100%;height:100%;background-color:#ccc;position:fixed;left:0%;top:0%;visibility:hidden;z-index:100;opacity:0.5;cursor:pointer;" onclick="ModalHostShowHidden()"></div>
-<div id="ModalDiv" class="ModalHostShowDiv" style="width:1000px;height:540px;background-color:white;position:fixed;left:25%;top:20%;visibility:hidden;z-index:101;border-radius:25px;box-shadow:darkgrey 10px 10px 30px 5px;">
-   
+<div id="ModalHostShowDiv" class="ModalHostShowDiv" style="width:1000px;height:540px;background-color:white;position:fixed;left:25%;top:20%;visibility:hidden;z-index:101;border-radius:25px;box-shadow:darkgrey 10px 10px 30px 5px;">
+    <p style="margin-top:15px;"><h2 style="margin-left:400px;">----住户查询----</h2></p>
+    <p style="margin-left:50px;margin-top:10px;">
+        <label>住户姓名：</label><input id="TxtConHostName" type="text" style="width:200px;" />
+        <label>住户身份：</label>
+        <select id="SelConRole" style="width:200px;margin-left:-4px;">
+            <option value="请选择住户身份">请选择住户身份</option>
+            <option value="户主">户主</option>
+            <option value="成员">成员</option>
+            <option value="房客">房客</option>
+            <option value="访客">访客</option>
+        </select>
+        <span style="margin-left:200px;">
+            <label style="width:25px;height:25px;border:1px solid #000000;line-height:18px;text-align:center;font-size:28px;cursor:pointer;" onclick="ChangePageIndex('<')"><</label>
+            <label style="width:25px;text-align:center;" id="LabPageIndex">1</label>
+            <label style="width:25px;height:25px;border:1px solid #000000;line-height:18px;text-align:center;font-size:28px;cursor:pointer;" onclick="ChangePageIndex('>')">></label>
+        </span>
+    </p>
+    <table class="table-hover" style="width:900px;margin-left:50px;margin-top:10px;font-size:14px;">
+        <tr style="height:40px;">
+            <td>住户姓名</td>
+            <td>住户性别</td>
+            <td>住户生辰</td>
+            <td>住户籍贯</td>
+            <td>住户电话</td>
+            <td>身份证号</td>
+            <td>住户身份</td>
+        </tr>
+        <tbody id="TbodyShowHost"></tbody>
+    </table>
+</div>
+<div class="ModalHouseStateDiv" style="width:100%;height:100%;background-color:#ccc;position:fixed;left:0%;top:0%;visibility:hidden;z-index:100;opacity:0.5;cursor:pointer;" onclick="ModalHouseStateHidden()"></div>
+<div id="ModalHouseStateDiv" class="ModalHouseStateDiv" style="width:310px;height:270px;background-color:white;position:fixed;left:43%;top:38%;visibility:hidden;z-index:101;border-radius:25px;box-shadow:darkgrey 10px 10px 30px 5px;">
+    <p style="margin-top:35px;"><h2 style="margin-left:68px;">----状态变更----</h2></p>
+    <p style="margin-left:36px;margin-top:30px;"><label>房屋信息：</label><input id="TxtHSHouseInfo" type="text" style="width:150px;" readonly="readonly" value="A区 1单元 101" /></p>
+    <p style="margin-left:36px;margin-top:20px;">
+        <label>房屋状态：</label>
+        <input id="CheckboxKX" class="CKbox" type="checkbox" value="空闲" />空闲
+        <input id="CheckboxRZ" class="CKbox" type="checkbox" value="入住" />入住
+        <input id="CheckboxZZ" class="CKbox" type="checkbox" value="招租" />招租
+    </p>
+    <p style="margin-left:106px;margin-top:20px;"><input id="BtnHouseState" type="button" value="变更" style="width:110px;height:32px;background-color:white;border:1px solid #ccc;border-radius:5px;" onclick="ChangeHouseState()" /></p>
 </div>
 <script>
     GetHouseInfosByConditions();
     var TheHouseId = '';
     var TheHouseState = '';
     var TheIDCard = '';
+    var ThisHouseId = '';
+    var TheHostName = '';
+    var TheHostRole = '';
+    var ThePageIndex = '';
     function GetHouseInfosByConditions() {
         $.ajax({
             url: "/HPMS/GetHouseInfosByConditions?PlotName=" + $("#SelPlotName").val() + "&BulidName=" + $("#SelBulidName").val() + "&HouseType=" + $("#SelHouseType").val() + "&HouseArea=" + "请选择面积" + "&HouseState=" + $("#SelHouseState").val() + "",
             success: function (data) {
                 $("#ShowHouseDiv").empty();
                 $(JSON.parse(data)).each(function () {
-                    $("#ShowHouseDiv").append('<div style="width:200px;height:100px;background-color:' + (this.houseState == "空闲" ? "#6ABD78" : (this.houseState == "入住" ? "#7bbfea" : (this.houseState == "招租" ? "#C7FFEC" : "#C75610"))) + ';float:left;margin-left:30px;margin-top:20px;cursor:pointer;border-radius:15px;box-shadow:darkgrey 5px 5px 15px 2px;" onclick="' + ($("#WindowsCode").val() == "住户登记" ? "ModalHostRegisterDivShow(\'" + this.plotName + " " + this.bulidName + " " + this.houseNumber + "\',\'" + this.houseState + "\',\'" + this.houseId + "\')" : ($("#WindowsCode").val() == "住户查询" ? "ModalHostShowDivShow(\'" + this.houseId + "\')" :"")) + '">'
-                        + '<p style="margin-left:20px;margin-top:10px;color:white;">' + this.plotName + ' ' + this.bulidName + ' ' + this.houseNumber + '</p>'
+                    $("#ShowHouseDiv").append('<div id="' + this.houseId + '" style="width:200px;height:100px;background-color:' + (this.houseState == "空闲" ? "#6ABD78" : (this.houseState == "入住" ? "#7bbfea" : (this.houseState == "招租" ? "#1e90ff" : "#C75610"))) + ';float:left;margin-left:30px;margin-top:20px;cursor:pointer;border-radius:15px;box-shadow:darkgrey 5px 5px 15px 2px;" onclick="' + ($("#WindowsCode").val() == "住户登记" ? "ModalHostRegisterDivShow(\'" + this.plotName + " " + this.bulidName + " " + this.houseNumber + "\',\'" + this.houseState + "\',\'" + this.houseId + "\')" : ($("#WindowsCode").val() == "住户查询" ? "ModalHostShowDivShow(\'" + this.houseId + "\')" : "ModalHouseStateDivShow(\'" + this.houseId + "\')")) + '">'
+                        + '<p id="Title' + this.houseId + '" style="margin-left:20px;margin-top:10px;color:white;">' + this.plotName + ' ' + this.bulidName + ' ' + this.houseNumber + '</p>'
                         + '<p style="margin-left:20px;color:white;">户型：' + this.houseType + '</p>'
                         + '<p style="margin-left:20px;color:white;">面积：' + this.houseArea + '</p>'
                         + '</div>');
@@ -78,16 +122,27 @@
             }
         })
     }
-    function ModalHostRegisterDivShow(HouseInfo, HouseState, HouseId) {
-        $("#TxtHouseInfo").val(HouseInfo);
-        TheHouseId = HouseId;
-        TheHouseState = HouseState;
-        $(".ModalHostRegisterDiv").css("visibility", "visible");
+    $(".Conselect").change(function () { GetHouseInfosByConditions(); })
+    function RegisterHost() {
+        if ($("#LabCK").text() == "") {
+            $.ajax({
+                url: "/HPMS/HostRegister?HostName=" + $("#TxtHostName").val() + "&HostPhone=" + $("#TxtHostPhone").val() + "&IDCard=" + $("#TxtIDCard").val() + "&Role=" + $("#SelRole").val() + "&HouseId=" + TheHouseId + "",
+                success: function (data) {
+                    if (data == '-1') {
+                        $("#LabCK").text("此住户已存在");
+                    } else if (data == "1") {
+                        $("#TxtHostName").val("");
+                        $("#TxtHostPhone").val("");
+                        $("#TxtIDCard").val("");
+                        $("#SelRole").val("请选择住户身份");
+                        ModalHostRegisterHidden();
+                        ModalHostShowDivShow();
+                        $("#" + TheHouseId).css("background-color", "#7bbfea");
+                    }
+                }
+            })
+        }
     }
-    function ModalHostShowDivShow(HouseId) {
-        $(".ModalHostShowDiv").css("visibility", "visible");
-    }
-    $("select").change(function () { GetHouseInfosByConditions(); })
     function CKIdCardNum() {
         $(".TxtByIdCard").val('请正确输入身份证号');
         $.ajax({
@@ -107,6 +162,7 @@
         })
     }
     setInterval(function () {
+        GetHostInfosByConditions();
         $("#LabCK").text("");
         if ($("#TxtIDCard").val().length == 18) {
             if ($("#TxtIDCard").val() != TheIDCard) {
@@ -141,25 +197,108 @@
             $("#LabCK").text("住户姓名不能为空");
         }
     }, 1)
-    function RegisterHost() {
-        if ($("#LabCK").text() == "") {
+    function GetHostInfosByConditions() {
+        if (TheHostName == $("#TxtConHostName").val() && TheHostRole == $("#SelConRole").val() && ThePageIndex == $("#LabPageIndex").text() && ThisHouseId == TheHouseId) {
+            return;
+        }
+        TheHostName = $("#TxtConHostName").val();
+        TheHostRole = $("#SelConRole").val();
+        ThePageIndex = $("#LabPageIndex").text();
+        ThisHouseId = TheHouseId;
+        $.ajax({
+            url: "/HPMS/GetHostInfosByConditions?HouseId=" + TheHouseId + "&HostName=" + $("#TxtConHostName").val() + "&HostRole=" + $("#SelConRole").val() + "&PageIndex=" + $("#LabPageIndex").text() + "&PageSize=9",
+            async: false,
+            success: function (data) {
+                $("#TbodyShowHost").empty();
+                $(JSON.parse(data)).each(function () {
+                    var ThisBir = "";
+                    var ThisSex = "";
+                    var ThisAdd = "";
+                    $.ajax({
+                        url: "/HPMS/CKIdCardNum?IdCardNum=" + this.IDCard,
+                        async: false,
+                        dataType: "text",
+                        success: function (InfoStr) {
+                            if (InfoStr != "身份证号码不合法") {
+                                var GetStr = InfoStr;
+                                GetStr = GetStr.substr(GetStr.indexOf('：') + 1);
+                                ThisBir = GetStr.substr(0, GetStr.indexOf(';'));
+                                GetStr = GetStr.substr(GetStr.indexOf('：') + 1);
+                                ThisSex = GetStr.substr(0, GetStr.indexOf(';'));
+                                GetStr = GetStr.substr(GetStr.indexOf('：') + 1);
+                                ThisAdd = GetStr.substr(0, GetStr.indexOf(';'));
+                            }
+                        }
+                    })
+                    $("#TbodyShowHost").append('<tr style="height:35px;" title="' + $("#Title" + this.HouseId).text() + '">'
+                        + '<td>' + this.HostName + '</td>'
+                        + '<td>' + ThisSex + '</td>'
+                        + '<td>' + ThisBir + '</td>'
+                        + '<td>' + ThisAdd + '</td>'
+                        + '<td>' + this.HostPhone + '</td>'
+                        + '<td>' + this.IDCard + '</td>'
+                        + '<td>' + this.Role + '</td>'
+                        + '</tr>');
+                })
+                if (data == "[]") {
+                    ChangePageIndex('<');
+                    return;
+                }
+            }
+        })
+    }
+    function ChangePageIndex(By) {
+        if (By == "<" && $("#LabPageIndex").text() != 1) {
+            $("#LabPageIndex").text((Number($("#LabPageIndex").text()) - 1));
+        } else if (By == ">") {
+            $("#LabPageIndex").text((Number($("#LabPageIndex").text()) + 1));
+        }
+    }
+    $(".CKbox").click(function () {
+        var ThisCKbox = this;
+        $(".CKbox").each(function () {
+            if (ThisCKbox != this) {
+                $(this).prop("checked", "");
+            }
+        })
+    })
+    function ChangeHouseState() {
+        if ($(".CKbox:checked").val().toString() != "undefined") {
             $.ajax({
-                url: "/HPMS/HostRegister?HostName=" + $("#TxtHostName").val() + "&HostPhone=" + $("#TxtHostPhone").val() + "&IDCard=" + $("#TxtIDCard").val() + "&Role=" + $("#SelRole").val() + "&HouseId=" + TheHouseId + "",
+                url: "/HPMS/ChangeHouseState?HouseId=" + TheHouseId + "&HouseState=" + $(".CKbox:checked").val() + "",
                 success: function (data) {
-                    if (data == '-1') {
-                        $("#LabCK").text("此住户已存在");
-                    } else if (data == "1") {
-                        $("#TxtHostName").val("");
-                        $("#TxtHostPhone").val("");
-                        $("#TxtIDCard").val("");
-                        $("#SelRole").val("请选择住户身份");
-                        ModalHostRegisterHidden();
-                        ModalHostShowDivShow();
-                    }
+                    $("#" + TheHouseId).css("background-color", ($(".CKbox:checked").val() == "空闲" ? "#6ABD78" : ($(".CKbox:checked").val() == "入住" ? "#7bbfea" : "#1e90ff")));
+                    ModalHouseStateHidden();
                 }
             })
         }
     }
+    function ModalHostRegisterDivShow(HouseInfo, HouseState, HouseId) {
+        $("#TxtHouseInfo").val(HouseInfo);
+        TheHouseId = HouseId;
+        TheHouseState = HouseState;
+        $(".ModalHostRegisterDiv").css("visibility", "visible");
+    }
     function ModalHostRegisterHidden() { $(".ModalHostRegisterDiv").css("visibility", "hidden"); }
+    function ModalHostShowDivShow(HouseId) {
+        TheHouseId = HouseId;
+        $(".ModalHostShowDiv").css("visibility", "visible");
+        GetHostInfosByConditions();
+    }
     function ModalHostShowHidden() { $(".ModalHostShowDiv").css("visibility", "hidden"); }
+    function ModalHouseStateDivShow(HouseId) {
+        TheHouseId = HouseId;
+        ThisHouseState = ($("#" + TheHouseId).css("background-color") == "rgb(106, 189, 120)" ? "空闲" : ($("#" + TheHouseId).css("background-color") == "rgb(123, 191, 234)" ? "入住" : ($("#" + TheHouseId).css("background-color") == "rgb(199, 86, 16)" ? "待修" : "招租")));
+        $("#TxtHSHouseInfo").val($("#Title" + TheHouseId).text() + " " + ThisHouseState);
+        $(".CKbox").prop("checked", "");
+        $(".CKbox").prop("disabled", "");
+        switch (ThisHouseState) {
+            case "空闲": $(".CKbox").prop("disabled", "disabled"); break;
+            case "入住": $("#CheckboxRZ").prop("disabled", "disabled"); break;
+            case "招租": $("#CheckboxZZ").prop("disabled", "disabled"); break;
+            case "待修": $(".CKbox").prop("disabled", "disabled"); break;
+        }
+        $(".ModalHouseStateDiv").css("visibility", "visible");
+    }
+    function ModalHouseStateHidden() { $(".ModalHouseStateDiv").css("visibility", "hidden"); }
 </script>

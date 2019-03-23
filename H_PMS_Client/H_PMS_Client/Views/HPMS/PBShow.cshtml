@@ -22,10 +22,6 @@
 
     <div class="page-content">
 
-        @using (Html.BeginForm())
-        {
-
-
         <div style="height:30px;margin-left:30px;margin-top:10px;margin-bottom:10px">
 
             <select na="SelBulidName" name="type" style="width:150px;">
@@ -48,10 +44,8 @@
                 <option style="background-color:#C7FFEC;" value="待租">待租</option>
             </select>
 
-            <input id="Submit1" type="submit" value="查询" />
         </div>
 
-        }
         <div id="ShowPB">
 
         </div>
@@ -114,6 +108,9 @@
 
 
 <script>
+
+
+
 
     function Del(id) {
         if (confirm("确认删除吗？")) {

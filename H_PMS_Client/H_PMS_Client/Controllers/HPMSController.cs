@@ -344,6 +344,31 @@ namespace H_PMS_Client.Controllers
             return ApiResult.GetAPIResult("HostRegister?HostName=" + HostName + "&HostPhone=" + HostPhone + "&IDCard=" + IDCard + "&Role=" + Role + "&HouseId=" + HouseId + "", "post");
         }
 
+        /// <summary>
+        /// 住户查询
+        /// </summary>
+        /// <param name="HouseId"></param>
+        /// <param name="HostName"></param>
+        /// <param name="HostRole"></param>
+        /// <param name="PageIndex"></param>
+        /// <param name="PageSize"></param>
+        /// <returns></returns>
+        public string GetHostInfosByConditions(int HouseId, string HostName, string HostRole, int PageIndex, int PageSize)
+        {
+            return JsonConvert.SerializeObject(JsonConvert.DeserializeObject<List<HostInfo>>(ApiResult.GetAPIResult("GetHostInfosByConditions?HouseId=" + HouseId + "&HostName=" + HostName + "&HostRole=" + HostRole + "", "get")).Skip(PageSize * (PageIndex-1)).Take(PageSize).ToList());
+        }
+
+        /// <summary>
+        /// 修改房屋状态
+        /// </summary>
+        /// <param name="HouseId"></param>
+        /// <param name="HouseState"></param>
+        /// <returns></returns>
+        public string ChangeHouseState(string HouseId, string HouseState)
+        {
+            return ApiResult.GetAPIResult("ChangeHouseState?HouseId=" + HouseId + "&HouseState=" + HouseState + "", "put");
+        }
+
         #region 根据身份证号获取基本信息
         public string CKIdCardNum(string IdCardNum)
         {
