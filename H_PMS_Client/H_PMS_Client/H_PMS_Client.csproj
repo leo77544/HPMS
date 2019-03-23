@@ -145,7 +145,7 @@
     <Content Include="assets\avatars\TP2.jpg" />
     <Content Include="assets\avatars\user.jpg" />
     <Content Include="assets\avatars\XX.jpg" />
-    <Content Include="assets\avatars\ZS.png" />
+    <Content Include="assets\avatars\ZS.jpg" />
     <Content Include="assets\css\ace-ie.min.css" />
     <Content Include="assets\css\ace-rtl.min.css" />
     <Content Include="assets\css\ace-skins.min.css" />

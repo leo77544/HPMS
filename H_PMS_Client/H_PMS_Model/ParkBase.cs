@@ -70,5 +70,54 @@ namespace H_PMS_Model
           get { return remark;}
           set { remark=value;}
         }
+
+        #region 两表
+        private string hostId;
+        /// <summary>
+        /// 车主id
+        /// </summary>
+        public string HostId
+        {
+            get { return hostId; }
+            set { hostId = value; }
+        }
+        private DateTime inRentSTime;
+        /// <summary>
+        /// 入租时间
+        /// </summary>
+        public DateTime InRentSTime
+        {
+            get { return inRentSTime; }
+            set { inRentSTime = value; }
+        }
+        private DateTime outRentSTime;
+        /// <summary>
+        /// 结束时间
+        /// </summary>
+        public DateTime OutRentSTime
+        {
+            get { return outRentSTime; }
+            set { outRentSTime = value; }
+        }
+        private string carType;
+        /// <summary>
+        /// 车类型
+        /// </summary>
+        public string CarType
+        {
+            get { return carType; }
+            set { carType = value; }
+        }
+        private string carNumber;
+        /// <summary>
+        /// 车牌号
+        /// </summary>
+        public string CarNumber
+        {
+            get { return carNumber; }
+            set { carNumber = value; }
+        }
+
+        #endregion
     }
 }

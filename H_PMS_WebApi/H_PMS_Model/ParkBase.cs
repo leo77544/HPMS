@@ -70,5 +70,6 @@ namespace H_PMS_Model
           get { return remark;}
           set { remark=value;}
         }
+        
     }
 }
