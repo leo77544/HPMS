@@ -313,14 +313,56 @@ namespace H_PMS_Client.Controllers
         }
         public string GetParkBase(string type, string area, string state)
         {
-            List<ParkBase> list = new List<ParkBase>();
-            if (type == "请选择类型" && area == "请选择区域" && state == "请选择状态")
+            List<Park> list = new List<Park>();
+            if (type != "请选择类型")
             {
-                 list = ParkBaselist;
+                if (area != "请选择区域")
+                {
+                    if (state != "请选择状态")
+                    {
+                        list = Parklist.Where(m => m.PBType == type && m.PBPlace.Contains(area) && m.Remark == state).ToList();
+                    }
+                    else
+                    {
+                        list = Parklist.Where(m => m.PBType == type && m.PBPlace.Contains(area)).ToList();
+                    }
+                }
+                else
+                {
+                    if (state != "请选择状态")
+                    {
+                        list = Parklist.Where(m => m.PBType == type && m.Remark == state).ToList();
+                    }
+                    else
+                    {
+                        list = Parklist.Where(m => m.PBType == type).ToList();
+                    }
+                }
             }
             else
             {
-                list = ParkBaselist.Where(m => m.PBType == type && m.PBPlace.Contains(area) && m.Remark == state).ToList();
+                if (area != "请选择区域")
+                {
+                    if (state != "请选择状态")
+                    {
+                        list = Parklist.Where(m => m.PBPlace.Contains(area) && m.Remark == state).ToList();
+                    }
+                    else
+                    {
+                        list = Parklist.Where(m => m.PBPlace.Contains(area)).ToList();
+                    }
+                }
+                else
+                {
+                    if (state != "请选择状态")
+                    {
+                        list = Parklist.Where(m =>m.Remark == state).ToList();
+                    }
+                    else
+                    {
+                        list = Parklist;
+                    }
+                }
             }
 
             return JsonConvert.SerializeObject(list);
