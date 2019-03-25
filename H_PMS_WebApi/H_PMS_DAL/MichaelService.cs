@@ -106,18 +106,26 @@ namespace H_PMS_DAL
         /// 根据条件查询投诉信息
         /// </summary>
         /// <param name="CBName">投诉住户名</param>
-        /// <param name="CRemark">投诉状态-受理待处理 处理待反馈 需再处理 归档</param>
+        /// <param name="CRemark">投诉状态-等待处理 等待反馈 需再处理 结束归档</param>
         /// <returns></returns>
-        public List<Complain> GetComplainsByConditions(string CBName = "", string CRemark = "")
+        public List<Complain> GetComplainsByConditions(string PlotName = "", string BulidName = "", string CBName = "", string CRemark = "")
         {
             string SqlStr = "select * from Complain where 1 = 1";
+            if (PlotName != "请选择区域")
+            {
+                SqlStr += "and CBName like '%" + PlotName + "%'";
+            }
+            if (BulidName != "请选择单元")
+            {
+                SqlStr += "and CBName like '%" + BulidName + "%'";
+            }
             if (CBName != "")
             {
-                SqlStr += "CBName = '" + CBName + "'";
+                SqlStr += "and CBName like '%" + CBName + "%'";
             }
             if (CRemark != "")
             {
-                SqlStr += "CRemark = '" + CRemark + "'";
+                SqlStr += " and CRemark = '" + CRemark + "'";
             }
             return JsonConvert.DeserializeObject<List<Complain>>(JsonConvert.SerializeObject(DBHelper.GetDataTable(SqlStr)));
         }
@@ -127,9 +135,9 @@ namespace H_PMS_DAL
         /// </summary>
         /// <param name="TheComplain"></param>
         /// <returns></returns>
-        public int AddComplain(Complain TheComplain)
+        public int AddComplain(string CBName, string ReceptionEmp, string Ccontent)
         {
-            return DBHelper.ExecuteNonQuery("insert into Complain values('" + TheComplain.CBName + "','" + TheComplain.ReceptionEmp + "',getdate(),'" + TheComplain.Ccontent + "','受理待处理')");
+            return DBHelper.ExecuteNonQuery("insert into Complain values('" + CBName + "','" + ReceptionEmp + "',getdate(),'" + Ccontent + "','等待处理')");
         }
 
         /// <summary> 

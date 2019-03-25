@@ -1,6 +1,4 @@
 ﻿
-@using Webdiyer.WebControls.Mvc;
-@model PagedList<H_PMS_Model.DataMoney>
 
 @{
     Layout = null;
@@ -141,21 +139,21 @@
 
                         <ul class="submenu">
                             <li>
-                                <a href="JavaScript:HousePView()">
+                                <a href="JavaScript:HousePView('住户登记')">
                                     <i class="icon-double-angle-right"></i>
                                     住户登记
                                 </a>
                             </li>
 
                             <li>
-                                <a href="JavaScript:HousePView('状态变更')">
+                                <a href="JavaScript:HousePView('住户查询')">
                                     <i class="icon-double-angle-right"></i>
                                     住户查询
                                 </a>
                             </li>
 
                             <li>
-                                <a href="JavaScript:HousePView('住户查询')">
+                                <a href="JavaScript:HousePView('状态变更')">
                                     <i class="icon-double-angle-right"></i>
                                     状态变更
                                 </a>
@@ -332,28 +330,14 @@
 
                         <ul class="submenu">
                             <li>
-                                <a href="JavaScript:HousePView()">
+                                <a href="JavaScript:CompainPView('投诉跟进')">
                                     <i class="icon-double-angle-right"></i>
-                                    投诉受理
+                                    投诉跟进
                                 </a>
                             </li>
 
                             <li>
-                                <a href="JavaScript:HousePView()">
-                                    <i class="icon-double-angle-right"></i>
-                                    投诉处理
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="JavaScript:HousePView()">
-                                    <i class="icon-double-angle-right"></i>
-                                    投诉反馈
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="JavaScript:HousePView()">
+                                <a href="JavaScript:CompainPView('历史投诉')">
                                     <i class="icon-double-angle-right"></i>
                                     历史投诉
                                 </a>
@@ -385,6 +369,7 @@
                         </li>
                         <li class="active">幸福里控制台</li>
                     </ul><!-- .breadcrumb -->
+                    <input id="WindowsCode" type="hidden" value="" />
                 </div>
 
                 <div class="page-content" id="tab">
@@ -737,7 +722,6 @@
     </script>
 
     <script>
-        var WindowsCode = 0;
         function charge() {
             $.ajax({
                 url: "/hpms/JiaoFei/",
@@ -757,17 +741,38 @@
                 }
             })
         }
-        
-        function HousePView() {
+        function HousePView(PageCode) {
             $.ajax({
                 url: "/HPMS/HousePView",
                 success: function (data) {
+                    $("#WindowsCode").val(PageCode);
                     $(".page-content").empty();
                     $(".page-content").append(data);
                 }
             })
         }
-        
+        function CompainPView(PageCode) {
+            if (PageCode == "投诉跟进") {
+                $.ajax({
+                    url: "/HPMS/CompainPView",
+                    success: function (data) {
+                        $("#WindowsCode").val(PageCode);
+                        $(".page-content").empty();
+                        $(".page-content").append(data);
+                    }
+                })
+            } else if (PageCode == "历史投诉") {
+                $.ajax({
+                    url: "/HPMS/HistoryCompainPView",
+                    success: function (data) {
+                        $("#WindowsCode").val(PageCode);
+                        $(".page-content").empty();
+                        $(".page-content").append(data);
+                    }
+                })
+
+            }
+        }
     </script>
 
     

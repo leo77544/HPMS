@@ -1,0 +1,61 @@
+﻿<div style="height:30px;margin-left:30px;margin-top:10px;">
+    <label>住户姓名：</label><input id="TxtHostName" type="text" style="width:150px;" />
+    <select id="SelCompainRemark" class="CompainCon" style="width:150px;cursor:pointer;">
+        <option value="请选择状态">请选择状态</option>
+        <option style="background-color:#6ABD78;" value="等待处理">等待处理</option>
+        <option style="background-color:#7bbfea;" value="等待反馈">等待反馈</option>
+        <option style="background-color:#1e90ff;" value="需再处理">需再处理</option>
+    </select>
+    <span style="line-height:30px;margin-left:10px;">怕甚么真理无穷，进一步有进一步的欢喜。</span>
+    <input id="BtnCAAH" type="button" value="投诉受理" style="width:110px;height:32px;background-color:#5bc0de;border:none;border-radius:5px;float:right;margin-right:6%;color:white;font-size:15px;" onclick="ModalCompainAAHDivShow()" />
+</div>
+<div id="ShowCompainDiv">
+    <div style="width:390px;height:400px;background-color:#6ABD78;margin-left:20px;margin-top:20px;float:left;cursor:pointer;border-radius:15px;box-shadow:darkgrey 5px 5px 15px 2px;" onclick="ModalCompainFollowDivShow(1)">
+        <p style="margin-left:30px;margin-top:30px;"><label style="font-size:18px;color:white;cursor:pointer;">投诉住户：</label><label style="font-size:18px;color:white;cursor:pointer;">A区 1单元 101 闫宏</label></p>
+        <p style="margin-left:30px;margin-top:10px;"><label style="font-size:18px;color:white;cursor:pointer;">投诉日期：</label><label style="font-size:18px;color:white;cursor:pointer;">2019年12月12日</label></p>
+        <p style="margin-left:30px;margin-top:10px;"><label style="font-size:18px;color:white;cursor:pointer;">接待人员：</label><label style="font-size:18px;color:white;cursor:pointer;">刘温</label></p>
+        <p style="margin-left:30px;margin-top:10px;"><label style="font-size:18px;color:white;margin-top:-140px;cursor:pointer;">投诉内容：</label><label style="font-size:18px;width:240px;word-break:break-all;color:white;cursor:pointer;">1233211123321123321112332112345671233211234567123321123456712332112345672345671234567123321123456712332112345671233211234567234567</label></p>
+    </div>
+    <div style="width:390px;height:400px;background-color:#7bbfea;margin-left:20px;margin-top:20px;float:left;cursor:pointer;border-radius:15px;box-shadow:darkgrey 5px 5px 15px 2px;">
+        <p style="margin-left:30px;margin-top:30px;"><label style="font-size:18px;color:white;">投诉住户：</label><label style="font-size:18px;color:white;">A区 1单元 101 闫宏</label></p>
+        <p style="margin-left:30px;margin-top:10px;"><label style="font-size:18px;color:white;">投诉日期：</label><label style="font-size:18px;color:white;">2019年12月12日</label></p>
+        <p style="margin-left:30px;margin-top:10px;"><label style="font-size:18px;color:white;">接待人员：</label><label style="font-size:18px;color:white;">刘温</label></p>
+        <p style="margin-left:30px;margin-top:10px;"><label style="font-size:18px;color:white;margin-top:-140px;">投诉内容：</label><label style="font-size:18px;width:240px;word-break:break-all;color:white;">1233211123321123321112332112345671233211234567123321123456712332112345672345671234567123321123456712332112345671233211234567234567</label></p>
+    </div>
+    <div style="width:390px;height:400px;background-color:#1e90ff;margin-left:20px;margin-top:20px;float:left;cursor:pointer;border-radius:15px;box-shadow:darkgrey 5px 5px 15px 2px;">
+        <p style="margin-left:30px;margin-top:30px;"><label style="font-size:18px;color:white;">投诉住户：</label><label style="font-size:18px;color:white;">A区 1单元 101 闫宏</label></p>
+        <p style="margin-left:30px;margin-top:10px;"><label style="font-size:18px;color:white;">投诉日期：</label><label style="font-size:18px;color:white;">2019年12月12日</label></p>
+        <p style="margin-left:30px;margin-top:10px;"><label style="font-size:18px;color:white;">接待人员：</label><label style="font-size:18px;color:white;">刘温</label></p>
+        <p style="margin-left:30px;margin-top:10px;"><label style="font-size:18px;color:white;margin-top:-140px;">投诉内容：</label><label style="font-size:18px;width:240px;word-break:break-all;color:white;">1233211123321123321112332112345671233211234567123321123456712332112345672345671234567123321123456712332112345671233211234567234567</label></p>
+    </div>
+</div>
+<div class="ModalCompainAAHDiv" style="width:100%;height:100%;background-color:#ccc;position:fixed;left:0%;top:0%;visibility:hidden;z-index:100;opacity:0.5;cursor:pointer;" onclick="ModalCompainAAHDivHidden()"></div>
+<div id="ModalCompainAAHDiv" class="ModalCompainAAHDiv" style="width:450px;height:540px;background-color:white;position:fixed;left:37%;top:20%;visibility:hidden;z-index:101;border-radius:25px;box-shadow:darkgrey 10px 10px 30px 5px;">
+    <p style="margin-top:15px;"><h2 style="margin-left:132px;">----投诉受理----</h2></p>
+    <p style="margin-left:85px;margin-top:30px;"><label>房屋信息：</label><input id="TxtHouseInfo" type="text" style="width:200px;" value="A区 1单元 101" /></p>
+    <p style="margin-left:85px;margin-top:20px;"><label>住户姓名：</label><input id="TxtHostName" type="text" style="width:200px;" /></p>
+    <p style="margin-left:85px;margin-top:20px;"><label>接待人员：</label><input id="TxtHostPhone" type="text" style="width:200px;" /></p>
+    <p style="margin-left:85px;margin-top:20px;">
+        <label>投诉内容：</label>
+    </p>
+    <p style="margin-left:160px;margin-top:20px;"><input id="BtnRegister" type="button" value="登记" style="width:110px;height:32px;background-color:white;border:1px solid #ccc;border-radius:5px;" onclick="RegisterHost()" /></p>
+</div>
+<div class="ModalCompainFollowDiv" style="width:100%;height:100%;background-color:#ccc;position:fixed;left:0%;top:0%;visibility:hidden;z-index:100;opacity:0.5;cursor:pointer;" onclick="ModalCompainFollowDivHidden()"></div>
+<div id="ModalCompainFollowDiv" class="ModalCompainFollowDiv" style="width:1000px;height:540px;background-color:white;position:fixed;left:25%;top:20%;visibility:hidden;z-index:101;border-radius:25px;box-shadow:darkgrey 10px 10px 30px 5px;">
+    <p style="margin-top:15px;"><h2 style="margin-left:400px;">----投诉跟进----</h2></p>
+
+</div>
+<script>
+    GetComplainsByConditions();
+    function GetComplainsByConditions() {
+
+    }
+    function ModalCompainAAHDivShow() {
+        $(".ModalCompainAAHDiv").css("visibility", "visible");
+    }
+    function ModalCompainAAHDivHidden() { $(".ModalCompainAAHDiv").css("visibility", "hidden"); }
+    function ModalCompainFollowDivShow(CompainId) {
+        $(".ModalCompainFollowDiv").css("visibility", "visible");
+    }
+    function ModalCompainFollowDivHidden() { $(".ModalCompainFollowDiv").css("visibility", "hidden"); }
+</script>
