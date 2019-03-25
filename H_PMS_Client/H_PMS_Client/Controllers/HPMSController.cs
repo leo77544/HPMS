@@ -124,6 +124,22 @@ namespace H_PMS_Client.Controllers
             return PartialView();
         }
         /// <summary>
+        /// 技工报告页面
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult K_JiGongBaoGao()
+        {
+            return PartialView();
+        }
+        /// <summary>
+        /// 归档页面
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult K_WanMeiGuiDang()
+        {
+            return PartialView();
+        }
+        /// <summary>
         /// 获取技工的信息
         /// </summary>
         public string GetEmpByRep()
@@ -171,6 +187,16 @@ namespace H_PMS_Client.Controllers
         {
             string json = ApiResult.GetAPIResult("GetHouseInfoByHouse/?PlotName=" + PlotName + "&BulidName=" + BulidName + "&HouseNumber=" + HouseNumber, "get");
             return json;
+        }
+        /// <summary>
+        /// 修改报修明细
+        /// </summary>
+        /// <param name="rep"></param>
+        /// <returns></returns>
+        public string PutRepBuREP(string rep)
+        {
+            Repair repair = JsonConvert.DeserializeObject<Repair>(rep);
+            return ApiResult.GetAPIResult("PutRepair", "put", repair);
         }
         #endregion
 
@@ -364,16 +390,6 @@ namespace H_PMS_Client.Controllers
                     }
                 }
             }
-            List<ParkBase> list = new List<ParkBase>();
-            if (type == "请选择类型" && area == "请选择区域" && state == "请选择状态")
-            {
-                 list = ParkBaselist;
-            }
-            else
-            {
-                list = ParkBaselist.Where(m => m.PBType == type && m.PBPlace.Contains(area) && m.Remark == state).ToList();
-            }
-
             return JsonConvert.SerializeObject(list);
         }
         #region 删除

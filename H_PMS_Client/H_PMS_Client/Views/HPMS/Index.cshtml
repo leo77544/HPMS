@@ -1,6 +1,4 @@
 ﻿
-@using Webdiyer.WebControls.Mvc;
-@model PagedList<H_PMS_Model.DataMoney>
 
 @{
     Layout = null;
@@ -301,21 +299,28 @@
                             <li>
                                 <a href="/HPMS/K_AddRepair" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#kevin">
                                     <i class="icon-double-angle-right"></i>
-                                    提交报修
+                                    新增报修
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="/HPMS/K_JiGongBaoGao" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#kevin">
+                                    <i class="icon-double-angle-right"></i>
+                                    技工报告
                                 </a>
                             </li>
 
                             <li>
                                 <a href="/HPMS/K_GetRepair" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#kevin">
                                     <i class="icon-double-angle-right"></i>
-                                    查看维修明细
+                                    正在克服
                                 </a>
                             </li>
 
                             <li>
-                                <a href="/HPMS/K_AddRepair" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#kevin">
+                                <a href="/HPMS/K_WanMeiGuiDang" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#kevin">
                                     <i class="icon-double-angle-right"></i>
-                                    维修提交
+                                    归档明细
                                 </a>
                             </li>
 
@@ -537,8 +542,8 @@
 
     <script type="text/javascript">
         $(function () {
-           
-        
+
+
 
         })
         jQuery(function ($) {
@@ -753,11 +758,11 @@
                 success: function (data) {
                     $(".page-content").empty();
                     $(".page-content").append(data);
-                   
+
                 }
             })
         }
-        
+
         function HousePView() {
             $.ajax({
                 url: "/HPMS/HousePView",
@@ -767,13 +772,13 @@
                 }
             })
         }
-        
+
     </script>
 
-    
+
 </body>
 </html>
 <script>
-   
+
 
 </script>

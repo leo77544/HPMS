@@ -338,6 +338,8 @@
     <Content Include="Views\HPMS\ParkShow.cshtml" />
     <Content Include="Views\HPMS\K_AddRepair.cshtml" />
     <Content Include="Views\HPMS\K_GetRepair.cshtml" />
+    <Content Include="Views\HPMS\K_JiGongBaoGao.cshtml" />
+    <Content Include="Views\HPMS\K_WanMeiGuiDang.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
