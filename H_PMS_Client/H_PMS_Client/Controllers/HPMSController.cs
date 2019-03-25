@@ -390,6 +390,8 @@ namespace H_PMS_Client.Controllers
                     }
                 }
             }
+           
+
             return JsonConvert.SerializeObject(list);
         }
         #region 删除
@@ -441,8 +443,10 @@ namespace H_PMS_Client.Controllers
 
         #region Michael
 
+        #region 房屋管理
+
         /// <summary>
-        /// 住户登记视图
+        /// 住户登记分部视图
         /// </summary>
         /// <returns></returns>
         public ActionResult HousePView()
@@ -489,7 +493,7 @@ namespace H_PMS_Client.Controllers
         /// <returns></returns>
         public string GetHostInfosByConditions(int HouseId, string HostName, string HostRole, int PageIndex, int PageSize)
         {
-            return JsonConvert.SerializeObject(JsonConvert.DeserializeObject<List<HostInfo>>(ApiResult.GetAPIResult("GetHostInfosByConditions?HouseId=" + HouseId + "&HostName=" + HostName + "&HostRole=" + HostRole + "", "get")).Skip(PageSize * (PageIndex-1)).Take(PageSize).ToList());
+            return JsonConvert.SerializeObject(JsonConvert.DeserializeObject<List<HostInfo>>(ApiResult.GetAPIResult("GetHostInfosByConditions?HouseId=" + HouseId + "&HostName=" + HostName + "&HostRole=" + HostRole + "", "get")).Skip(PageSize * (PageIndex - 1)).Take(PageSize).ToList());
         }
 
         /// <summary>
@@ -502,7 +506,7 @@ namespace H_PMS_Client.Controllers
         {
             return ApiResult.GetAPIResult("ChangeHouseState?HouseId=" + HouseId + "&HouseState=" + HouseState + "", "put");
         }
-
+         
         #region 根据身份证号获取基本信息
         public string CKIdCardNum(string IdCardNum)
         {
@@ -565,6 +569,26 @@ namespace H_PMS_Client.Controllers
             return ResultStr;
         }
         #endregion
+
+        #endregion
+
+        /// <summary>
+        /// 投诉跟进分部视图
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult CompainPView()
+        {
+            return PartialView();
+        }
+        
+        /// <summary>
+        /// 历史投诉分部视图
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult HistoryCompainPView()
+        {
+            return PartialView();
+        }
 
         #endregion
     }
