@@ -26,22 +26,146 @@
             ,这里为您提供更更方便的物业管理。
         </div>
         <div class="alert alert-block alert-info">
-            <strong class="green">
-                日统计
-            </strong>
-            <p></p>
+            <p>
+                <strong class="green">
+                    数据统计
+                </strong>
+            </p>
+            <p>
+                <span id="daycount" style="color:red"></span>
+                <br />
+                <span id="monthcount" style="color:blue"></span>
+                <br />
+                <span id="yearcount" style="color:black"></span>
+            </p>
+
         </div>
         <div class="alert alert-block alert-danger">
-            <strong class="green">
-                月统计
-            </strong>
+            <p>
+                <strong class="green">
+                    报表查询
+                </strong>
+            </p>
+
+            <span>查询指定日期</span> <input id="times" type="text" onclick="WdatePicker()" /><input id="Button1" type="button" value="生成报表" onclick="createRecord()" />
+            <table class="table table-hover table-bordered table-hover tab-content table-condensed tab-pane" style="text-align:center">
+                <thead id="head">
+                        
+                    </thead>
+                <tbody id="content"></tbody>
+
+
+            </table>
+            <div id="fto" style="text-align:center;width:100%">
+
+            </div>
+
         </div>
-        <div class="alert alert-block alert-warning">
-            <strong class="green">
-                年统计
-            </strong>
+        <div>
+
         </div>
         <!-- PAGE CONTENT ENDS -->
     </div><!-- /.col -->
-
 </div><!-- /.row -->
+<script>
+    var da = new Date().getFullYear() + "-" + (new Date().getMonth() + 1) + "-" + new Date().getDate() + " " + new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds();
+    DayCount(da);
+    MonthCount(da);
+    YearCount(da);
+    function createRecord() {
+        if ($("#times").val() == "") {
+            alert("请选择要查询的日期");
+        }
+        else {
+            $.ajax({
+                url: "/HPMS/GetDayRecord?str=" + $("#times").val(),
+                dataType: "json",
+                success: function (data) {
+                    if (data == "[]") {
+                        alert("当日无数据");
+                    }
+                    else {
+                        var obj = JSON.parse(data);
+                        var a = obj[0].sum;
+                        var c = a.toString().substring(0, a.toString().indexOf(".") + 3);
+                        $("#head").empty().append("<tr>"
+                            + "<th style = 'text-align:center'> 年</th >"
+                            + "<th style='text-align:center'>月</th>"
+                            + "<th style='text-align:center'>日</th>"
+                            + "<th style='text-align:center'>总计金额</th>"
+                            + "</tr >");
+                        $("#content").empty().append("<tr>"
+                            + "<td style = 'text-align:center'>" + obj[0].year+"</td>"
+                            + "<td style='text-align:center'>" + obj[0].month +"</td>"
+                            + "<td style='text-align:center'>" + obj[0].day +"</td>"
+                            + "<td style='text-align:center'>" + c +"</td>"
+                            + "</tr >");
+                    }
+                }
+            })
+        }
+        //var times = $("#times").val();
+    }
+    function DayCount(da) {
+        //var da = new Date().getFullYear() + "-" + (new Date().getMonth() + 1) + "-" + new Date().getDate() + " " + new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds();
+        // alert(da);
+        $.ajax({
+            url: "/HPMS/GetDayRecord?str=" + da,
+            dataType: "json",
+            success: function (data) {
+                if (data == "[]") {
+                    $("#daycount").text("截止当前时间" + new Date().getFullYear() + "年" + (new Date().getMonth() + 1) + "月" + new Date().getDate() + "日收入0.00元");
+                }
+                else {
+                    var obj = JSON.parse(data);
+                    var a = obj[0].sum;
+                    var c = a.toString().substring(0, a.toString().indexOf(".") + 3);
+                    $("#daycount").text("截止今日" + obj[0].year + "年" + obj[0].month + "月" + obj[0].day + "日收入" + c + "元");
+                }
+            }
+        })
+    }
+    function MonthCount(da) {
+        //var da = new Date().getFullYear() + "-" + (new Date().getMonth() + 1) + "-" + new Date().getDate() + " " + new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds();
+        // alert(da);
+        $.ajax({
+            url: "/HPMS/GetMonthRecord?str=" + da,
+            dataType: "json",
+            success: function (data) {
+                // alert(data);
+                var obj = JSON.parse(data);
+                var a = obj[0].sum;
+                var c = a.toString().substring(0, a.toString().indexOf(".") + 3);
+
+                //  alert(c);
+                if (data == "[]") {
+                    $("#monthcount").text("截止今日" + new Date().getFullYear() + "年" + (new Date().getMonth() + 1) + "月收入0.00元");
+                }
+                else {
+
+                    $("#monthcount").text("截止今日" + obj[0].year + "年" + obj[0].month + "月收入" + c + "元");
+                }
+            }
+        })
+    }
+    function YearCount(da) {
+        //var da = new Date().getFullYear() + "-" + (new Date().getMonth() + 1) + "-" + new Date().getDate() + " " + new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds();
+        //  alert(da);
+        $.ajax({
+            url: "/HPMS/GetYearRecord?str=" + da,
+            dataType: "json",
+            success: function (data) {
+                //alert(data);
+                var obj = JSON.parse(data);
+                var a = obj[0].sum;
+                var c = a.toString().substring(0, a.toString().indexOf(".") + 3);
+                if (data == "[]") {
+                    $("#yearcount").text("截止今日" + new Date().getFullYear() + "收入0.00元");
+                }
+                else {
+                    $("#yearcount").text("截止今日" + obj[0].year + "年收入" + c + "元");
+                }
+            }
+        })
+    }
+</script>

@@ -72,7 +72,7 @@ namespace H_PMS_DAL
         /// <returns></returns>
         static public DataTable GetDayCount(string str)
         {
-            return JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(DBHelper.GetDataTable($"select year(TjStime) 年, month(TjStime) 月, day(TjStime) 日, sum(CostPricce) 收入总额 from RecordInfo group by year(TjStime), month(TjStime), day(TjStime) having year(TjStime) = year('{str}') and month(TjStime) = month('{str}') and day(TjStime) = day('{str}')")));
+            return JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(DBHelper.GetDataTable($"select year(TjStime) year, month(TjStime) month, day(TjStime) day, sum(CostPricce) sum from RecordInfo group by year(TjStime), month(TjStime), day(TjStime) having year(TjStime) = year('{str}') and month(TjStime) = month('{str}') and day(TjStime) = day('{str}')")));
         }
         /// <summary>
         /// 查询当月
@@ -81,7 +81,7 @@ namespace H_PMS_DAL
         /// <returns></returns>
         static public DataTable GetMonthCount(string str)
         {
-            return JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(DBHelper.GetDataTable($"select year(TjStime) 年, month(TjStime) 月,sum(CostPricce) 收入总额 from RecordInfo group by year(TjStime), month(TjStime) having year(TjStime) = year({str}) and month(TjStime) = month({str})")));
+            return JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(DBHelper.GetDataTable($"select year(TjStime) year, month(TjStime) month,sum(CostPricce) sum from RecordInfo group by year(TjStime), month(TjStime) having year(TjStime) = year('{str}') and month(TjStime) = month('{str}')")));
         }
         /// <summary>
         /// 查询当年
@@ -90,7 +90,7 @@ namespace H_PMS_DAL
         /// <returns></returns>
         static public DataTable GetYearCount(string str)
         {
-            return JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(DBHelper.GetDataTable($"select year(TjStime) 年,  sum(CostPricce) 收入总额 from RecordInfo group by year(TjStime) having year(TjStime) = year({str})")));
+            return JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(DBHelper.GetDataTable($"select year(TjStime) year,  sum(CostPricce) sum from RecordInfo group by year(TjStime) having year(TjStime) = year('{str}')")));
         }
     }
 }

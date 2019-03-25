@@ -60,11 +60,9 @@ namespace ConnHelper
                 //实例化适配器
                 SqlDataAdapter sda = new SqlDataAdapter(sql, conn);
                 sda.Fill(dt);
-
             }
             catch (Exception)
             {
-                
                 throw;
             }
             return dt;
@@ -86,11 +84,9 @@ namespace ConnHelper
                 //实例化命令对象
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 sdr = cmd.ExecuteReader();
-
             }
             catch (Exception)
             {
-                
                 throw;
             }
             return sdr;
@@ -115,7 +111,6 @@ namespace ConnHelper
             }
             catch (Exception)
             {
-
                 throw;
             }
             finally {
