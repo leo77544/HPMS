@@ -32,11 +32,14 @@
                 </strong>
             </p>
             <p>
-                <span id="daycount" style="color:red"></span>
                 <br />
-                <span id="monthcount" style="color:blue"></span>
+                <span id="daycount" style="color:red; font-size: 22px;"></span>
                 <br />
-                <span id="yearcount" style="color:black"></span>
+                <br />
+                <span id="monthcount" style="color:blue; font-size: 26px;"></span>
+                <br />
+                <br />
+                <span id="yearcount" style="color:black; font-size: 30px;"></span>
             </p>
 
         </div>
@@ -47,12 +50,17 @@
                 </strong>
             </p>
 
-            <span>查询指定日期</span> <input id="times" type="text" onclick="WdatePicker()" /><input id="Button1" type="button" value="生成报表" onclick="createRecord()" />
-            <table class="table table-hover table-bordered table-hover tab-content table-condensed tab-pane" style="text-align:center">
-                <thead id="head">
-                        
-                    </thead>
-                <tbody id="content"></tbody>
+            <span>报表统计</span> <input id="times" type="text" onclick="WdatePicker()" />
+            <input id="Button1" type="button" value="查询指定日期" onclick="searchDay()" />
+            <input id="Button1" type="button" value="查询月份明细" onclick="searchMonth()" />
+            <input id="Button1" type="button" value="查询年度明细" onclick="searchYear()" />
+            <input id="Button1" type="button" value="查询年明细" onclick="searchYears()" />
+            <br />
+            <table class="table table-hover table-bordered table-hover tab-content table-condensed tab-pane" style="text-align:center;border:1px solid black;color:black;margin-top:15px;">
+                <thead id="head" style="text-align:center;border:1px solid black;color:black">
+
+                </thead>
+                <tbody id="content" style="text-align:center;border:1px solid black;color:black"></tbody>
 
 
             </table>
@@ -67,12 +75,27 @@
         <!-- PAGE CONTENT ENDS -->
     </div><!-- /.col -->
 </div><!-- /.row -->
+<style>
+    td {
+        border: 1px solid #808080;
+        vertical-align: middle;
+        text-align: center;
+        font-size: 18px;
+        color: #676565;
+    }
+
+</style>
 <script>
+    //获取当前时间
     var da = new Date().getFullYear() + "-" + (new Date().getMonth() + 1) + "-" + new Date().getDate() + " " + new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds();
+    //获取日统计
     DayCount(da);
+    //获取月统计
     MonthCount(da);
+    //获取年统计
     YearCount(da);
-    function createRecord() {
+    //查询指定日期
+    function searchDay() {
         if ($("#times").val() == "") {
             alert("请选择要查询的日期");
         }
@@ -87,28 +110,190 @@
                     else {
                         var obj = JSON.parse(data);
                         var a = obj[0].sum;
-                        var c = a.toString().substring(0, a.toString().indexOf(".") + 3);
-                        $("#head").empty().append("<tr>"
-                            + "<th style = 'text-align:center'> 年</th >"
-                            + "<th style='text-align:center'>月</th>"
-                            + "<th style='text-align:center'>日</th>"
-                            + "<th style='text-align:center'>总计金额</th>"
-                            + "</tr >");
-                        $("#content").empty().append("<tr>"
-                            + "<td style = 'text-align:center'>" + obj[0].year+"</td>"
-                            + "<td style='text-align:center'>" + obj[0].month +"</td>"
-                            + "<td style='text-align:center'>" + obj[0].day +"</td>"
-                            + "<td style='text-align:center'>" + c +"</td>"
-                            + "</tr >");
+                        if (a.toString().indexOf(".") == -1) {
+                            alert(a);
+                            $("#head").empty().append("<tr>"
+                                + "<th style = 'text-align:center'> 年</th >"
+                                + "<th style='text-align:center'>月</th>"
+                                + "<th style='text-align:center'>日</th>"
+                                + "<th style='text-align:center'>总计金额</th>"
+                                + "</tr >");
+                            $("#content").empty().append("<tr>"
+                                + "<td style = 'text-align:center'>" + obj[0].year + "</td>"
+                                + "<td style='text-align:center'>" + obj[0].month + "</td>"
+                                + "<td style='text-align:center'>" + obj[0].day + "</td>"
+                                + "<td style='text-align:center'>" + a + "</td>"
+                                + "</tr >");
+                        }
+                        else {
+                            var c = a.toString().substring(0, a.toString().indexOf(".") + 3);
+                            $("#head").empty().append("<tr>"
+                                + "<th style = 'text-align:center'> 年</th >"
+                                + "<th style='text-align:center'>月</th>"
+                                + "<th style='text-align:center'>日</th>"
+                                + "<th style='text-align:center'>总计金额</th>"
+                                + "</tr >");
+                            $("#content").empty().append("<tr>"
+                                + "<td style = 'text-align:center'>" + obj[0].year + "</td>"
+                                + "<td style='text-align:center'>" + obj[0].month + "</td>"
+                                + "<td style='text-align:center'>" + obj[0].day + "</td>"
+                                + "<td style='text-align:center'>" + c + "</td>"
+                                + "</tr >");
+                        }
+
+
                     }
                 }
             })
         }
-        //var times = $("#times").val();
     }
+
+
+    function searchMonth() {
+        if ($("#times").val() == "") {
+            alert("请选择要查询的日期");
+        }
+        else {
+            $.ajax({
+                url: "/HPMS/GetMonthdetail?str=" + $("#times").val(),
+                dataType: "json",
+                success: function (data) {
+                    $("#content").empty();
+                    if (data == "[]") {
+                        alert("当日无数据");
+                    }
+                    else {
+                        var obj = JSON.parse(data);
+                        $(obj).each(function () {
+                            var a = this.sum;
+                            if (a.toString().indexOf(".") == -1) {
+                                $("#head").empty().append("<tr>"
+                                    + "<th style = 'text-align:center'> 年</th >"
+                                    + "<th style='text-align:center'>月</th>"
+                                    + "<th style='text-align:center'>日</th>"
+                                    + "<th style='text-align:center'>总计金额</th>"
+                                    + "</tr >");
+                                $("#content").append("<tr>"
+                                    + "<td style = 'text-align:center'>" + this.year + "</td>"
+                                    + "<td style='text-align:center'>" + this.month + "</td>"
+                                    + "<td style='text-align:center'>" + this.day + "</td>"
+                                    + "<td style='text-align:center'>" + a + "</td>"
+                                    + "</tr >");
+                            }
+                            else {
+                                var c = a.toString().substring(0, a.toString().indexOf(".") + 3);
+                                $("#head").empty().append("<tr>"
+                                    + "<th style = 'text-align:center'> 年</th >"
+                                    + "<th style='text-align:center'>月</th>"
+                                    + "<th style='text-align:center'>日</th>"
+                                    + "<th style='text-align:center'>总计金额</th>"
+                                    + "</tr >");
+                                $("#content").append("<tr>"
+                                    + "<td style = 'text-align:center'>" + this.year + "</td>"
+                                    + "<td style='text-align:center'>" + this.month + "</td>"
+                                    + "<td style='text-align:center'>" + this.day + "</td>"
+                                    + "<td style='text-align:center'>" + c + "</td>"
+                                    + "</tr >");
+                            }
+                        })
+                        
+                    }
+                }
+            })
+        }
+    }
+    function searchYear() {
+        if ($("#times").val() == "") {
+            alert("请选择要查询的日期");
+        }
+        else {
+            $.ajax({
+                url: "/HPMS/GetYeardetail?str=" + $("#times").val(),
+                dataType: "json",
+                success: function (data) {
+                    $("#content").empty();
+                    if (data == "[]") {
+                        alert("当日无数据");
+                    }
+                    else {
+                        var obj = JSON.parse(data);
+                        $(obj).each(function () {
+                            var a = this.sum;
+                            if (a.toString().indexOf(".") == -1) {
+                                $("#head").empty().append("<tr>"
+                                    + "<th style = 'text-align:center'> 年</th >"
+                                    + "<th style='text-align:center'>月</th>"
+                                    + "<th style='text-align:center'>总计金额</th>"
+                                    + "</tr >");
+                                $("#content").append("<tr>"
+                                    + "<td style = 'text-align:center'>" + this.year + "</td>"
+                                    + "<td style='text-align:center'>" + this.month + "</td>"
+                                    + "<td style='text-align:center'>" + a + "</td>"
+                                    + "</tr >");
+                            }
+                            else {
+                                var c = a.toString().substring(0, a.toString().indexOf(".") + 3);
+                                $("#head").empty().append("<tr>"
+                                    + "<th style = 'text-align:center'> 年</th >"
+                                    + "<th style='text-align:center'>月</th>"
+                                    + "<th style='text-align:center'>总计金额</th>"
+                                    + "</tr >");
+                                $("#content").append("<tr>"
+                                    + "<td style = 'text-align:center'>" + this.year + "</td>"
+                                    + "<td style='text-align:center'>" + this.month + "</td>"
+                                    + "<td style='text-align:center'>" + c + "</td>"
+                                    + "</tr >");
+                            }
+                        })
+
+                    }
+                }
+            })
+        }
+    }
+
+
+    function searchYears() {
+        $.ajax({
+            url: "/HPMS/GetYearsdetail",
+            dataType: "json",
+            success: function (data) {
+                alert(data);
+                $("#content").empty();
+                {
+                    var obj = JSON.parse(data);
+                    $(obj).each(function () {
+                        var a = this.sum;
+                        if (a.toString().indexOf(".") == -1) {
+                            $("#head").empty().append("<tr>"
+                                + "<th style = 'text-align:center'> 年</th >"
+                                + "<th style='text-align:center'>总计金额</th>"
+                                + "</tr >");
+                            $("#content").append("<tr>"
+                                + "<td style = 'text-align:center'>" + this.year + "</td>"
+                                + "<td style='text-align:center'>" + a + "</td>"
+                                + "</tr >");
+                        }
+                        else {
+                            var c = a.toString().substring(0, a.toString().indexOf(".") + 3);
+                            $("#head").empty().append("<tr>"
+                                + "<th style = 'text-align:center'> 年</th >"
+                                + "<th style='text-align:center'>总计金额</th>"
+                                + "</tr >");
+                            $("#content").append("<tr>"
+                                + "<td style = 'text-align:center'>" + this.year + "</td>"
+                                + "<td style='text-align:center'>" + c + "</td>"
+                                + "</tr >");
+                        }
+                    })
+
+                }
+            }
+        })
+    }
+    //获取日统计
     function DayCount(da) {
-        //var da = new Date().getFullYear() + "-" + (new Date().getMonth() + 1) + "-" + new Date().getDate() + " " + new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds();
-        // alert(da);
+
         $.ajax({
             url: "/HPMS/GetDayRecord?str=" + da,
             dataType: "json",
@@ -119,15 +304,19 @@
                 else {
                     var obj = JSON.parse(data);
                     var a = obj[0].sum;
-                    var c = a.toString().substring(0, a.toString().indexOf(".") + 3);
-                    $("#daycount").text("截止今日" + obj[0].year + "年" + obj[0].month + "月" + obj[0].day + "日收入" + c + "元");
+                    if (a.toString().indexOf(".") == -1) {
+                        $("#daycount").text("截止当前时间" + obj[0].year + "年" + obj[0].month + "月" + obj[0].day + "日收入" + a + "元");
+                    }
+                    else {
+                        var c = a.toString().substring(0, a.toString().indexOf(".") + 3);
+                        $("#daycount").text("截止当前时间" + obj[0].year + "年" + obj[0].month + "月" + obj[0].day + "日收入" + c + "元");
+                    }
                 }
             }
         })
     }
+    //获取月统计
     function MonthCount(da) {
-        //var da = new Date().getFullYear() + "-" + (new Date().getMonth() + 1) + "-" + new Date().getDate() + " " + new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds();
-        // alert(da);
         $.ajax({
             url: "/HPMS/GetMonthRecord?str=" + da,
             dataType: "json",
@@ -142,15 +331,19 @@
                     $("#monthcount").text("截止今日" + new Date().getFullYear() + "年" + (new Date().getMonth() + 1) + "月收入0.00元");
                 }
                 else {
+                    if (a.toString().indexOf(".") == -1) {
+                        $("#monthcount").text("截止今日" + obj[0].year + "年" + obj[0].month + "月收入" + a + "元");
 
-                    $("#monthcount").text("截止今日" + obj[0].year + "年" + obj[0].month + "月收入" + c + "元");
+                    }
+                    else {
+                        $("#monthcount").text("截止今日" + obj[0].year + "年" + obj[0].month + "月收入" + c + "元");
+                    }
                 }
             }
         })
     }
+    //获取年统计
     function YearCount(da) {
-        //var da = new Date().getFullYear() + "-" + (new Date().getMonth() + 1) + "-" + new Date().getDate() + " " + new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds();
-        //  alert(da);
         $.ajax({
             url: "/HPMS/GetYearRecord?str=" + da,
             dataType: "json",
@@ -163,7 +356,14 @@
                     $("#yearcount").text("截止今日" + new Date().getFullYear() + "收入0.00元");
                 }
                 else {
-                    $("#yearcount").text("截止今日" + obj[0].year + "年收入" + c + "元");
+                    if (a.toString().indexOf(".") == -1) {
+                        $("#yearcount").text("截止今日" + obj[0].year + "年收入" + a + "元");
+
+                    }
+                    else {
+                        $("#yearcount").text("截止今日" + obj[0].year + "年收入" + c + "元");
+                    }
+
                 }
             }
         })

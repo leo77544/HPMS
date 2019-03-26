@@ -87,111 +87,178 @@ namespace H_PMS_WebApi.Controllers
         #endregion
 
         #region leo
-        /// <summary>
-        /// 添加收费信息
-        /// </summary>
-        /// <param name="m"></param>
-        /// <returns></returns>
-        /// 
-        [HttpPost]
-        public int AddDataMoney(DataMoney m)
-        {
-            return LeoManager.AddDataMoney(m);
-        }
-        /// <summary>
-        /// 查看缴费信息
-        /// </summary>
-        /// <returns></returns>
-        /// 
-        [HttpGet]
-        public List<DataMoney> GetDataMoney()
-        {
-            return LeoManager.GetDataMoney();
-        }
-        /// <summary>
-        /// 分页查看缴费信息
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet]
-        public PageList SelectDataMoney(int page, int size)
-        {
-            List<DataMoney> list = LeoManager.GetDataMoney();
 
-            PageList pageList = new PageList();
+            #region 添加收费信息
+            /// <summary>
+            /// 添加收费信息
+            /// </summary>
+            /// <param name="m"></param>
+            /// <returns></returns>
+            /// 
+            [HttpPost]
+            public int AddDataMoney(DataMoney m)
+            {
+                return LeoManager.AddDataMoney(m);
+            } 
+            #endregion
 
-            pageList.TotalCount = list.Count;
+            #region 查看缴费信息
+            /// <summary>
+            /// 查看缴费信息
+            /// </summary>
+            /// <returns></returns>
+            /// 
+            [HttpGet]
+            public List<DataMoney> GetDataMoney()
+            {
+                return LeoManager.GetDataMoney();
+            } 
+            #endregion
 
-            pageList.TotalPage = list.Count % size > 0 ? list.Count / size + 1 : list.Count / size;
+            #region 分页查看缴费信息
+            /// <summary>
+            /// 分页查看缴费信息
+            /// </summary>
+            /// <returns></returns>
+            [HttpGet]
+            public PageList SelectDataMoney(int page, int size)
+            {
+                List<DataMoney> list = LeoManager.GetDataMoney();
 
-            pageList.list = list.Skip((page - 1) * size).Take(size).ToList().OrderByDescending(m => m.DMId).ToList();
-            return pageList;
-        }
+                PageList pageList = new PageList();
 
-        /// <summary>
-        /// 查看报表信息
-        /// </summary>
-        /// <returns></returns>
-        /// 
-        [HttpGet]
-        public List<RecordInfo> GetRecordInfo()
-        {
-            return LeoManager.GetRecordInfo();
-        }
-        /// <summary>
-        /// 分页查看报表信息
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet]
-        public PageList SelectRecord(int page, int size)
-        {
-            List<RecordInfo> list = LeoManager.GetRecordInfo();
+                pageList.TotalCount = list.Count;
 
-            PageList pageList = new PageList();
+                pageList.TotalPage = list.Count % size > 0 ? list.Count / size + 1 : list.Count / size;
 
-            pageList.TotalCount = list.Count;
+                pageList.list = list.Skip((page - 1) * size).Take(size).ToList().OrderByDescending(m => m.DMId).ToList();
+                return pageList;
+            } 
+            #endregion
 
-            pageList.TotalPage = list.Count % size > 0 ? list.Count / size + 1 : list.Count / size;
+            #region 查看报表信息
+            /// <summary>
+            /// 查看报表信息
+            /// </summary>
+            /// <returns></returns>
+            /// 
+            [HttpGet]
+            public List<RecordInfo> GetRecordInfo()
+            {
+                return LeoManager.GetRecordInfo();
+            } 
+            #endregion
 
-            pageList.relist = list.Skip((page - 1) * size).Take(size).ToList().OrderByDescending(m => m.RIId).ToList();
-            return pageList;
-        }
-        /// <summary>
-        /// 查询当日
-        /// </summary>
-        /// <param name="str"></param>
-        /// <returns></returns>
-        /// 
-        [HttpGet]
-        public DataTable GetDayCount(string str)
-        {
-            return LeoManager.GetDayCount(str);
-        }
-        /// <summary>
-        /// 查询当月
-        /// </summary>
-        /// <param name="str"></param>
-        /// <returns></returns>
-        /// 
-        [HttpGet]
+            #region 分页查看报表信息
+            /// <summary>
+            /// 分页查看报表信息
+            /// </summary>
+            /// <returns></returns>
+            [HttpGet]
+            public PageList SelectRecord(int page, int size)
+            {
+                List<RecordInfo> list = LeoManager.GetRecordInfo();
 
-        public DataTable GetMonthCount(string str)
-        {
-            return LeoManager.GetMonthCount(str);
+                PageList pageList = new PageList();
 
-        }
-        /// <summary>
-        /// 查询当年
-        /// </summary>
-        /// <param name="str"></param>
-        /// <returns></returns>
-        /// 
-        [HttpGet]
+                pageList.TotalCount = list.Count;
 
-        public DataTable GetYearCount(string str)
-        {
-            return LeoManager.GetYearCount(str);
+                pageList.TotalPage = list.Count % size > 0 ? list.Count / size + 1 : list.Count / size;
 
-        }
+                pageList.relist = list.Skip((page - 1) * size).Take(size).ToList().OrderByDescending(m => m.RIId).ToList();
+                return pageList;
+            } 
+            #endregion
+
+            #region 查询当日
+            /// <summary>
+            /// 查询当日
+            /// </summary>
+            /// <param name="str"></param>
+            /// <returns></returns>
+            /// 
+            [HttpGet]
+            public DataTable GetDayCount(string str)
+            {
+                return LeoManager.GetDayCount(str);
+            } 
+            #endregion
+
+            #region 查询当月
+            /// <summary>
+            /// 查询当月
+            /// </summary>
+            /// <param name="str"></param>
+            /// <returns></returns>
+            /// 
+            [HttpGet]
+
+            public DataTable GetMonthCount(string str)
+            {
+                return LeoManager.GetMonthCount(str);
+
+            } 
+            #endregion
+
+            #region 查询当年
+            /// <summary>
+            /// 查询当年
+            /// </summary>
+            /// <param name="str"></param>
+            /// <returns></returns>
+            /// 
+            [HttpGet]
+
+            public DataTable GetYearCount(string str)
+            {
+                return LeoManager.GetYearCount(str);
+
+            } 
+            #endregion
+
+            #region 查询年明细
+            /// <summary>
+            /// 查询年明细
+            /// </summary>
+            /// <param name="str"></param>
+            /// <returns></returns>
+            /// 
+            [HttpGet]
+
+            public DataTable GetYeardetail(string str)
+            {
+                return LeoManager.GetYeardetail(str);
+            }
+            #endregion
+
+            #region 查询月明细
+            /// <summary>
+            /// 查询月明细
+            /// </summary>
+            /// <param name="str"></param>
+            /// <returns></returns>
+            /// 
+            [HttpGet]
+            public DataTable GetMonthdetail(string str)
+            {
+                return LeoManager.GetMonthdetail(str);
+
+            }
+
+            /// <summary>
+            /// 查询年份明细
+            /// </summary>
+            /// <param name="str"></param>
+            /// <returns></returns>
+            /// 
+            [HttpGet]
+             public DataTable GetYearsdetail()
+            {
+                return LeoManager.GetYearsdetail();
+            }
+        #endregion
+
+
         #endregion
 
         #region Kevin
