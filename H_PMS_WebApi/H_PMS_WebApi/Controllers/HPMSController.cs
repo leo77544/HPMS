@@ -382,6 +382,15 @@ namespace H_PMS_WebApi.Controllers
             return Kevin.AddVisitor(visitor);
         }
         /// <summary>
+        /// 根据ID获取访客信息
+        /// </summary>
+        /// <param name="VId"></param>
+        /// <returns></returns>
+        public string GetFangKeById(int VId)
+        {
+            return Kevin.GetFangKeById(VId);
+        }
+        /// <summary>
         /// 访客离开登记
         /// </summary>
         /// <param name="visitor"></param>
