@@ -61,7 +61,7 @@
 
                             <p style="font-weight:bold;color:#438eb9;">
                                 <span style="color:yellow;font-family:YouYuan;font-size:24px;">
-                                    <a href="#" class='btn' data-toggle="modal" data-target="#myModal" style="color:greenyellow;font-size:24px;font-family:YouYuan">
+                                    <a href="#" id='mt' data-toggle="modal" data-target="#myModal" style="color:greenyellow;font-size:24px;font-family:YouYuan" onclick="MoTai('+@item.PBNumber+')">
                                         @item.PBNumber
                                     </a>
                                 </span>
@@ -70,7 +70,7 @@
                         else
                         {
                             <p style="margin-top:20px;">
-                                <a style="color:greenyellow;font-size:24px;font-family:YouYuan" href="javascript:;" class="md-trigger" data-modal="modal-13" onclick="MoTai(@item.PBNumber)">@item.PBNumber</a>
+                                <a style="color:greenyellow;font-size:24px;font-family:YouYuan" id="mt" data-toggle="modal" data-target="#myModal" onclick="MoTai('+@item.PBNumber+')">@item.PBNumber</a>
                             </p>
 
                             <p style="margin-top:50px;font-weight:bold;color:#438eb9">车位类型：<span style="color:red;font-size:24px">@item.PBType</span></p>
@@ -85,7 +85,9 @@
     </div><!-- /.page-content -->
 
     <div id="myModal" class="bg-model" style="position:absolute;top:0%;left:0%;display:none;background:rgba(0,0,0,0.3);width:100%;height:100%;position:fixed;z-index:9999">
-        <div class='content' style="position: absolute;left: 25%;top: 25%;border-radius: 8px;width: 50%;height: 60%;background-color: #fff;">
+        <div id="addMt" class='content' style="position: absolute;left: 25%;top: 25%;border-radius: 8px;width: 50%;height: 60%;background-color: #fff;background-image:url(../../assets/avatars/Pshow.png);background-repeat: no-repeat;background-size: 100% 100%;">
+
+
 
         </div>
     </div>
@@ -93,8 +95,8 @@
 </div><!-- /.main-content -->
 
 
-
 <script>
+    $("select").change(function () { GetHouseInfosByConditions(); })
 
     function GetHouseInfosByConditions() {
         $.ajax({
@@ -102,40 +104,36 @@
             success: function (data) {
                 $("#ShowPB").empty();
                 $(JSON.parse(data)).each(function () {
-                    var div = "";
-                    if (this.remark2 == "空闲") {
-                        div = '<div id="' + this.PBId + '" style="width:200px;height:250px;margin-left:30px;margin-right:30px;margin-bottom:30px;background-color:#808080;display:inline-block;background-image:url(../../assets/avatars/TP2.jpg);background-repeat: no-repeat;background-size: 100% 100%;text-align:center;line-height:21px;">'
-                            + '<input id="Button1" type="button" value="×" style="border:none;margin-left:174px;font-size:20px" />'
+                    var div = '<div style="width:220px;height:280px;float:left;margin-right:30px;margin-left:20px;margin-bottom:20px;background-image:' + (this.Remark2 == "空闲" ? "url(../../assets/avatars/TP2.jpg)" : "url(../../assets/avatars/ZS.jpg)") + ';background-repeat: no-repeat;background-size: 100% 100%;text-align:center;">';
+                    if (this.Remark2 == "空闲") {
+                        div = div + '<input id="Button1" type="button" value="×" style="border:none;margin-left:174px;font-size:20px" />'
                             + '<p style="font-weight:bold;color:#438eb9;">面积：<span style="color:white;">' + this.PBArea + ' 平米</span> </p>'
                             + '<p style="font-weight:bold;color:#438eb9;">价格：<span style="color:red;font-size:24px;font-family:华文隶书">' + this.PBPrice + ' 元</span></p>'
                             + '<p style="font-weight:bold;color:#438eb9">车位类型：<span style="color:white;">' + this.PBType + '</span></p>'
                             + '<p style="font-weight:bold;color:#438eb9">车位位置：<span style="color:white;">' + this.PBPlace + '</span></p>'
-                            + '<p style="font-weight:bold;color:#438eb9">车位状态：<span style="color:red;font-size:24px;font-family:华文新魏">' + this.Remark + '</span></p>'
-                            + '<p style="font-weight:bold;color:#438eb9;"><span style="color:yellow;font-family:YouYuan;font-size:24px"><a href="javascript:;" class="md-trigger btn btn-primary btn-sm" data-modal="modal-13">' + this.PBNumber + '</a></span></p>'
+                            + '<p style="font-weight:bold;color:#438eb9">车位状态：<span style="color:red;font-size:24px;font-family:华文新魏">' + this.Remark2 + '</span></p>'
+
+                            + '<p style="font-weight:bold;color:#438eb9;">'
+                            + '<span style="color:yellow;font-family:YouYuan;font-size:24px;">'
+                            + '<a href="#" class="btn" data-toggle="modal" data-target="#myModal" style="color:greenyellow;font-size:24px;font-family:YouYuan" onclick="MoTai(' + this.PBNumber + ')">' + this.PBNumber + '</a>'
+                            + '</span>'
+                            + '</p>'
                             + '</div>';
                     }
                     else {
-                        div = '<div id="' + this.PBId + '" style="width:200px;height:250px;margin-left:30px;margin-right:30px;margin-bottom:30px;background-color:#808080;display:inline-block;background-image:url(../../assets/avatars/ZS.jpg);background-repeat: no-repeat;background-size: 100% 100%;text-align:center;line-height:21px;">
-                            < input id = "Button1" type = "button" value = "×" style = "border:none;margin-left:174px;font-size:20px" />
-                                <p style="font-weight:bold;color:#438eb9;"><span style="color:yellow;font-family:YouYuan;font-size:24px"><a href="javascript:;" class="md-trigger btn btn-primary btn-sm" data-modal="modal-13">' + this.PBNumber + '</a></span></p>
-                                <p style="font-weight:bold;color:#438eb9">车位类型：<span style="color:white;">' + this.PBType + '</span></p>
-                                <p style="font-weight:bold;color:#438eb9">车位位置：<span style="color:white;">' + this.PBPlace + '</span></p>
-                                <p style="font-weight:bold;color:#438eb9">车位状态：<span style="color:red;font-size:24px;font-family:华文新魏">' + this.Remark + '</span></p>
-                            </div > ';
+                        div = div + '<p style="margin-top:20px;">'
+                            + '<a style="color:greenyellow;font-size:24px;font-family:YouYuan" href="javascript:;" class="md-trigger" data-modal="modal-13" onclick="MoTai(' + this.PBNumber + ')">' + this.PBNumber + '</a>'
+                            + '</p>'
+
+                            + '<p style="margin-top:50px;font-weight:bold;color:#438eb9">车位类型：<span style="color:red;font-size:24px">' + this.PBType + '</span></p>'
+                            + '<p style="margin-top:50px;font-weight:bold;color:#438eb9"><span style="color:red;font-size:24px;font-family:华文新魏">车位 ' + this.Remark2 + '</span></p>'
+                            + '</div>';
                     }
+
                     $("#ShowPB").append(div);
                 })
             }
         })
-    }
-
-    $("select").change(function () { GetHouseInfosByConditions(); })
-</script>
-
-
-<script>
-    function MoTai() {
-        alert("ui");
     }
 
     function Del(id) {
@@ -157,11 +155,39 @@
 
 <script>
     //显示模态框点击事件
-    $(".cart-add").click(function () {
+    function MoTai(id) {
+        $.ajax({
+            url: "/HPMS/GetPark?number=" + id,
+            success: function (data) {
+                $("#addMt").empty();
+                $(JSON.parse(data)).each(function () {
+                    var div = "";
+                    if (this.remark2 == "空闲") {
+
+                    }
+                    else {
+                        div = '<div id="box" style="margin-left:600px;font-size:30px;line-height:55px;margin-top:50px;width:250px;text-align:center">'
+                            + '<p>' + this.PBNumber + '</p>'
+                            + '<p>' + this.HostId + '<span style="color:red">（'+this.IDCard+'）</span></p>'
+                            + '<p>' + this.CarType + '</p>'
+                            + '<p>' + this.CarNumber + '</p>'
+                            + '<p>' + this.InRentSTime + '</p>'
+                            + '<p>' + this.OutRentSTime + '</p>'
+                            + '<p>'+this.Remark+'</p>'
+                            + '</div >';
+                    }
+                    $("#addMt").append(div);
+                })
+            }
+        })
+    };
+
+    $("#mt").click(function () {
         $(".bg-model").fadeTo(300, 1)
         //隐藏窗体的滚动条
         $("body").css({ "overflow": "hidden" });
     });
+
 
     //模态框OK按钮点击事件
     $(".bg-model-ok").click(function () {

@@ -38,7 +38,7 @@ namespace H_PMS_DAL
         public List<Park> GetParkBases()
         {
             // 类型 面积  价钱
-            string sql = "select HostId,InRentSTime,OutRentSTime,CarType,CarNumber,PBNumber,PBArea,PBType,PBPrice,PBPlace,b.Remark as Remark2 from Park a full join ParkBase b on  a.PBId=b.PBId ";
+            string sql = "select HostId,InRentSTime,OutRentSTime,CarType,CarNumber,PBNumber,PBArea,PBType,IDCard,PBPrice,PBPlace,b.Remark as Remark2,a.Remark as Remark from Park a full join ParkBase b on  a.PBId=b.PBId ";
             DataTable dt = DBHelper.GetDataTable(sql);
             List<Park> list = JsonConvert.DeserializeObject<List<Park>>(JsonConvert.SerializeObject(dt));
             return list;

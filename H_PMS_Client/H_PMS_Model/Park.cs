@@ -79,7 +79,15 @@ namespace H_PMS_Model
           get { return remark;}
           set { remark=value;}
         }
-
+        private string iDCard;
+        /// <summary>
+        /// 身份证
+        /// </summary>
+        public string IDCard
+        {
+            get { return iDCard; }
+            set { iDCard = value; }
+        }
         #region 两表
 
 
