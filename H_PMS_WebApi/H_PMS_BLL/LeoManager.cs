@@ -63,6 +63,43 @@ namespace H_PMS_BLL
             return LeoService.GetYearCount(str);
 
         }
+        #region 查询年明细
+        /// <summary>
+        /// 查询年明细
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        static public DataTable GetYeardetail(string str)
+        {
+            return LeoService.GetYeardetail(str);
+        }
+        #endregion
+
+        #region 查询月明细
+        /// <summary>
+        /// 查询月明细
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        static public DataTable GetMonthdetail(string str)
+        {
+            return LeoService.GetMonthdetail(str);
+
+        }
+
+        #region 查询年份明细
+        /// <summary>
+        /// 查询年份明细
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        static public DataTable GetYearsdetail()
+        {
+            return LeoService.GetYearsdetail();
+        }
+        #endregion
+
+        #endregion
     }
 }
 

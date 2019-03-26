@@ -62,6 +62,8 @@
                                 <option value="901">901</option>
                                 <option value="902">902</option>
                             </select>
+                            <span style="font-size:20px;">住户：</span>
+                            <span style="font-size:20px;color:#a33737" id="getHostName"></span>
                         </div>
                     </div>
 
@@ -140,15 +142,15 @@
             $.ajax({
                 url: "/HPMS/GetHouseInfoByHouse/?PlotName=" + $("#PlotName").val() + "&BulidName=" + $("#BulidName").val() + "&HouseNumber=" + $("#HouseNumber").val(),
                 success: function (data) {
-                    if (data == "\该房间没有住户") {
-                        alert("该房间没有住户！");
-                        return;
+                    if (JSON.parse(data) == "该房间没有住户") {
+                        alert("该房间无需维护！");
                     } else {
                         var ar = new Array(3);
                         ar = data.split("-");
                         getHouseId = ar[0];
                         getHostName = ar[1];
                         getReRemake = ar[2];
+                        $("#getHostName").text(getHostName);
                     }
                 }
             })

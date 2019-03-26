@@ -202,7 +202,7 @@ namespace H_PMS_Client.Controllers
         #endregion
 
         #endregion
-        
+
         #region leo
         /// <summary>
         /// 缴费管理
@@ -224,21 +224,11 @@ namespace H_PMS_Client.Controllers
         /// 添加
         /// </summary>
         /// <param name="m"></param>
-        public void AddDataMoney(DataMoney m)
+        public string AddDataMoney(string m)
         {
-            m.DMSTime = DateTime.Now;
-            m.DMNumber = DateTime.Now.ToString("yyyyMMddhhmmss");
-            m.Remark = "无";
-            int result = Convert.ToInt32(ApiResult.GetAPIResult("AddDataMoney", "post", m));
-            if (result > 1)
-            {
-                Response.Write("<script>alert('缴费成功');</script>");
-            }
-            else
-            {
-                Response.Write("<script>alert('缴费失败')</script>");
+            DataMoney da = JsonConvert.DeserializeObject<DataMoney>(m);
+            return ApiResult.GetAPIResult("AddDataMoney", "post", da);
 
-            }
         }
         /// <summary>
         /// 获取数据
@@ -280,9 +270,7 @@ namespace H_PMS_Client.Controllers
         /// <returns></returns>
         public string GetDayRecord(string str)
         {
-            //string st = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
-            string q = JsonConvert.SerializeObject(ApiResult.GetAPIResult("GetDayCount?str=" + str, "get"));
-            return q;
+            return JsonConvert.SerializeObject(ApiResult.GetAPIResult("GetDayCount?str=" + str, "get"));
         }
 
         /// <summary>
@@ -292,22 +280,46 @@ namespace H_PMS_Client.Controllers
         /// <returns></returns>
         public string GetMonthRecord(string str)
         {
-            //string str = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
-
-            string q = JsonConvert.SerializeObject(ApiResult.GetAPIResult("GetMonthCount?str=" + str, "get"));
-            return q;
-        }/// <summary>
-         /// 年统计
-         /// </summary>
-         /// <param name="str"></param>
-         /// <returns></returns>
+            return JsonConvert.SerializeObject(ApiResult.GetAPIResult("GetMonthCount?str=" + str, "get"));
+        }
+        /// <summary>
+        /// 年统计
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
         public string GetYearRecord(string str)
         {
-           // string st = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
-            //str = st;
-            string q = JsonConvert.SerializeObject(ApiResult.GetAPIResult("GetYearCount?str=" + str, "get"));
-            return q;
+            return JsonConvert.SerializeObject(ApiResult.GetAPIResult("GetYearCount?str=" + str, "get"));
         }
+        /// <summary>
+        /// 查询年明细
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public string  GetYeardetail(string str)
+        {
+            return JsonConvert.SerializeObject(ApiResult.GetAPIResult("GetYeardetail?str=" + str, "get"));
+        }
+        /// <summary>
+        /// 查询月明细
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public string GetMonthdetail(string str)
+        {
+            return JsonConvert.SerializeObject(ApiResult.GetAPIResult("GetMonthdetail?str=" + str, "get"));
+        }
+
+        /// <summary>
+        /// 查询年度明细
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public string GetYearsdetail()
+        {
+            return JsonConvert.SerializeObject(ApiResult.GetAPIResult("GetYearsdetail", "get"));
+        }
+
 
         #endregion
 
@@ -438,7 +450,7 @@ namespace H_PMS_Client.Controllers
                     }
                 }
             }
-           
+
 
             return JsonConvert.SerializeObject(list);
         }
@@ -607,7 +619,7 @@ namespace H_PMS_Client.Controllers
         {
             return ApiResult.GetAPIResult("ChangeHouseState?HouseId=" + HouseId + "&HouseState=" + HouseState + "", "put");
         }
-         
+
         #region 根据身份证号获取基本信息
         public string CKIdCardNum(string IdCardNum)
         {
@@ -681,7 +693,61 @@ namespace H_PMS_Client.Controllers
         {
             return PartialView();
         }
-        
+
+        /// <summary>
+        /// 根据条件查询投诉信息
+        /// </summary>
+        /// <param name="CBName">投诉住户名</param>
+        /// <param name="CRemark">投诉状态-受理待处理 处理待反馈 需再处理 归档</param>
+        /// <returns></returns>
+        public string GetComplainsByConditions(string PlotName = "", string BulidName = "", string HouseNumber = "", string HostName = "", string CRemark = "")
+        {
+            return ApiResult.GetAPIResult("GetComplainsByConditions?PlotName=" + PlotName + "&BulidName=" + BulidName + "&HouseNumber=" + HouseNumber + "&HostName=" + HostName + "&CRemark=" + CRemark + "", "get");
+        }
+
+        /// <summary>
+        /// 根据房屋信息获取住户
+        /// </summary>
+        /// <param name="PlotName">区域</param>
+        /// <param name="BulidName">单元</param>
+        /// <param name="HouseNumber">房屋</param>
+        /// <returns></returns>
+        public string GetHostInfosByHouseInfo(string PlotName, string BulidName, string HouseNumber)
+        {
+            return ApiResult.GetAPIResult("GetHostInfosByHouseInfo?PlotName=" + PlotName + "&BulidName=" + BulidName + "&HouseNumber=" + HouseNumber + "", "get");
+        }
+
+        /// <summary>
+        /// 获取所有员工
+        /// </summary>
+        /// <returns></returns>
+        public string GetEmployees()
+        {
+            return ApiResult.GetAPIResult("GetEmployees", "get");
+        }
+
+        /// <summary>
+        /// 添加投诉信息
+        /// </summary>
+        /// <param></param>
+        /// <returns></returns>
+        public string AddComplain(string CBName, string ReceptionEmp, string Ccontent)
+        {
+            return ApiResult.GetAPIResult("AddComplain?CBName="+ CBName + "&ReceptionEmp="+ ReceptionEmp + "&Ccontent="+ Ccontent + "", "post");
+        }
+
+        /// <summary> 
+        /// 投诉跟进
+        /// </summary>
+        /// <param name="CSId">投诉记录Id</param>
+        /// <param name="Ccontent">投诉详情</param>
+        /// <param name="CRemark">投诉状态</param>
+        /// <returns></returns>
+        public string FollowComplain(string CSId, string Ccontent, string CRemark)
+        {
+            return ApiResult.GetAPIResult("FollowComplain?CSId=" + CSId + "&Ccontent=" + Ccontent + "&CRemark=" + CRemark + "", "put");
+        }
+
         /// <summary>
         /// 历史投诉分部视图
         /// </summary>

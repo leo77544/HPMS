@@ -62,9 +62,10 @@ namespace H_PMS_DAL
         static public List<RecordInfo> GetRecordInfo()
         {
             return JsonConvert.DeserializeObject<List<RecordInfo>>(JsonConvert.SerializeObject(DBHelper.GetDataTable("select * from RecordInfo order by RIId desc ")));
-        } 
+        }
         #endregion
 
+        #region 查询当日
         /// <summary>
         /// 查询当日
         /// </summary>
@@ -74,6 +75,9 @@ namespace H_PMS_DAL
         {
             return JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(DBHelper.GetDataTable($"select year(TjStime) year, month(TjStime) month, day(TjStime) day, sum(CostPricce) sum from RecordInfo group by year(TjStime), month(TjStime), day(TjStime) having year(TjStime) = year('{str}') and month(TjStime) = month('{str}') and day(TjStime) = day('{str}')")));
         }
+        #endregion
+
+        #region 查询当月
         /// <summary>
         /// 查询当月
         /// </summary>
@@ -83,6 +87,9 @@ namespace H_PMS_DAL
         {
             return JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(DBHelper.GetDataTable($"select year(TjStime) year, month(TjStime) month,sum(CostPricce) sum from RecordInfo group by year(TjStime), month(TjStime) having year(TjStime) = year('{str}') and month(TjStime) = month('{str}')")));
         }
+        #endregion
+
+        #region 查询当年
         /// <summary>
         /// 查询当年
         /// </summary>
@@ -92,6 +99,45 @@ namespace H_PMS_DAL
         {
             return JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(DBHelper.GetDataTable($"select year(TjStime) year,  sum(CostPricce) sum from RecordInfo group by year(TjStime) having year(TjStime) = year('{str}')")));
         }
+        #endregion
+
+        #region 查询年明细
+        /// <summary>
+        /// 查询年明细
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        static public DataTable GetYeardetail(string str)
+        {
+            return JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(DBHelper.GetDataTable($"select year(TjStime) year,month(TjStime) month,sum(CostPricce) sum from RecordInfo group by year(TjStime),month(TjStime) having year(TjStime)= year(TjStime) and month(TjStime)= month(TjStime) and year(TjStime)= year('{str}')")));
+        }
+        #endregion
+
+        #region 查询月明细
+        /// <summary>
+        /// 查询月明细
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        static public DataTable GetMonthdetail(string str)
+        {
+            return JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(DBHelper.GetDataTable($"select year(TjStime) year,month(TjStime) month,day(TjStime) day,sum(CostPricce) sum from RecordInfo group by year(TjStime),month(TjStime),day(TjStime) having year(TjStime)= year(TjStime) and month(TjStime)= month(TjStime) and day(TjStime)=day(TjStime) and month(TjStime)= month('{str}') and year(TjStime)= year('{str}')")));
+        }
+
+        #region 查询年份明细
+        /// <summary>
+        /// 查询年份明细
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        static public DataTable GetYearsdetail()
+        {
+            return JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(DBHelper.GetDataTable($"select year(TjStime) year,sum(CostPricce) sum from RecordInfo group by year(TjStime)")));
+        } 
+        #endregion
+
+
+        #endregion
     }
 }
 

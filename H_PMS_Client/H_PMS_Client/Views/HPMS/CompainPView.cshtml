@@ -1,61 +1,253 @@
 ﻿<div style="height:30px;margin-left:30px;margin-top:10px;">
-    <label>住户姓名：</label><input id="TxtHostName" type="text" style="width:150px;" />
-    <select id="SelCompainRemark" class="CompainCon" style="width:150px;cursor:pointer;">
+    <select id="SelPlotName" class="ComplainCon" style="width:150px;cursor:pointer;">
+        <option value="请选择区域">请选择区域</option>
+        <option value="A区">A区</option>
+        <option value="B区">B区</option>
+        <option value="C区">C区</option>
+        <option value="D区">D区</option>
+    </select>
+    <select id="SelBulidName" class="ComplainCon" style="width:150px;cursor:pointer;">
+        <option value="请选择单元">请选择单元</option>
+        <option value="1单元">1单元</option>
+        <option value="2单元">2单元</option>
+        <option value="3单元">3单元</option>
+        <option value="4单元">4单元</option>
+    </select>
+    <select id="SelHouseNumber" class="ComplainCon" style="width:150px;cursor:pointer;">
+        <option value="请选择房屋">请选择房屋</option>
+        <option value="101">101</option>
+        <option value="102">102</option>
+        <option value="201">201</option>
+        <option value="202">202</option>
+        <option value="301">301</option>
+        <option value="302">302</option>
+        <option value="401">401</option>
+        <option value="402">402</option>
+        <option value="501">501</option>
+        <option value="502">502</option>
+        <option value="601">601</option>
+        <option value="602">602</option>
+        <option value="701">701</option>
+        <option value="702">702</option>
+        <option value="801">801</option>
+        <option value="802">802</option>
+        <option value="901">901</option>
+        <option value="902">902</option>
+    </select>
+    <label></label><input id="TxtHostName" type="text" placeholder="请输入住户姓名" style="width:150px;height:30px;" />
+    <select id="SelComplainRemark" class="ComplainCon" style="width:150px;cursor:pointer;">
         <option value="请选择状态">请选择状态</option>
         <option style="background-color:#6ABD78;" value="等待处理">等待处理</option>
         <option style="background-color:#7bbfea;" value="等待反馈">等待反馈</option>
         <option style="background-color:#1e90ff;" value="需再处理">需再处理</option>
     </select>
-    <span style="line-height:30px;margin-left:10px;">怕甚么真理无穷，进一步有进一步的欢喜。</span>
-    <input id="BtnCAAH" type="button" value="投诉受理" style="width:110px;height:32px;background-color:#5bc0de;border:none;border-radius:5px;float:right;margin-right:6%;color:white;font-size:15px;" onclick="ModalCompainAAHDivShow()" />
+    <input id="BtnCAAH" type="button" value="投诉受理" style="width:110px;height:32px;background-color:#5bc0de;border:none;border-radius:5px;float:right;margin-right:2%;color:white;font-size:15px;" onclick="ModalComplainAAHDivShow()" />
 </div>
-<div id="ShowCompainDiv">
-    <div style="width:390px;height:400px;background-color:#6ABD78;margin-left:20px;margin-top:20px;float:left;cursor:pointer;border-radius:15px;box-shadow:darkgrey 5px 5px 15px 2px;" onclick="ModalCompainFollowDivShow(1)">
-        <p style="margin-left:30px;margin-top:30px;"><label style="font-size:18px;color:white;cursor:pointer;">投诉住户：</label><label style="font-size:18px;color:white;cursor:pointer;">A区 1单元 101 闫宏</label></p>
-        <p style="margin-left:30px;margin-top:10px;"><label style="font-size:18px;color:white;cursor:pointer;">投诉日期：</label><label style="font-size:18px;color:white;cursor:pointer;">2019年12月12日</label></p>
-        <p style="margin-left:30px;margin-top:10px;"><label style="font-size:18px;color:white;cursor:pointer;">接待人员：</label><label style="font-size:18px;color:white;cursor:pointer;">刘温</label></p>
-        <p style="margin-left:30px;margin-top:10px;"><label style="font-size:18px;color:white;margin-top:-140px;cursor:pointer;">投诉内容：</label><label style="font-size:18px;width:240px;word-break:break-all;color:white;cursor:pointer;">1233211123321123321112332112345671233211234567123321123456712332112345672345671234567123321123456712332112345671233211234567234567</label></p>
-    </div>
-    <div style="width:390px;height:400px;background-color:#7bbfea;margin-left:20px;margin-top:20px;float:left;cursor:pointer;border-radius:15px;box-shadow:darkgrey 5px 5px 15px 2px;">
-        <p style="margin-left:30px;margin-top:30px;"><label style="font-size:18px;color:white;">投诉住户：</label><label style="font-size:18px;color:white;">A区 1单元 101 闫宏</label></p>
-        <p style="margin-left:30px;margin-top:10px;"><label style="font-size:18px;color:white;">投诉日期：</label><label style="font-size:18px;color:white;">2019年12月12日</label></p>
-        <p style="margin-left:30px;margin-top:10px;"><label style="font-size:18px;color:white;">接待人员：</label><label style="font-size:18px;color:white;">刘温</label></p>
-        <p style="margin-left:30px;margin-top:10px;"><label style="font-size:18px;color:white;margin-top:-140px;">投诉内容：</label><label style="font-size:18px;width:240px;word-break:break-all;color:white;">1233211123321123321112332112345671233211234567123321123456712332112345672345671234567123321123456712332112345671233211234567234567</label></p>
-    </div>
-    <div style="width:390px;height:400px;background-color:#1e90ff;margin-left:20px;margin-top:20px;float:left;cursor:pointer;border-radius:15px;box-shadow:darkgrey 5px 5px 15px 2px;">
-        <p style="margin-left:30px;margin-top:30px;"><label style="font-size:18px;color:white;">投诉住户：</label><label style="font-size:18px;color:white;">A区 1单元 101 闫宏</label></p>
-        <p style="margin-left:30px;margin-top:10px;"><label style="font-size:18px;color:white;">投诉日期：</label><label style="font-size:18px;color:white;">2019年12月12日</label></p>
-        <p style="margin-left:30px;margin-top:10px;"><label style="font-size:18px;color:white;">接待人员：</label><label style="font-size:18px;color:white;">刘温</label></p>
-        <p style="margin-left:30px;margin-top:10px;"><label style="font-size:18px;color:white;margin-top:-140px;">投诉内容：</label><label style="font-size:18px;width:240px;word-break:break-all;color:white;">1233211123321123321112332112345671233211234567123321123456712332112345672345671234567123321123456712332112345671233211234567234567</label></p>
-    </div>
-</div>
-<div class="ModalCompainAAHDiv" style="width:100%;height:100%;background-color:#ccc;position:fixed;left:0%;top:0%;visibility:hidden;z-index:100;opacity:0.5;cursor:pointer;" onclick="ModalCompainAAHDivHidden()"></div>
-<div id="ModalCompainAAHDiv" class="ModalCompainAAHDiv" style="width:450px;height:540px;background-color:white;position:fixed;left:37%;top:20%;visibility:hidden;z-index:101;border-radius:25px;box-shadow:darkgrey 10px 10px 30px 5px;">
+<div id="ShowComplainDiv"></div>
+<div class="ModalComplainAAHDiv" style="width:100%;height:100%;background-color:#ccc;position:fixed;left:0%;top:0%;visibility:hidden;z-index:100;opacity:0.5;cursor:pointer;" onclick="ModalComplainAAHDivHidden()"></div>
+<div id="ModalComplainAAHDiv" class="ModalComplainAAHDiv" style="width:450px;height:540px;background-color:white;position:fixed;left:37%;top:20%;visibility:hidden;z-index:101;border-radius:25px;box-shadow:darkgrey 10px 10px 30px 5px;">
     <p style="margin-top:15px;"><h2 style="margin-left:132px;">----投诉受理----</h2></p>
-    <p style="margin-left:85px;margin-top:30px;"><label>房屋信息：</label><input id="TxtHouseInfo" type="text" style="width:200px;" value="A区 1单元 101" /></p>
-    <p style="margin-left:85px;margin-top:20px;"><label>住户姓名：</label><input id="TxtHostName" type="text" style="width:200px;" /></p>
-    <p style="margin-left:85px;margin-top:20px;"><label>接待人员：</label><input id="TxtHostPhone" type="text" style="width:200px;" /></p>
+    <p style="margin-left:85px;margin-top:30px;">
+        <label>区域名称：</label>
+        <select id="SelMPlotName" class="SelMAddComplainCon" style="width:200px;cursor:pointer;">
+            <option value="请选择区域">请选择区域</option>
+            <option value="A区">A区</option>
+            <option value="B区">B区</option>
+            <option value="C区">C区</option>
+            <option value="D区">D区</option>
+        </select>
+    </p>
+    <p style="margin-left:85px;margin-top:20px;">
+        <label>单元名称：</label>
+        <select id="SelMBulidName" class="SelMAddComplainCon" style="width:200px;cursor:pointer;">
+            <option value="请选择单元">请选择单元</option>
+            <option value="1单元">1单元</option>
+            <option value="2单元">2单元</option>
+            <option value="3单元">3单元</option>
+            <option value="4单元">4单元</option>
+        </select>
+    </p>
+    <p style="margin-left:85px;margin-top:20px;">
+        <label>房屋编号：</label>
+        <select id="SelMHouseType" class="SelMAddComplainCon" style="width:200px;cursor:pointer;">
+            <option value="请选择房屋">请选择房屋</option>
+            <option value="101">101</option>
+            <option value="102">102</option>
+            <option value="201">201</option>
+            <option value="202">202</option>
+            <option value="301">301</option>
+            <option value="302">302</option>
+            <option value="401">401</option>
+            <option value="402">402</option>
+            <option value="501">501</option>
+            <option value="502">502</option>
+            <option value="601">601</option>
+            <option value="602">602</option>
+            <option value="701">701</option>
+            <option value="702">702</option>
+            <option value="801">801</option>
+            <option value="802">802</option>
+            <option value="901">901</option>
+            <option value="902">902</option>
+        </select>
+    </p>
+    <p style="margin-left:85px;margin-top:20px;">
+        <label>住户姓名：</label>
+        <select id="SelMHostName" style="width:200px;cursor:pointer;">
+            <option value="请选择住户">请选择住户</option>
+        </select>
+    </p>
+    <p style="margin-left:85px;margin-top:20px;">
+        <label>接待人员：</label>
+        <select id="SelMReceptionEmp" style="width:200px;cursor:pointer;">
+            <option value="请选择接待人员">请选择接待人员</option>
+        </select>
+    </p>
     <p style="margin-left:85px;margin-top:20px;">
         <label>投诉内容：</label>
+        <textarea id="TxtCcontent" rows="2" cols="20" style="width:200px;height:130px;"></textarea>
     </p>
-    <p style="margin-left:160px;margin-top:20px;"><input id="BtnRegister" type="button" value="登记" style="width:110px;height:32px;background-color:white;border:1px solid #ccc;border-radius:5px;" onclick="RegisterHost()" /></p>
+    <p style="margin-left:160px;margin-top:20px;"><input id="BtnAddComplain" type="button" value="受理" style="width:110px;height:32px;background-color:white;border:1px solid #ccc;border-radius:5px;" onclick="AddComplain()" /></p>
 </div>
-<div class="ModalCompainFollowDiv" style="width:100%;height:100%;background-color:#ccc;position:fixed;left:0%;top:0%;visibility:hidden;z-index:100;opacity:0.5;cursor:pointer;" onclick="ModalCompainFollowDivHidden()"></div>
-<div id="ModalCompainFollowDiv" class="ModalCompainFollowDiv" style="width:1000px;height:540px;background-color:white;position:fixed;left:25%;top:20%;visibility:hidden;z-index:101;border-radius:25px;box-shadow:darkgrey 10px 10px 30px 5px;">
-    <p style="margin-top:15px;"><h2 style="margin-left:400px;">----投诉跟进----</h2></p>
-
+<div class="ModalComplainFollowDiv" style="width:100%;height:100%;background-color:#ccc;position:fixed;left:0%;top:0%;visibility:hidden;z-index:100;opacity:0.5;cursor:pointer;" onclick="ModalComplainFollowDivHidden()"></div>
+<div id="ModalComplainFollowDiv" class="ModalComplainFollowDiv" style="width:450px;height:420px;background-color:white;position:fixed;left:37%;top:20%;visibility:hidden;z-index:101;border-radius:25px;box-shadow:darkgrey 10px 10px 30px 5px;">
+    <p style="margin-top:15px;"><h2 style="margin-left:132px;">----投诉跟进----</h2></p>
+    <p style="margin-left:30px;margin-top:10px;"><label style="font-size:18px;margin-top:-55px;cursor:pointer;">投诉内容：</label><label id="LabCcontent" title="123" style="font-size:18px;width:270px;word-break:break-all;cursor:pointer;"></label></p>
+    <p style="margin-left:30px;margin-top:10px;">
+        <label style="font-size:18px;cursor:pointer;">跟进状态：</label>
+        <input id="RadWaitComment" class="CKSbox" disabled="disabled" name="CKSbox" type="radio" value="等待反馈" /><label style="font-size:18px;cursor:pointer;">等待反馈</label>
+        <input id="RadNeedSec" class="CKSbox" disabled="disabled" name="CKSbox" type="radio" value="需再处理" /><label style="font-size:18px;cursor:pointer;">需再处理</label>
+        <input id="RadEnd" class="CKSbox" disabled="disabled" name="CKSbox" type="radio" value="结束归档" /><label style="font-size:18px;cursor:pointer;">结束归档</label>
+    </p>
+    <p style="margin-left:30px;margin-top:20px;">
+        <label style="font-size:18px;cursor:pointer;">跟进内容：</label>
+        <textarea id="TxtFollowcontent" rows="2" cols="20" style="width:270px;height:130px;"></textarea>
+    </p>
+    <p style="margin-left:170px;margin-top:20px;"><input id="BtnFollowComplain" type="button" value="跟进" style="width:110px;height:32px;background-color:white;border:1px solid #ccc;border-radius:5px;" onclick="FollowComplain()" /></p>
 </div>
 <script>
-    GetComplainsByConditions();
+    var TheComplainId = "";
+    var ThePlotName = "";
+    var TheBulidName = "";
+    var TheHouseNumber = "";
+    var TheHostName = "";
+    var TheCRemark = "";
     function GetComplainsByConditions() {
-
+        if (ThePlotName == $("#SelPlotName").val() && TheBulidName == $("#SelBulidName").val() && TheHouseNumber == $("#SelHouseNumber").val() && TheHostName == $("#TxtHostName").val() && TheCRemark == $("#SelComplainRemark").val()) {
+            return;
+        }
+        ThePlotName = $("#SelPlotName").val();
+        TheBulidName = $("#SelBulidName").val();
+        TheHouseNumber = $("#SelHouseNumber").val();
+        TheHostName = $("#TxtHostName").val();
+        TheCRemark = $("#SelComplainRemark").val();
+        $.ajax({
+            url: "/HPMS/GetComplainsByConditions?PlotName=" + $("#SelPlotName").val() + "&BulidName=" + $("#SelBulidName").val() + "&HouseNumber=" + $("#SelHouseNumber").val() + "&HostName=" + $("#TxtHostName").val() + "&CRemark=" + $("#SelComplainRemark").val() + "",
+            success: function (data) {
+                $("#ShowComplainDiv").empty();
+                $(JSON.parse(data)).each(function () {
+                    if (this.cRemark != "结束归档") {
+                        $("#ShowComplainDiv").append('<div id="Div' + this.cSId + '" style="width:390px;height:400px;background-color:' + (this.cRemark == "等待处理" ? "#6ABD78" : (this.cRemark == "等待反馈" ? "#7bbfea" : "#1e90ff")) + ';margin-left:20px;margin-top:20px;float:left;cursor:pointer;border-radius:15px;box-shadow:darkgrey 5px 5px 15px 2px;" onclick="ModalComplainFollowDivShow(' + this.cSId + ',\'' + this.ccontent + '\')">'
+                            + '<p style = "margin-left:30px;margin-top:30px;" > <label style="font-size:18px;color:white;cursor:pointer;">投诉住户：</label> <label style="font-size:18px;color:white;cursor:pointer;">' + this.cBName + '</label></p>'
+                            + '<p style="margin-left:30px;margin-top:10px;"><label style="font-size:18px;color:white;cursor:pointer;">投诉日期：</label><label style="font-size:18px;color:white;cursor:pointer;">' + this.cSTime + '</label></p>'
+                            + '<p style="margin-left:30px;margin-top:10px;"><label style="font-size:18px;color:white;cursor:pointer;">接待人员：</label><label style="font-size:18px;color:white;cursor:pointer;">' + this.receptionEmp + '</label></p>'
+                            + '<p style="margin-left:30px;margin-top:10px;"><label style="font-size:18px;color:white;cursor:pointer;">投诉内容：</label><label id="Ccon' + this.cSId + '" style="font-size:18px;width:240px;word-break:break-all;color:white;cursor:pointer;">' + this.ccontent + '</label></p>'
+                            + '</div >');
+                    }
+                })
+            }
+        })
     }
-    function ModalCompainAAHDivShow() {
-        $(".ModalCompainAAHDiv").css("visibility", "visible");
+    setInterval(function () { GetComplainsByConditions(); }, 1)
+    $(".SelMAddComplainCon").change(function () {
+        if ($("#SelMPlotName").val() == "请选择区域" || $("#SelMBulidName").val() == "请选择单元" || $("#SelMHouseType").val() == "请选择房屋") {
+            $("#SelMHostName").empty().append('<option value="请选择住户">请选择住户</option>');
+            return;
+        }
+        $("#SelMHostName").empty().append('<option value="请选择住户">请选择住户</option>');
+        $.ajax({
+            url: "/HPMS/GetHostInfosByHouseInfo?PlotName=" + $("#SelMPlotName").val() + "&BulidName=" + $("#SelMBulidName").val() + "&HouseNumber=" + $("#SelMHouseType").val() + "",
+            success: function (data) {
+                $(JSON.parse(data)).each(function () {
+                    $("#SelMHostName").append('<option value="' + $("#SelMPlotName").val() + ' ' + $("#SelMBulidName").val() + ' ' + $("#SelMHouseType").val() + ' ' + this.hostName + '">' + this.hostName + '</option>');
+                })
+            }
+        })
+    })
+    function FollowComplain() {
+        var Followcontent = "   ";
+        var CRemark = $(".CKSbox:checked").val();
+        if ($(".CKSbox:checked").val() == "等待反馈") {
+            Followcontent += "--处理内容：" + $("#TxtFollowcontent").val()
+        }
+        if ($(".CKSbox:checked").val() == "需再处理") {
+            Followcontent += "--反馈内容：" + $("#TxtFollowcontent").val()
+        }
+        if ($(".CKSbox:checked").val() == "结束归档") {
+            Followcontent += "--反馈内容：" + $("#TxtFollowcontent").val()
+        }
+        if ($("#TxtFollowcontent").val() != "") {
+            $.ajax({
+                url: "/HPMS/FollowComplain?CSId=" + TheComplainId + "&Ccontent=" + Followcontent + "&CRemark=" + CRemark+"",
+                success: function (data) {
+                    location.href = location.href;
+                    ModalComplainFollowDivHidden();
+                }
+            })
+        }
     }
-    function ModalCompainAAHDivHidden() { $(".ModalCompainAAHDiv").css("visibility", "hidden"); }
-    function ModalCompainFollowDivShow(CompainId) {
-        $(".ModalCompainFollowDiv").css("visibility", "visible");
+    function AddComplain() {
+        if ($("#SelMHostName").val() != "请选择住户" && $("#SelMReceptionEmp").val() != "请选择接待人员" && $("#TxtCcontent").val() != "") {
+            $.ajax({
+                url: "/HPMS/AddComplain?CBName=" + $("#SelMHostName").val() + "&ReceptionEmp=" + $("#SelMReceptionEmp").val() + "&Ccontent=--投诉内容：" + $("#TxtCcontent").val() + "",
+                success: function (data) {
+                    location.href = location.href;
+                    ModalComplainAAHDivHidden();
+                }
+            })
+        }
     }
-    function ModalCompainFollowDivHidden() { $(".ModalCompainFollowDiv").css("visibility", "hidden"); }
+    function ModalComplainAAHDivShow() {
+        $(".ModalComplainAAHDiv").css("visibility", "visible");
+        $.ajax({
+            url: "/HPMS/GetEmployees",
+            success: function (data) {
+                $("#SelMReceptionEmp").empty().append('<option value="请选择接待人员">请选择接待人员</option>');
+                $(JSON.parse(data)).each(function () {
+                    $("#SelMReceptionEmp").append('<option value="' + this.EName + '">' + this.EName + '</option>');
+                })
+            }
+        })
+    }
+    function ModalComplainAAHDivHidden() { $(".ModalComplainAAHDiv").css("visibility", "hidden"); }
+    function ModalComplainFollowDivShow(ComplainId, Ccontent) {
+        TheComplainId = ComplainId;
+        $("#LabCcontent").attr("title", Ccontent);
+        if (Ccontent.length > 50) {
+            Ccontent = Ccontent.substring(0, 49) + "...";
+        }
+        $("#LabCcontent").text(Ccontent);
+        var ThisHouseState = ($("#Div" + ComplainId).css("background-color") == "rgb(106, 189, 120)" ? "等待处理" : ($("#Div" + ComplainId).css("background-color") == "rgb(123, 191, 234)" ? "等待反馈" : "需再处理"));
+        $(".CKSbox").prop("checked", "");
+        $(".CKSbox").prop("disabled", "");
+        switch (ThisHouseState) {
+            case "等待处理":
+                $("#RadNeedSec").prop("disabled", "disabled");
+                $("#RadEnd").prop("disabled", "disabled");
+                $("#RadWaitComment").prop("checked", "checked");
+                break;
+            case "等待反馈":
+                $("#RadWaitComment").prop("disabled", "disabled");
+                $("#RadNeedSec").prop("checked", "checked");
+                break;
+            case "需再处理":
+                $("#RadNeedSec").prop("disabled", "disabled");
+                $("#RadEnd").prop("disabled", "disabled");
+                $("#RadWaitComment").prop("checked", "checked");
+                break;
+            case "结束归档": $(".CKbox").prop("disabled", "disabled"); break;
+        }
+        $(".ModalComplainFollowDiv").css("visibility", "visible");
+    }
+    function ModalComplainFollowDivHidden() { $(".ModalComplainFollowDiv").css("visibility", "hidden"); }
 </script>
