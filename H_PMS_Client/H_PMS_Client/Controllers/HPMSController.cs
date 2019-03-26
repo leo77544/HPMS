@@ -11,14 +11,15 @@ namespace H_PMS_Client.Controllers
     public class HPMSController : Controller
     {
         // GET: HPMS
-      //  [HttpPost]
-        
+        //  [HttpPost]
+
         // GET: HPMS
         public ActionResult Index()
         {
             //   ApiResult.GetAPIResult();
-            string str = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
-            GetDayRecord(str);
+            //GetDayRecord(str);
+            //GetMonthRecord(str);
+            //GetYearRecord(str);
             return View();
         }
 
@@ -124,6 +125,22 @@ namespace H_PMS_Client.Controllers
             return PartialView();
         }
         /// <summary>
+        /// 技工报告页面
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult K_JiGongBaoGao()
+        {
+            return PartialView();
+        }
+        /// <summary>
+        /// 归档页面
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult K_WanMeiGuiDang()
+        {
+            return PartialView();
+        }
+        /// <summary>
         /// 获取技工的信息
         /// </summary>
         public string GetEmpByRep()
@@ -172,6 +189,16 @@ namespace H_PMS_Client.Controllers
             string json = ApiResult.GetAPIResult("GetHouseInfoByHouse/?PlotName=" + PlotName + "&BulidName=" + BulidName + "&HouseNumber=" + HouseNumber, "get");
             return json;
         }
+        /// <summary>
+        /// 修改报修明细
+        /// </summary>
+        /// <param name="rep"></param>
+        /// <returns></returns>
+        public string PutRepBuREP(string rep)
+        {
+            Repair repair = JsonConvert.DeserializeObject<Repair>(rep);
+            return ApiResult.GetAPIResult("PutRepair", "put", repair);
+        }
         #endregion
 
         #endregion
@@ -193,11 +220,7 @@ namespace H_PMS_Client.Controllers
         /// <returns></returns>
         public ActionResult ChargeRecord()
         {
-            //DataList();
-           
             return PartialView("_ChargeRecord");
-            
-
         }
         /// <summary>
         /// 添加
@@ -209,7 +232,7 @@ namespace H_PMS_Client.Controllers
             m.DMNumber = DateTime.Now.ToString("yyyyMMddhhmmss");
             m.Remark = "无";
             int result = Convert.ToInt32(ApiResult.GetAPIResult("AddDataMoney", "post", m));
-            if (result>1)
+            if (result > 1)
             {
                 Response.Write("<script>alert('缴费成功');</script>");
             }
@@ -232,7 +255,7 @@ namespace H_PMS_Client.Controllers
         /// </summary>
         /// <returns></returns>
         public ActionResult BillManage()
-        { 
+        {
             return PartialView("_BillManage");
         }
         /// <summary>
@@ -252,12 +275,41 @@ namespace H_PMS_Client.Controllers
             return PartialView("_InComeManage");
         }
 
+        /// <summary>
+        /// 日统计
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
         public string GetDayRecord(string str)
         {
-            string q= ApiResult.GetAPIResult("GetDayCount?str=" + str, "get");
+            //string st = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
+            string q = JsonConvert.SerializeObject(ApiResult.GetAPIResult("GetDayCount?str=" + str, "get"));
             return q;
         }
 
+        /// <summary>
+        /// 月统计
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public string GetMonthRecord(string str)
+        {
+            //string str = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
+
+            string q = JsonConvert.SerializeObject(ApiResult.GetAPIResult("GetMonthCount?str=" + str, "get"));
+            return q;
+        }/// <summary>
+         /// 年统计
+         /// </summary>
+         /// <param name="str"></param>
+         /// <returns></returns>
+        public string GetYearRecord(string str)
+        {
+           // string st = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
+            //str = st;
+            string q = JsonConvert.SerializeObject(ApiResult.GetAPIResult("GetYearCount?str=" + str, "get"));
+            return q;
+        }
 
         #endregion
 
@@ -364,6 +416,7 @@ namespace H_PMS_Client.Controllers
                     }
                 }
             }
+           
 
             return JsonConvert.SerializeObject(list);
         }
