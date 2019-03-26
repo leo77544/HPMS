@@ -182,10 +182,7 @@
             p.MaintainName = $("#MaintainName").text;
             p.RSTime = $("#RSTime").val();
             p.MaintainTime = $("#MaintainTime").val();
-            p.ServePrice = $("#ServePrice").val();
-            p.GoodsPrice = $("#GoodsPrice").val();
             p.ReRemark = getReRemake + "；情况：" + $("#ReRemark").val();
-            p.PriceSum = Number($("#ServePrice").val()) + Number($("#GoodsPrice").val());
             p.Estimate = "等待审核";
             $.ajax({
                 url: "/HPMS/AddRepByEName",

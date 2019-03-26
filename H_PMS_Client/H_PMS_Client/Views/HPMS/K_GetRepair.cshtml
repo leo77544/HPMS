@@ -100,9 +100,9 @@
                     <tr>
                         <td id="wxtd">报修审核：</td>
                         <td id="wxtd2" colspan="3">
-                            <input id="gmEstimate" type="radio" name="gmEstimate" checked="checked" />维修完毕！
-                            <input id="gmEstimate1" type="radio" name="gmEstimate" />维修结束，但稍有瑕疵！
-                            <input id="gmEstimate2" type="radio" name="gmEstimate" />未能完成维修工作！
+                            <input id="gmEstimate" type="radio" name="gmEstimate" checked="checked" value="1" />维修完毕！
+                            <input id="gmEstimate1" type="radio" name="gmEstimate" value="2" />维修结束，但稍有瑕疵！
+                            <input id="gmEstimate2" type="radio" name="gmEstimate" value="3" />未能完成维修工作！
                         </td>
                     </tr>
                 </table>
@@ -126,6 +126,12 @@
     <script>
         var getputRepairId;
         var getputHouseId;
+        var indexRT;
+        var grmRSTime;
+        var indexMT;
+        var grmMaintainTime;
+        var indexReRemark;
+        var grmReRemark;
         GetRepAllCNM();
 
         function GetRepAllCNM() {
@@ -135,15 +141,13 @@
                     $("#RepShowAll").empty();
                     $(JSON.parse(data)).each(function () {
 
-                        var indexRT = this.RSTime.lastIndexOf("\T");
-                        var grmRSTime = this.RSTime.substring(0, indexRT);
+                        indexRT = this.RSTime.lastIndexOf("\T");
+                        grmRSTime = this.RSTime.substring(0, indexRT);
+                        indexMT = this.MaintainTime.lastIndexOf("\T");
+                        grmMaintainTime = this.MaintainTime.substring(0, indexMT);
+                        indexReRemark = this.ReRemark.lastIndexOf("\：");
+                        grmReRemark = this.ReRemark.substring(indexReRemark - 1, indexReRemark.length);
 
-                        var indexMT = this.MaintainTime.lastIndexOf("\T");
-                        var grmMaintainTime = this.MaintainTime.substring(0, indexMT);
-
-                        var indexReRemark = this.ReRemark.lastIndexOf("\：");
-                        var grmReRemark = this.ReRemark.substring(indexReRemark - 1, indexReRemark.length);
-                        
                         $("#RepShowAll").append('<div style="width:750px;height:350px;color:' + (this.Estimate == "尚未解决" ? "#249ded" : (this.Estimate == "完美解决" ? "#fff" : (this.Estimate == "等待审核" ? "#808080" : "#fff"))) + ';float:left;margin-left:20px;margin-top:20px;background-color:' + (this.Estimate == "尚未解决" ? "#dff0d8" : (this.Estimate == "完美解决" ? "#fab6e1" : (this.Estimate == "等待审核" ? "#eeebb9" : "#7fe5cf"))) + '" data-toggle="modal" data-target="#myModal" onclick="' + (this.Estimate == "尚未解决" ? "getModalNoRepShow( \'" + this.RepairId + "\',\'" + this.HostName + "\',\'" + this.HouseId + "\',\'" + this.ReNumber + "\',\'" + this.MaintainName + "\',\'" + this.RSTime + "\',\'" + this.MaintainTime + "\',\'" + this.ServePrice + "\',\'" + this.GoodsPrice + "\',\'" + this.Estimate + "\',\'" + this.ReRemark + "\')" : "getModalOKRepShow( \'" + this.RepairId + "\',\'" + this.HostName + "\',\'" + this.HouseId + "\',\'" + this.ReNumber + "\',\'" + this.MaintainName + "\',\'" + this.RSTime + "\',\'" + this.MaintainTime + "\',\'" + this.ServePrice + "\',\'" + this.GoodsPrice + "\',\'" + this.Estimate + "\',\'" + grmReRemark + "\')") + '"><table style="width:1000px;height:350px;vertical-align:middle;border:2px solid black"><tr><td id="wxtd">维修单据：</td><td id="wxtd2" colspan="3">' + this.ReNumber + '</td></tr><tr><td id="wxtd">房主姓名：</td><td id="wxtd2">' + this.HostName + '</td><td id="wxtd">报修日期：</td><td id="wxtd2">' + grmRSTime + '</td></tr><tr><td id="wxtd">维修内容：</td><td id="wxtd2" colspan="3">' + this.ReRemark + '</td></tr><tr><td id="wxtd">维修人员：</td><td id="wxtd2">' + this.MaintainName + '</td><td id="wxtd">维修日期：</td><td id="wxtd2">' + grmMaintainTime + '</td></tr><tr><td id="wxtd">物料费用：</td><td id="wxtd2">' + this.GoodsPrice + '</td><td id="wxtd">服务费用：</td><td id="wxtd2">' + this.ServePrice + '</td></tr><tr ><td id="wxtd">进程：</td><td id="wxtd2" colspan="3">' + this.Estimate + '</td></tr ></table></div>');
                     })
                 }
@@ -156,13 +160,13 @@
                 success: function (data) {
                     $("#RepShowAll").empty();
                     $(JSON.parse(data)).each(function () {
-
-                        var indexRT = this.RSTime.lastIndexOf("\T");
-                        var grmRSTime = this.RSTime.substring(0, indexRT);
-                        var indexMT = this.MaintainTime.lastIndexOf("\T");
-                        var grmMaintainTime = this.MaintainTime.substring(0, indexMT);
-                        var indexReRemark = this.ReRemark.lastIndexOf("\：");
-                        var grmReRemark = this.ReRemark.substring(indexReRemark + 1, this.ReRemark.length);
+                        
+                        indexRT = this.RSTime.lastIndexOf("\T");
+                        grmRSTime = this.RSTime.substring(0, indexRT);
+                        indexMT = this.MaintainTime.lastIndexOf("\T");
+                        grmMaintainTime = this.MaintainTime.substring(0, indexMT);
+                        indexReRemark = this.ReRemark.lastIndexOf("\：");
+                        grmReRemark = this.ReRemark.substring(indexReRemark - 1, indexReRemark.length);
 
                         $("#RepShowAll").append('<div style="width:750px;height:350px;float:left;color:' + (this.Estimate == "尚未解决" ? "#249ded" : (this.Estimate == "完美解决" ? "#fff" : (this.Estimate == "等待审核" ? "#808080" : "#fff"))) + ';float:left;margin-left:20px;margin-top:20px;background-color:' + (this.Estimate == "尚未解决" ? "#dff0d8" : (this.Estimate == "完美解决" ? "#fab6e1" : (this.Estimate == "等待审核" ? "#eeebb9" : "#7fe5cf"))) + '" data-toggle="modal" data-target="#myModal" onclick="' + (this.Estimate == "尚未解决" ? "getModalNoRepShow( \'" + this.RepairId + "\',\'" + this.HostName + "\',\'" + this.HouseId + "\',\'" + this.ReNumber + "\',\'" + this.MaintainName + "\',\'" + this.RSTime + "\',\'" + this.MaintainTime + "\',\'" + this.ServePrice + "\',\'" + this.GoodsPrice + "\',\'" + this.Estimate + "\',\'" + grmReRemark + "\')" : "getModalOKRepShow( \'" + this.RepairId + "\',\'" + this.HostName + "\',\'" + this.HouseId + "\',\'" + this.ReNumber + "\',\'" + this.MaintainName + "\',\'" + this.RSTime + "\',\'" + this.MaintainTime + "\',\'" + this.ServePrice + "\',\'" + this.GoodsPrice + "\',\'" + this.Estimate + "\',\'" + grmReRemark + "\')") + '"><table style="width:1000px;height:350px;vertical-align:middle;border:2px solid black"><tr><td id="wxtd">维修单据：</td><td id="wxtd2" colspan="3">' + this.ReNumber + '</td></tr><tr><td id="wxtd">房主姓名：</td><td id="wxtd2">' + this.HostName + '</td><td id="wxtd">报修日期：</td><td id="wxtd2">' + grmRSTime + '</td></tr><tr><td id="wxtd">维修内容：</td><td id="wxtd2" colspan="3">' + grmReRemark + '</td></tr><tr><td id="wxtd">维修人员：</td><td id="wxtd2">' + this.MaintainName + '</td><td id="wxtd">维修日期：</td><td id="wxtd2">' + grmMaintainTime + '</td></tr><tr><td id="wxtd">物料费用：</td><td id="wxtd2">' + this.GoodsPrice + '</td><td id="wxtd">服务费用：</td><td id="wxtd2">' + this.ServePrice + '</td></tr><tr ><td id="wxtd">备注：</td><td id="wxtd2" colspan="3">' + this.Estimate + '</td></tr ></table></div>');
                     })
@@ -195,7 +199,6 @@
             $("#gmMaintainTime").val(MaintainTime.substring(0, indexMT));
             $("#gmServePrice").val(ServePrice);
             $("#gmGoodsPrice").val(GoodsPrice);
-            $("#gmReRemark").val(ReRemark);
 
             if (Estimate == "尚未解决") {
                 $("#gmEstimate").val(1);
@@ -234,7 +237,6 @@
             $("#gmMaintainTime").val(MaintainTime.substring(0, indexMT));
             $("#gmServePrice").val(ServePrice);
             $("#gmGoodsPrice").val(GoodsPrice);
-            $("#gmReRemark").val(ReRemark);
 
             if (Estimate == "尚未解决") {
                 $("#gmEstimate").val(1);
@@ -249,25 +251,26 @@
 
         function uptREP() {
             var p = new Object();
-            p.HostName = $("#gmHostName").val();
-            p.HouseId = getHouseId.substring(1, getHouseId.length);
-            p.ReNumber = $("#gmReNumber").val();
-            p.MaintainName = $("#gmMaintainName").text;
-            p.RSTime = $("#gmRSTime").val();
+            p.HostName = $("#gmHostName").text();
+            p.HouseId = getputHouseId.substring(1, getHouseId.length);
+            p.ReNumber = $("#gmReNumber").text();
+            var jgMNS = $("#gmMaintainName option:selected");
+            p.MaintainName = jgMNS.text();
+            p.RSTime = $("#gmRSTime").text();
             p.MaintainTime = $("#gmMaintainTime").val();
             p.ServePrice = $("#gmServePrice").val();
             p.GoodsPrice = $("#gmGoodsPrice").val();
             p.PriceSum = Number($("#gmServePrice").val()) + Number($("#gmGoodsPrice").val());
-            if ($("#gmEstimate").check ? true : false) {
+            if ($('input:radio[name="gmEstimate"]:checked').val() == "1") {
                 p.Estimate = "完美解决";
                 p.ReRemark = "入住" + "；情况：" + $("#gmReRemark").val();
-            } else if ($("#gmEstimate1").check ? true : false) {
+            } else if ($('input:radio[name="gmEstimate"]:checked').val() == "2") {
                 p.Estimate = "尚有瑕疵"
                 p.ReRemark = "入住" + "；情况：" + $("#gmReRemark").val();
-            } else if ($("#gmEstimate2").check ? true : false) {
+            } else if ($('input:radio[name="gmEstimate"]:checked').val() == "3") {
                 p.Estimate = "尚未解决"
                 p.ReRemark = "待修" + "；情况：" + $("#gmReRemark").val();
-            } 
+            }
             $.ajax({
                 url: "/HPMS/PutRepBuREP",
                 data: { rep: JSON.stringify(p) },
@@ -282,7 +285,9 @@
                 }
             })
         }
-
+        function quxiaouptREP() {
+            $(".bg-model").hide();
+        }
     </script>
 
     <script>

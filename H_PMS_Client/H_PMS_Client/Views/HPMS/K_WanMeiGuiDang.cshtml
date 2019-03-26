@@ -18,9 +18,11 @@
     </div>
     <style>
         td {
-            border: 1px solid;
+            border: 1px solid #808080;
             vertical-align: middle;
             text-align: center;
+            font-size:18px;
+            color:#676565;
         }
 
         #wxtd {
@@ -34,26 +36,51 @@
     </style>
     <div class="page-content">
         <div class="row">
-            <div id="jgRepShowAll"></div>
+            <div id="jgRepShowAll" style="margin-top:30px;">
+                <div>
+
+                </div>
+                <table style="width:80%;margin:auto;border:2px solid #808080;text-align:center;">
+                    <thead>
+                        <tr style="border:2px solid #808080;font-size:22px;font-weight:700;color:#854949">
+                            <td>维修单据号</td>
+                            <td>房主姓名</td>
+                            <td>报修日期</td>
+                            <td style="width:15%">维修内容</td>
+                            <td>维修人员</td>
+                            <td>维修日期</td>
+                            <td>物料费用</td>
+                            <td>服务费用</td>
+                            <td>完成情况</td>
+                        </tr>
+                    </thead>
+                    <tbody id="getOKRep">
+
+                    </tbody>
+                </table>
+            </div>
         </div><!-- /row -->
     </div>
     <script>
+        var indexRT;
+        var grmRSTime;
+        var indexMT;
+        var grmMaintainTime;
         GetRepAllCNM();
 
         function GetRepAllCNM() {
             $.ajax({
                 url: "/HPMS/GetRepByLX/?lx=2",
                 success: function (data) {
-                    $("#jgRepShowAll").empty();
                     $(JSON.parse(data)).each(function () {
 
+                        indexRT = this.RSTime.lastIndexOf("\T");
+                        grmRSTime = this.RSTime.substring(0, indexRT);
+                        indexMT = this.MaintainTime.lastIndexOf("\T");
+                        grmMaintainTime = this.MaintainTime.substring(0, indexMT);
+                        $("#getOKRep").append("<tr><td>" + this.ReNumber + "</td><td>" + this.HostName + "</td><td>" + grmRSTime + "</td><td>" + this.ReRemark + "</td><td>" + this.MaintainName + "</td><td>" + grmMaintainTime + "</td><td>" + this.GoodsPrice + "</td><td>" + this.ServePrice + "</td><td style='font-size: 22px; font-weight: 700; color: #0ca33d'>" + this.Estimate + "</td></tr> ");
 
-                        var indexRT = this.RSTime.lastIndexOf("\T");
-                        var grmRSTime = this.RSTime.substring(0, indexRT);
-                        var indexMT = this.MaintainTime.lastIndexOf("\T");
-                        var grmMaintainTime = this.MaintainTime.substring(0, indexMT);
 
-                        $("#jgRepShowAll").append('<div style="width:750px;height:350px;float:left;color:' + (this.Estimate == "尚未解决" ? "#249ded" : (this.Estimate == "完美解决" ? "#fff" : (this.Estimate == "等待审核" ? "#808080" : "#fff"))) + ';float:left;margin-left:20px;margin-top:20px;background-color:' + (this.Estimate == "尚未解决" ? "#dff0d8" : (this.Estimate == "完美解决" ? "#fab6e1" : (this.Estimate == "等待审核" ? "#eeebb9" : "#7fe5cf"))) + '"><table style="width:1000px;height:350px;vertical-align:middle;border:2px solid black"><tr><td id="wxtd">维修单据：</td><td id="wxtd2" colspan="3">' + this.ReNumber + '</td></tr><tr><td id="wxtd">房主姓名：</td><td id="wxtd2">' + this.HostName + '</td><td id="wxtd">报修日期：</td><td id="wxtd2">' + grmRSTime + '</td></tr><tr><td id="wxtd">维修内容：</td><td id="wxtd2" colspan="3">' + this.ReRemark + '</td></tr><tr><td id="wxtd">维修人员：</td><td id="wxtd2">' + this.MaintainName + '</td><td id="wxtd">维修日期：</td><td id="wxtd2">' + grmMaintainTime + '</td></tr><tr><td id="wxtd">物料费用：</td><td id="wxtd2">' + this.GoodsPrice + '</td><td id="wxtd">服务费用：</td><td id="wxtd2">' + this.ServePrice + '</td></tr><tr ><td id="wxtd">进程：</td><td id="wxtd2" colspan="3">' + this.Estimate + '</td></tr ></table></div>');
                     })
                 }
             })

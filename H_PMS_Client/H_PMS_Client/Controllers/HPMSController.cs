@@ -201,8 +201,54 @@ namespace H_PMS_Client.Controllers
         }
         #endregion
 
+        #region 访客
+        public ActionResult K_AddFangKe()
+        {
+            return PartialView();
+        }
+        /// <summary>
+        /// 增添访客信息
+        /// </summary>
+        /// <param name="fangke"></param>
+        /// <returns></returns>
+        public string AddFangKeByFK(string fangke)
+        {
+            Visitor visitor = JsonConvert.DeserializeObject<Visitor>(fangke);
+            string json = ApiResult.GetAPIResult("AddVisitor", "post", visitor);
+            return json;
+        }
+        /// <summary>
+        /// 修改访客页面
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult K_PutFangKe()
+        {
+            return PartialView();
+        }
+        /// <summary>
+        /// 获取访客信息
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public string GetFangKeById(int id)
+        {
+            return ApiResult.GetAPIResult("GetFangKeById/?VId=" + id, "get");
+        }
+        /// <summary>
+        /// 修改访客信息
+        /// </summary>
+        /// <param name="fangke"></param>
+        /// <returns></returns>
+        public string PutFangKeByFK(string fangke)
+        {
+            Visitor visitor = JsonConvert.DeserializeObject<Visitor>(fangke);
+            string json = ApiResult.GetAPIResult("PutVisitor", "put", visitor);
+            return json;
+        }
         #endregion
-        
+
+        #endregion
+
         #region leo
         /// <summary>
         /// 缴费管理
@@ -303,7 +349,7 @@ namespace H_PMS_Client.Controllers
          /// <returns></returns>
         public string GetYearRecord(string str)
         {
-           // string st = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
+            // string st = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
             //str = st;
             string q = JsonConvert.SerializeObject(ApiResult.GetAPIResult("GetYearCount?str=" + str, "get"));
             return q;
@@ -353,7 +399,7 @@ namespace H_PMS_Client.Controllers
 
 
         #endregion
-        
+
         public ActionResult PBShow()
         {
             List<Park> Parklist = JsonConvert.DeserializeObject<List<Park>>(ApiResult.GetAPIResult("GetParkBases", "get"));
@@ -421,7 +467,7 @@ namespace H_PMS_Client.Controllers
                     }
                 }
             }
-           
+
 
             return JsonConvert.SerializeObject(list);
         }
@@ -550,7 +596,7 @@ namespace H_PMS_Client.Controllers
         {
             return ApiResult.GetAPIResult("ChangeHouseState?HouseId=" + HouseId + "&HouseState=" + HouseState + "", "put");
         }
-         
+
         #region 根据身份证号获取基本信息
         public string CKIdCardNum(string IdCardNum)
         {
@@ -624,7 +670,7 @@ namespace H_PMS_Client.Controllers
         {
             return PartialView();
         }
-        
+
         /// <summary>
         /// 历史投诉分部视图
         /// </summary>

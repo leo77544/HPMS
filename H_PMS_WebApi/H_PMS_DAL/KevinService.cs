@@ -54,7 +54,7 @@ namespace H_PMS_DAL
         /// <returns></returns>
         public int PutEmpByEId(Employee employee)
         {
-            return DBHelper.ExecuteNonQuery($"updata Employee set EName='{employee.EName}' and ESex='{employee.ESex}' and EAge='{employee.EAge}' and ESalary='{employee.ESalary}' and EStartTime='{employee.EStartTime}' and DId='{employee.DId}' where EmployeeId={employee.EmployeeId}");
+            return DBHelper.ExecuteNonQuery($"update Employee set EName='{employee.EName}' , ESex='{employee.ESex}' , EAge='{employee.EAge}' , ESalary='{employee.ESalary}' , EStartTime='{employee.EStartTime}' , DId='{employee.DId}' where EmployeeId={employee.EmployeeId}");
         }
         /// <summary>
         /// 删除
@@ -146,11 +146,12 @@ namespace H_PMS_DAL
         /// <returns></returns>
         public int PutRepair(Repair repair)
         {
-            string getHouseState = repair.ReRemark.Substring(2);
-            int n = DBHelper.ExecuteNonQuery($"updata Repair set HostName='{repair.HostName}' and HouseId='{repair.HouseId}' and  MaintainName='{repair.MaintainName}' and RSTime='{repair.RSTime}' and MaintainTime='{repair.MaintainTime}' and ServePrice='{repair.ServePrice}' and GoodsPrice='{repair.GoodsPrice}' and PriceSum='{repair.PriceSum}' and Estimate='{repair.Estimate}' and ReRemark='{repair.ReRemark}' where RepairId={repair.RepairId}");
+            string jqHouseState = repair.ReRemark;
+            string getHouseState = jqHouseState.Substring(0, 2);
+            int n = DBHelper.ExecuteNonQuery($"update Repair set HostName='{repair.HostName}' , HouseId='{repair.HouseId}' ,  MaintainName='{repair.MaintainName}' , RSTime='{repair.RSTime}' , MaintainTime='{repair.MaintainTime}' , ServePrice='{repair.ServePrice}' , GoodsPrice='{repair.GoodsPrice}' , PriceSum='{repair.PriceSum}' , Estimate='{repair.Estimate}' , ReRemark='{repair.ReRemark}' where RepairId='{repair.RepairId}'");
             if (n > 0)
             {
-                n += DBHelper.ExecuteNonQuery("update HouseInfo set HouseState='" + getHouseState + "' where HouseId=" + repair.HouseId);
+                n += DBHelper.ExecuteNonQuery("update HouseInfo set HouseState='" + getHouseState + "' where HouseId='" + repair.HouseId + "'");
             }
             if (n >= 2)
             {
@@ -172,6 +173,24 @@ namespace H_PMS_DAL
         public int AddVisitor(Visitor visitor)
         {
             return DBHelper.ExecuteNonQuery($"insert into Visitor values('{visitor.VisitorName}','{visitor.HostName}','{visitor.StartTime}','{visitor.EndTime}')");
+        }
+        /// <summary>
+        /// 根据ID获取访客信息
+        /// </summary>
+        /// <param name="VId"></param>
+        /// <returns></returns>
+        public string GetFangKeById(int VId)
+        {
+            List<Visitor> list = JsonConvert.DeserializeObject<List<Visitor>>(JsonConvert.SerializeObject(DBHelper.GetDataTable($"select * from Visitor where Visitorid='{VId}'")));
+            if (list.Count == 0)
+            {
+                Visitor visitor = list[0];
+                return JsonConvert.SerializeObject(visitor);
+            }
+            else
+            {
+                return "0";
+            }
         }
         /// <summary>
         /// 访客离开登记
