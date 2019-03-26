@@ -606,7 +606,61 @@ namespace H_PMS_Client.Controllers
         {
             return PartialView();
         }
-        
+
+        /// <summary>
+        /// 根据条件查询投诉信息
+        /// </summary>
+        /// <param name="CBName">投诉住户名</param>
+        /// <param name="CRemark">投诉状态-受理待处理 处理待反馈 需再处理 归档</param>
+        /// <returns></returns>
+        public string GetComplainsByConditions(string PlotName = "", string BulidName = "", string HouseNumber = "", string HostName = "", string CRemark = "")
+        {
+            return ApiResult.GetAPIResult("GetComplainsByConditions?PlotName=" + PlotName + "&BulidName=" + BulidName + "&HouseNumber=" + HouseNumber + "&HostName=" + HostName + "&CRemark=" + CRemark + "", "get");
+        }
+
+        /// <summary>
+        /// 根据房屋信息获取住户
+        /// </summary>
+        /// <param name="PlotName">区域</param>
+        /// <param name="BulidName">单元</param>
+        /// <param name="HouseNumber">房屋</param>
+        /// <returns></returns>
+        public string GetHostInfosByHouseInfo(string PlotName, string BulidName, string HouseNumber)
+        {
+            return ApiResult.GetAPIResult("GetHostInfosByHouseInfo?PlotName=" + PlotName + "&BulidName=" + BulidName + "&HouseNumber=" + HouseNumber + "", "get");
+        }
+
+        /// <summary>
+        /// 获取所有员工
+        /// </summary>
+        /// <returns></returns>
+        public string GetEmployees()
+        {
+            return ApiResult.GetAPIResult("GetEmployees", "get");
+        }
+
+        /// <summary>
+        /// 添加投诉信息
+        /// </summary>
+        /// <param></param>
+        /// <returns></returns>
+        public string AddComplain(string CBName, string ReceptionEmp, string Ccontent)
+        {
+            return ApiResult.GetAPIResult("AddComplain?CBName="+ CBName + "&ReceptionEmp="+ ReceptionEmp + "&Ccontent="+ Ccontent + "", "post");
+        }
+
+        /// <summary> 
+        /// 投诉跟进
+        /// </summary>
+        /// <param name="CSId">投诉记录Id</param>
+        /// <param name="Ccontent">投诉详情</param>
+        /// <param name="CRemark">投诉状态</param>
+        /// <returns></returns>
+        public string FollowComplain(string CSId, string Ccontent, string CRemark)
+        {
+            return ApiResult.GetAPIResult("FollowComplain?CSId=" + CSId + "&Ccontent=" + Ccontent + "&CRemark=" + CRemark + "", "put");
+        }
+
         /// <summary>
         /// 历史投诉分部视图
         /// </summary>
