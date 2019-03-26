@@ -118,7 +118,7 @@ namespace H_PMS_DAL
         /// <returns></returns>
         public string GetHouseInfoByHouse(string PlotName, string BulidName, string HouseNumber)
         {
-            List<HouseInfo> list = JsonConvert.DeserializeObject<List<HouseInfo>>(JsonConvert.SerializeObject(DBHelper.GetDataTable($"select * from HouseInfo where PlotName='{PlotName}' and BulidName='{BulidName}' and HouseNumber='{HouseNumber}'")));
+            List<HouseInfo> list = JsonConvert.DeserializeObject<List<HouseInfo>>(JsonConvert.SerializeObject(DBHelper.GetDataTable($"select * from HouseInfo where PlotName='{PlotName}' and BulidName='{BulidName}' and HouseNumber='{HouseNumber}' and HouseState!='待修'")));
             if (list.Count == 0)
             {
                 return "该房间没有住户";
