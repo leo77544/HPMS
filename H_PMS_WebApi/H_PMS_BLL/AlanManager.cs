@@ -43,6 +43,16 @@ namespace H_PMS_BLL
         {
             return dal.UptParkBase(p);
         }
+
+        public List<HostInfo> ChaHost(string name, string idcard)
+        {
+            return dal.ChaHost(name, idcard);
+        }
+
+        public int UptPBState(ParkBase p)
+        {
+            return dal.UptPBState(p);
+        }
         #endregion
 
         #region 车位租出信息

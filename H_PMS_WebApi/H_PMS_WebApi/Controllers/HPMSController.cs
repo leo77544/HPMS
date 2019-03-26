@@ -81,7 +81,17 @@ namespace H_PMS_WebApi.Controllers
         {
             return Alan.UptPark(p);
         }
-
+        [HttpGet]
+        public List<HostInfo> ChaHost(string name, string idcard)
+        {
+            return Alan.ChaHost(name, idcard);
+        }
+        [HttpPut]
+        public int UptPBState(ParkBase p)
+        {
+            return Alan.UptPBState(p);
+        }
+       
         #endregion
 
         #endregion

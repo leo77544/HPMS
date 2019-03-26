@@ -357,6 +357,23 @@ namespace H_PMS_Client.Controllers
         public ActionResult PBShow()
         {
             List<Park> Parklist = JsonConvert.DeserializeObject<List<Park>>(ApiResult.GetAPIResult("GetParkBases", "get"));
+            int day = 0;
+            foreach (var item in Parklist)
+            {
+                DateTime start = Convert.ToDateTime(item.InRentSTime);
+                start = Convert.ToDateTime(start.Date.ToShortDateString());
+                DateTime end = Convert.ToDateTime(item.InRentSTime);
+                end = Convert.ToDateTime(end.Date.ToShortDateString());
+
+                TimeSpan sp = end.Subtract(start);
+                day = sp.Days;
+
+                if (day > 2 && item.Remark == "代缴费")
+                {
+
+                }
+            }
+            
             ViewBag.list = Parklist;
             return PartialView();
         }
@@ -426,17 +443,57 @@ namespace H_PMS_Client.Controllers
             return JsonConvert.SerializeObject(list);
         }
 
+        public int AddPark(string park)
+        {
+            Park p = JsonConvert.DeserializeObject<Park>(park);
+            p.InRentSTime = DateTime.Now.ToString("yyyy-MM-dd");
+            int n = 0;
+            p.Remark = "代缴费";
+            string json = WebApiHelper.ApiResult.GetAPIResult("ChaHost?name=" + p.HostId + "&idcard=" + p.IDCard, "get");
+            
+            List<HostInfo> host = JsonConvert.DeserializeObject<List<HostInfo>>(json);
+            if (host.Count == 0)
+            {
+                n = -1;
+            }
+            else
+            {
+                n = int.Parse(ApiResult.GetAPIResult("AddPark", "post", p));
+                if (n >0)
+                {
+                    n = int.Parse(ApiResult.GetAPIResult("UptPBState", "put", p));
+                }
+                else
+                {
+                    n = -2;
+                }
+            }
+            return n;
+            
+        }
+
         public string GetPark(string number)
         {
             List<Park> Parklist = JsonConvert.DeserializeObject<List<Park>>(ApiResult.GetAPIResult("GetParkBases", "get"));
             List<Park> pl = Parklist;
             number = number.Trim();
             Park p = Parklist.FirstOrDefault(m => m.PBNumber == number);
-            p.IDCard = p.IDCard.Substring(14, 18);
-            p.InRentSTime = p.InRentSTime.Substring(0, 10);
-            p.OutRentSTime = p.OutRentSTime.Substring(0, 10);
+            if (p.IDCard != null)
+            {
+                p.IDCard = p.IDCard.Substring(p.IDCard.Length - 4, 4);
+            }
+            if (p.InRentSTime !=null)
+            {
+                p.InRentSTime = p.InRentSTime.Substring(0, 10);
+            }
+            if (p.OutRentSTime !=null)
+            {
+                p.OutRentSTime = p.OutRentSTime.Substring(0, 10);
+            }
             return JsonConvert.SerializeObject(p);
         }
+
+
 
         #region 删除
 
