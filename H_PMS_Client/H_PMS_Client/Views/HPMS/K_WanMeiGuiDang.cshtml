@@ -1,0 +1,63 @@
+﻿
+
+<div class="main-content" style="margin-left:0px;">
+    <div class="breadcrumbs" id="breadcrumbs">
+        <script type="text/javascript">
+            try { ace.settings.check('breadcrumbs', 'fixed') } catch (e) { }
+        </script>
+
+        <ul class="breadcrumb">
+            <li>
+                <i class="icon-home home-icon"></i>
+                <a href="#">首页</a>
+            </li>
+            <li class="active">安居客控制台</li>
+            <li class="active">报修管理</li>
+            <li class="active">提交报修</li>
+        </ul><!-- .breadcrumb -->
+    </div>
+    <style>
+        td {
+            border: 1px solid;
+            vertical-align: middle;
+            text-align: center;
+        }
+
+        #wxtd {
+            width: 100px;
+        }
+
+        #wxtd2 {
+            width: 250px;
+            font-size: 20px;
+        }
+    </style>
+    <div class="page-content">
+        <div class="row">
+            <div id="jgRepShowAll"></div>
+        </div><!-- /row -->
+    </div>
+    <script>
+        GetRepAllCNM();
+
+        function GetRepAllCNM() {
+            $.ajax({
+                url: "/HPMS/GetRepByLX/?lx=2",
+                success: function (data) {
+                    $("#jgRepShowAll").empty();
+                    $(JSON.parse(data)).each(function () {
+
+
+                        var indexRT = this.RSTime.lastIndexOf("\T");
+                        var grmRSTime = this.RSTime.substring(0, indexRT);
+                        var indexMT = this.MaintainTime.lastIndexOf("\T");
+                        var grmMaintainTime = this.MaintainTime.substring(0, indexMT);
+
+                        $("#jgRepShowAll").append('<div style="width:750px;height:350px;float:left;color:' + (this.Estimate == "尚未解决" ? "#249ded" : (this.Estimate == "完美解决" ? "#fff" : (this.Estimate == "等待审核" ? "#808080" : "#fff"))) + ';float:left;margin-left:20px;margin-top:20px;background-color:' + (this.Estimate == "尚未解决" ? "#dff0d8" : (this.Estimate == "完美解决" ? "#fab6e1" : (this.Estimate == "等待审核" ? "#eeebb9" : "#7fe5cf"))) + '"><table style="width:1000px;height:350px;vertical-align:middle;border:2px solid black"><tr><td id="wxtd">维修单据：</td><td id="wxtd2" colspan="3">' + this.ReNumber + '</td></tr><tr><td id="wxtd">房主姓名：</td><td id="wxtd2">' + this.HostName + '</td><td id="wxtd">报修日期：</td><td id="wxtd2">' + grmRSTime + '</td></tr><tr><td id="wxtd">维修内容：</td><td id="wxtd2" colspan="3">' + this.ReRemark + '</td></tr><tr><td id="wxtd">维修人员：</td><td id="wxtd2">' + this.MaintainName + '</td><td id="wxtd">维修日期：</td><td id="wxtd2">' + grmMaintainTime + '</td></tr><tr><td id="wxtd">物料费用：</td><td id="wxtd2">' + this.GoodsPrice + '</td><td id="wxtd">服务费用：</td><td id="wxtd2">' + this.ServePrice + '</td></tr><tr ><td id="wxtd">进程：</td><td id="wxtd2" colspan="3">' + this.Estimate + '</td></tr ></table></div>');
+                    })
+                }
+            })
+        }
+
+    </script>
+</div>

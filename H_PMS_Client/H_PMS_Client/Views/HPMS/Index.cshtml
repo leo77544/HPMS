@@ -1,4 +1,5 @@
 ﻿
+
 @{
     Layout = null;
 }
@@ -138,21 +139,21 @@
 
                         <ul class="submenu">
                             <li>
-                                <a href="JavaScript:HousePView()">
+                                <a href="JavaScript:HousePView('住户登记')">
                                     <i class="icon-double-angle-right"></i>
                                     住户登记
                                 </a>
                             </li>
 
                             <li>
-                                <a href="JavaScript:HousePView('状态变更')">
+                                <a href="JavaScript:HousePView('住户查询')">
                                     <i class="icon-double-angle-right"></i>
                                     住户查询
                                 </a>
                             </li>
 
                             <li>
-                                <a href="JavaScript:HousePView('住户查询')">
+                                <a href="JavaScript:HousePView('状态变更')">
                                     <i class="icon-double-angle-right"></i>
                                     状态变更
                                 </a>
@@ -298,21 +299,28 @@
                             <li>
                                 <a href="/HPMS/K_AddRepair" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#kevin">
                                     <i class="icon-double-angle-right"></i>
-                                    提交报修
+                                    新增报修
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="/HPMS/K_JiGongBaoGao" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#kevin">
+                                    <i class="icon-double-angle-right"></i>
+                                    技工报告
                                 </a>
                             </li>
 
                             <li>
                                 <a href="/HPMS/K_GetRepair" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#kevin">
                                     <i class="icon-double-angle-right"></i>
-                                    查看维修明细
+                                    正在克服
                                 </a>
                             </li>
 
                             <li>
-                                <a href="/HPMS/K_AddRepair" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#kevin">
+                                <a href="/HPMS/K_WanMeiGuiDang" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#kevin">
                                     <i class="icon-double-angle-right"></i>
-                                    维修提交
+                                    归档明细
                                 </a>
                             </li>
 
@@ -329,28 +337,14 @@
 
                         <ul class="submenu">
                             <li>
-                                <a href="JavaScript:HousePView()">
+                                <a href="JavaScript:CompainPView('投诉跟进')">
                                     <i class="icon-double-angle-right"></i>
-                                    投诉受理
+                                    投诉跟进
                                 </a>
                             </li>
 
                             <li>
-                                <a href="JavaScript:HousePView()">
-                                    <i class="icon-double-angle-right"></i>
-                                    投诉处理
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="JavaScript:HousePView()">
-                                    <i class="icon-double-angle-right"></i>
-                                    投诉反馈
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="JavaScript:HousePView()">
+                                <a href="JavaScript:CompainPView('历史投诉')">
                                     <i class="icon-double-angle-right"></i>
                                     历史投诉
                                 </a>
@@ -382,6 +376,7 @@
                         </li>
                         <li class="active">幸福里控制台</li>
                     </ul><!-- .breadcrumb -->
+                    <input id="WindowsCode" type="hidden" value="" />
                 </div>
 
                 <div class="page-content" id="tab">
@@ -534,8 +529,8 @@
 
     <script type="text/javascript">
         $(function () {
-           
-        
+
+
 
         })
         jQuery(function ($) {
@@ -734,7 +729,6 @@
     </script>
 
     <script>
-        var WindowsCode = 0;
         function charge() {
             $.ajax({
                 url: "/hpms/JiaoFei/",
@@ -750,27 +744,50 @@
                 success: function (data) {
                     $(".page-content").empty();
                     $(".page-content").append(data);
-                   
+
                 }
             })
         }
-        
-        function HousePView() {
+
+        function HousePView(PageCode) {
             $.ajax({
                 url: "/HPMS/HousePView",
                 success: function (data) {
+                    $("#WindowsCode").val(PageCode);
                     $(".page-content").empty();
                     $(".page-content").append(data);
                 }
             })
         }
-        
+        function CompainPView(PageCode) {
+            if (PageCode == "投诉跟进") {
+                $.ajax({
+                    url: "/HPMS/CompainPView",
+                    success: function (data) {
+                        $("#WindowsCode").val(PageCode);
+                        $(".page-content").empty();
+                        $(".page-content").append(data);
+                    }
+                })
+            } else if (PageCode == "历史投诉") {
+                $.ajax({
+                    url: "/HPMS/HistoryCompainPView",
+                    success: function (data) {
+                        $("#WindowsCode").val(PageCode);
+                        $(".page-content").empty();
+                        $(".page-content").append(data);
+                    }
+                })
+
+            }
+        }
+
     </script>
 
-    
+
 </body>
 </html>
 <script>
-   
+
 
 </script>

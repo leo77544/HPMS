@@ -34,41 +34,274 @@
     </style>
     <div class="page-content">
         <div class="row">
-            <div style="height:30px;margin-left:30px;margin-top:10px;">
-                <label class="col-sm-3 control-label no-padding-right" for="form-field-2" style="padding-left:300px;"> 查看报修明细 </label>
-                <select id="SelPlotName" style="width:150px;cursor:pointer;">
-                    <option value="0">请选择</option>
-                    <option value="1">未解决</option>
-                    <option value="2">已解决</option>
+            <div style="height:50px;margin-left:30px;margin-top:20px;width:100%">
+                <label class="col-sm-3 control-label no-padding-right" for="form-field-2" style="padding-left:10%;font-size:20px;height:30px;"> 查看报修明细 </label>
+                <select id="SelPlotName" style="width:150px;cursor:pointer;font-size:20px;height:34px;">
+                    <option value="1">尚未解决</option>
+                    <option value="4">尚有瑕疵</option>
+                    <option value="0">显示全部</option>
                 </select>
             </div>
             <div id="RepShowAll"></div>
         </div><!-- /row -->
-        <div class="box" id="box" style="width:250px;height:80px;z-index:1024;font-size:24px;font-family:微软雅黑;line-height:80px;padding-left:75px;background-color:#bcf5c2;float:left;margin-left:40%;color:#159753;display:none">添加成功！</div>
-    </div><!-- /.page-content -->
+
+        <div class="box" id="box" style="width:250px;height:80px;z-index:1024;font-size:24px;font-family:微软雅黑;line-height:80px;padding-left:75px;background-color:#bcf5c2;float:left;margin-left:40%;color:#159753;display:none">修改成功！</div>
+
+        <div id="myModal" class="bg-model" style="position:absolute;top:0%;left:0%;display:none;background:rgba(0,0,0,0.3);width:100%;height:100%;position:fixed;z-index:9999">
+            <div class='content' style="position: absolute;left: 25%;top: 15%;border-radius: 10px;width:850px;height:580px;background-color: #fff;">
+                <div style="height:80px;line-height:80px;">
+                    <h2 style="margin-left:310px;">----修改报修单据----</h2>
+                </div>
+                <table style="width:750px;height:350px;vertical-align:middle;border:2px solid;margin:auto">
+                    <tr>
+                        <td id="wxtd">维修单据：</td>
+                        <td id="wxtd2" colspan="3">
+                            <span id="gmReNumber" style="color:#8a8888"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td id="wxtd">房主姓名：</td>
+                        <td id="wxtd2">
+                            <span id="gmHostName" style="color:#8a8888"></span>
+                        </td>
+                        <td id="wxtd">报修日期：</td>
+                        <td id="wxtd2">
+                            <span id="gmRSTime" style="color:#8a8888"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td id="wxtd">维修内容：</td>
+                        <td id="wxtd2" colspan="3">
+                            <input id="gmReRemark" type="text" style="width:600px;border:0px;font-size:18px;" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td id="wxtd">维修人员：</td>
+                        <td id="wxtd2">
+                            <select id="gmMaintainName" style="font-size:18px;">
+                                <option value="0">==请选择技工==</option>
+                            </select>
+                        </td>
+                        <td id="wxtd">维修日期：</td>
+                        <td id="wxtd2">
+                            <input type="text" id="gmMaintainTime" onclick="WdatePicker()" style="width:250px;border:0px;font-size:18px;" class="col-xs-10 col-sm-5" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td id="wxtd">物料费用：</td>
+                        <td id="wxtd2">
+                            <input id="gmGoodsPrice" type="text" style="width:250px;border:0px;font-size:18px;" />
+                        </td>
+                        <td id="wxtd">服务费用：</td>
+                        <td id="wxtd2">
+                            <input id="gmServePrice" type="text" style="width:250px;border:0px;font-size:18px;" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td id="wxtd">报修审核：</td>
+                        <td id="wxtd2" colspan="3">
+                            <input id="gmEstimate" type="radio" name="gmEstimate" checked="checked" />维修完毕！
+                            <input id="gmEstimate1" type="radio" name="gmEstimate" />维修结束，但稍有瑕疵！
+                            <input id="gmEstimate2" type="radio" name="gmEstimate" />未能完成维修工作！
+                        </td>
+                    </tr>
+                </table>
+                <div class="clearfix form-actions">
+                    <div class="col-md-offset-3 col-md-9" style="margin-left:270px;">
+                        <button class="btn btn-info" type="button" onclick="uptREP()">
+                            <i class="icon-ok bigger-110"></i>
+                            提交修改
+                        </button>
+                        &nbsp; &nbsp; &nbsp;
+                        <button class="btn" type="reset" onclick="quxiaouptREP()">
+                            <i class="icon-undo bigger-110"></i>
+                            取消操作
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- /.page-content -->
+    </div>
+    <script>
+        var getputRepairId;
+        var getputHouseId;
+        GetRepAllCNM();
+
+        function GetRepAllCNM() {
+            $.ajax({
+                url: "/HPMS/GetRepByLX/?lx=1",
+                success: function (data) {
+                    $("#RepShowAll").empty();
+                    $(JSON.parse(data)).each(function () {
+
+                        var indexRT = this.RSTime.lastIndexOf("\T");
+                        var grmRSTime = this.RSTime.substring(0, indexRT);
+
+                        var indexMT = this.MaintainTime.lastIndexOf("\T");
+                        var grmMaintainTime = this.MaintainTime.substring(0, indexMT);
+
+                        var indexReRemark = this.ReRemark.lastIndexOf("\：");
+                        var grmReRemark = this.ReRemark.substring(indexReRemark - 1, indexReRemark.length);
+                        
+                        $("#RepShowAll").append('<div style="width:750px;height:350px;color:' + (this.Estimate == "尚未解决" ? "#249ded" : (this.Estimate == "完美解决" ? "#fff" : (this.Estimate == "等待审核" ? "#808080" : "#fff"))) + ';float:left;margin-left:20px;margin-top:20px;background-color:' + (this.Estimate == "尚未解决" ? "#dff0d8" : (this.Estimate == "完美解决" ? "#fab6e1" : (this.Estimate == "等待审核" ? "#eeebb9" : "#7fe5cf"))) + '" data-toggle="modal" data-target="#myModal" onclick="' + (this.Estimate == "尚未解决" ? "getModalNoRepShow( \'" + this.RepairId + "\',\'" + this.HostName + "\',\'" + this.HouseId + "\',\'" + this.ReNumber + "\',\'" + this.MaintainName + "\',\'" + this.RSTime + "\',\'" + this.MaintainTime + "\',\'" + this.ServePrice + "\',\'" + this.GoodsPrice + "\',\'" + this.Estimate + "\',\'" + this.ReRemark + "\')" : "getModalOKRepShow( \'" + this.RepairId + "\',\'" + this.HostName + "\',\'" + this.HouseId + "\',\'" + this.ReNumber + "\',\'" + this.MaintainName + "\',\'" + this.RSTime + "\',\'" + this.MaintainTime + "\',\'" + this.ServePrice + "\',\'" + this.GoodsPrice + "\',\'" + this.Estimate + "\',\'" + grmReRemark + "\')") + '"><table style="width:1000px;height:350px;vertical-align:middle;border:2px solid black"><tr><td id="wxtd">维修单据：</td><td id="wxtd2" colspan="3">' + this.ReNumber + '</td></tr><tr><td id="wxtd">房主姓名：</td><td id="wxtd2">' + this.HostName + '</td><td id="wxtd">报修日期：</td><td id="wxtd2">' + grmRSTime + '</td></tr><tr><td id="wxtd">维修内容：</td><td id="wxtd2" colspan="3">' + this.ReRemark + '</td></tr><tr><td id="wxtd">维修人员：</td><td id="wxtd2">' + this.MaintainName + '</td><td id="wxtd">维修日期：</td><td id="wxtd2">' + grmMaintainTime + '</td></tr><tr><td id="wxtd">物料费用：</td><td id="wxtd2">' + this.GoodsPrice + '</td><td id="wxtd">服务费用：</td><td id="wxtd2">' + this.ServePrice + '</td></tr><tr ><td id="wxtd">进程：</td><td id="wxtd2" colspan="3">' + this.Estimate + '</td></tr ></table></div>');
+                    })
+                }
+            })
+        }
+
+        $("#SelPlotName").change(function () {
+            $.ajax({
+                url: "/HPMS/GetRepByLX/?lx=" + $("#SelPlotName").val(),
+                success: function (data) {
+                    $("#RepShowAll").empty();
+                    $(JSON.parse(data)).each(function () {
+
+                        var indexRT = this.RSTime.lastIndexOf("\T");
+                        var grmRSTime = this.RSTime.substring(0, indexRT);
+                        var indexMT = this.MaintainTime.lastIndexOf("\T");
+                        var grmMaintainTime = this.MaintainTime.substring(0, indexMT);
+                        var indexReRemark = this.ReRemark.lastIndexOf("\：");
+                        var grmReRemark = this.ReRemark.substring(indexReRemark + 1, this.ReRemark.length);
+
+                        $("#RepShowAll").append('<div style="width:750px;height:350px;float:left;color:' + (this.Estimate == "尚未解决" ? "#249ded" : (this.Estimate == "完美解决" ? "#fff" : (this.Estimate == "等待审核" ? "#808080" : "#fff"))) + ';float:left;margin-left:20px;margin-top:20px;background-color:' + (this.Estimate == "尚未解决" ? "#dff0d8" : (this.Estimate == "完美解决" ? "#fab6e1" : (this.Estimate == "等待审核" ? "#eeebb9" : "#7fe5cf"))) + '" data-toggle="modal" data-target="#myModal" onclick="' + (this.Estimate == "尚未解决" ? "getModalNoRepShow( \'" + this.RepairId + "\',\'" + this.HostName + "\',\'" + this.HouseId + "\',\'" + this.ReNumber + "\',\'" + this.MaintainName + "\',\'" + this.RSTime + "\',\'" + this.MaintainTime + "\',\'" + this.ServePrice + "\',\'" + this.GoodsPrice + "\',\'" + this.Estimate + "\',\'" + grmReRemark + "\')" : "getModalOKRepShow( \'" + this.RepairId + "\',\'" + this.HostName + "\',\'" + this.HouseId + "\',\'" + this.ReNumber + "\',\'" + this.MaintainName + "\',\'" + this.RSTime + "\',\'" + this.MaintainTime + "\',\'" + this.ServePrice + "\',\'" + this.GoodsPrice + "\',\'" + this.Estimate + "\',\'" + grmReRemark + "\')") + '"><table style="width:1000px;height:350px;vertical-align:middle;border:2px solid black"><tr><td id="wxtd">维修单据：</td><td id="wxtd2" colspan="3">' + this.ReNumber + '</td></tr><tr><td id="wxtd">房主姓名：</td><td id="wxtd2">' + this.HostName + '</td><td id="wxtd">报修日期：</td><td id="wxtd2">' + grmRSTime + '</td></tr><tr><td id="wxtd">维修内容：</td><td id="wxtd2" colspan="3">' + grmReRemark + '</td></tr><tr><td id="wxtd">维修人员：</td><td id="wxtd2">' + this.MaintainName + '</td><td id="wxtd">维修日期：</td><td id="wxtd2">' + grmMaintainTime + '</td></tr><tr><td id="wxtd">物料费用：</td><td id="wxtd2">' + this.GoodsPrice + '</td><td id="wxtd">服务费用：</td><td id="wxtd2">' + this.ServePrice + '</td></tr><tr ><td id="wxtd">备注：</td><td id="wxtd2" colspan="3">' + this.Estimate + '</td></tr ></table></div>');
+                    })
+                }
+            })
+        })
+
+        function getModalNoRepShow(RepairId, HostName, HouseId, ReNumber, MaintainName, RSTime, MaintainTime, ServePrice, GoodsPrice, Estimate, ReRemark) {
+            getputRepairId = RepairId;
+            getputHouseId = HouseId;
+
+            $.ajax({
+                url: "/HPMS/GetEmpByRep",
+                success: function (data) {
+                    $(JSON.parse(data)).each(function () {
+                        if (this.EName == MaintainName) {
+                            $("#gmMaintainName").append('<option value="' + this.EmployeeId + '" selected="selected">' + this.EName + '</option>');
+                        } else {
+                            $("#gmMaintainName").append('<option value="' + this.EmployeeId + '" >' + this.EName + '</option>');
+                        }
+                    })
+                }
+            })
+
+            $("#gmReNumber").html(ReNumber);
+            $("#gmHostName").html(HostName);
+            var indexRT = RSTime.lastIndexOf("\T");
+            $("#gmRSTime").html(RSTime.substring(0, indexRT));
+            var indexMT = MaintainTime.lastIndexOf("\T");
+            $("#gmMaintainTime").val(MaintainTime.substring(0, indexMT));
+            $("#gmServePrice").val(ServePrice);
+            $("#gmGoodsPrice").val(GoodsPrice);
+            $("#gmReRemark").val(ReRemark);
+
+            if (Estimate == "尚未解决") {
+                $("#gmEstimate").val(1);
+            } else if (Estimate == "完美解决") {
+                $("#gmEstimate").val(2);
+            } else if (Estimate == "等待审核") {
+                $("#gmEstimate").val(3);
+            } else if (Estimate == "尚有瑕疵") {
+                $("#gmEstimate").val(4);
+            }
+
+        }
+
+        function getModalOKRepShow(RepairId, HostName, HouseId, ReNumber, MaintainName, RSTime, MaintainTime, ServePrice, GoodsPrice, Estimate, ReRemark) {
+            getputRepairId = RepairId;
+            getputHouseId = HouseId;
+
+            $.ajax({
+                url: "/HPMS/GetEmpByRep",
+                success: function (data) {
+                    $(JSON.parse(data)).each(function () {
+                        if (this.EName == MaintainName) {
+                            $("#gmMaintainName").append('<option value="' + this.EmployeeId + '" selected="selected">' + this.EName + '</option>');
+                        } else {
+                            $("#gmMaintainName").append('<option value="' + this.EmployeeId + '" >' + this.EName + '</option>');
+                        }
+                    })
+                }
+            })
+
+            $("#gmReNumber").html(ReNumber);
+            $("#gmHostName").html(HostName);
+            var indexRT = RSTime.lastIndexOf("\T");
+            $("#gmRSTime").html(RSTime.substring(0, indexRT));
+            var indexMT = MaintainTime.lastIndexOf("\T");
+            $("#gmMaintainTime").val(MaintainTime.substring(0, indexMT));
+            $("#gmServePrice").val(ServePrice);
+            $("#gmGoodsPrice").val(GoodsPrice);
+            $("#gmReRemark").val(ReRemark);
+
+            if (Estimate == "尚未解决") {
+                $("#gmEstimate").val(1);
+            } else if (Estimate == "完美解决") {
+                $("#gmEstimate").val(2);
+            } else if (Estimate == "等待审核") {
+                $("#gmEstimate").val(3);
+            } else if (Estimate == "尚有瑕疵") {
+                $("#gmEstimate").val(4);
+            }
+        }
+
+        function uptREP() {
+            var p = new Object();
+            p.HostName = $("#gmHostName").val();
+            p.HouseId = getHouseId.substring(1, getHouseId.length);
+            p.ReNumber = $("#gmReNumber").val();
+            p.MaintainName = $("#gmMaintainName").text;
+            p.RSTime = $("#gmRSTime").val();
+            p.MaintainTime = $("#gmMaintainTime").val();
+            p.ServePrice = $("#gmServePrice").val();
+            p.GoodsPrice = $("#gmGoodsPrice").val();
+            p.PriceSum = Number($("#gmServePrice").val()) + Number($("#gmGoodsPrice").val());
+            if ($("#gmEstimate").check ? true : false) {
+                p.Estimate = "完美解决";
+                p.ReRemark = "入住" + "；情况：" + $("#gmReRemark").val();
+            } else if ($("#gmEstimate1").check ? true : false) {
+                p.Estimate = "尚有瑕疵"
+                p.ReRemark = "入住" + "；情况：" + $("#gmReRemark").val();
+            } else if ($("#gmEstimate2").check ? true : false) {
+                p.Estimate = "尚未解决"
+                p.ReRemark = "待修" + "；情况：" + $("#gmReRemark").val();
+            } 
+            $.ajax({
+                url: "/HPMS/PutRepBuREP",
+                data: { rep: JSON.stringify(p) },
+                type: "post",
+                dataType: "json",
+                success: function (data) {
+                    if (data != "") {
+                        quxiaoREP();
+                        $("#box").css("display", "inline");
+                        setTimeout("tishiclose()", 1000);
+                    }
+                }
+            })
+        }
+
+    </script>
+
+    <script>
+        //显示模态框点击事件
+        $(".cart-add").click(function () {
+            $(".bg-model").fadeTo(300, 1)
+            //隐藏窗体的滚动条
+            $("body").css({ "overflow": "hidden" });
+        });
+
+        //模态框OK按钮点击事件
+        $(".bg-model-ok").click(function () {
+            $(".bg-model").hide();
+            //显示窗体的滚动条
+            $("body").css({ "overflow": "visible" });
+        }).hover(function () {
+            $(this).css({ "backgroundColor": "#8CC8C8" });
+        }, function () {
+            $(this).css({ "backgroundColor": "#8CD4E6" });
+        });
+    </script>
 </div>
-<script>
-    GetRepAllCNM();
-    function GetRepAllCNM() {
-        $.ajax({
-            url: "/HPMS/GetRepByLX/?lx=0",
-            success: function (data) {
-                $("#RepShowAll").empty();
-                $(JSON.parse(data)).each(function () {
-                    $("#RepShowAll").append(' <div style="width:750px;height:350px;color:' + (this.Estimate == "未解决" ? "#249ded" : "#ffffff") + ';float:left;margin-left:20px;margin-top:20px;background-color:' + (this.Estimate == "未解决" ? "#dff0d8" : "#438eb9") + '"><table style="width:1000px;height:350px;vertical-align:middle;border:2px solid"><tr><td id="wxtd">维修单据：</td><td id="wxtd2" colspan="3">' + this.ReNumber + '</td></tr><tr><td id="wxtd">房主姓名：</td><td id="wxtd2">' + this.HostName + '</td><td id="wxtd">报修日期：</td><td id="wxtd2">' + this.RSTime + '</td></tr><tr><td id="wxtd">维修内容：</td><td id="wxtd2" colspan="3">' + this.ReRemark + '</td></tr><tr><td id="wxtd">维修人员：</td><td id="wxtd2">' + this.MaintainName + '</td><td id="wxtd">维修日期：</td><td id="wxtd2">' + this.MaintainTime + '</td></tr><tr><td id="wxtd">服务费用：</td><td id="wxtd2">' + this.ReNumber + '</td><td id="wxtd">服务费用：</td><td id="wxtd2">' + this.ReNumber + '</td></tr><tr ><td id="wxtd">备注：</td><td id="wxtd2" colspan="3">' + this.Estimate + '</td></tr ></table></div>');
-                })
-            }
-        })
-    }
-    $("#SelPlotName").change(function () {
-        $.ajax({
-            url: "/HPMS/GetRepByLX/?lx=" + $("#SelPlotName").val(),
-            success: function (data) {
-                $("#RepShowAll").empty();
-                $(JSON.parse(data)).each(function () {
-                    $("#RepShowAll").append(' <div style="width:750px;height:350px;float:left;color:' + (this.Estimate == "未解决" ? "#249ded" : "#ffffff") + ';margin-left:20px;margin-top:20px;background-color:' + (this.Estimate == "未解决" ? "#dff0d8" : "#438eb9") + '"><table style="width:1000px;height:350px;vertical-align:middle;border:2px solid"><tr><td id="wxtd">维修单据：</td><td id="wxtd2" colspan="3">' + this.ReNumber + '</td></tr><tr><td id="wxtd">房主姓名：</td><td id="wxtd2">' + this.HostName + '</td><td id="wxtd">报修日期：</td><td id="wxtd2">' + this.RSTime + '</td></tr><tr><td id="wxtd">维修内容：</td><td id="wxtd2" colspan="3">' + this.ReRemark + '</td></tr><tr><td id="wxtd">维修人员：</td><td id="wxtd2">' + this.MaintainName + '</td><td id="wxtd">维修日期：</td><td id="wxtd2">' + this.MaintainTime + '</td></tr><tr><td id="wxtd">服务费用：</td><td id="wxtd2">' + this.ReNumber + '</td><td id="wxtd">服务费用：</td><td id="wxtd2">' + this.ReNumber + '</td></tr><tr ><td id="wxtd">备注：</td><td id="wxtd2" colspan="3">' + this.Estimate + '</td></tr ></table></div>');
-                })
-            }
-        })
-    })
-</script>
