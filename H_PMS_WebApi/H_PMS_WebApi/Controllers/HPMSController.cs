@@ -123,10 +123,10 @@ namespace H_PMS_WebApi.Controllers
 
             pageList.TotalPage = list.Count % size > 0 ? list.Count / size + 1 : list.Count / size;
 
-            pageList.list = list.Skip((page - 1) * size).Take(size).ToList().OrderByDescending(m=>m.DMId).ToList();
+            pageList.list = list.Skip((page - 1) * size).Take(size).ToList().OrderByDescending(m => m.DMId).ToList();
             return pageList;
         }
-        
+
         /// <summary>
         /// 查看报表信息
         /// </summary>
@@ -162,7 +162,7 @@ namespace H_PMS_WebApi.Controllers
         /// <returns></returns>
         /// 
         [HttpGet]
-         public DataTable GetDayCount(string str)
+        public DataTable GetDayCount(string str)
         {
             return LeoManager.GetDayCount(str);
         }
@@ -381,7 +381,7 @@ namespace H_PMS_WebApi.Controllers
         /// <param name="HostName">住户姓名</param>
         /// <returns></returns>
         [HttpGet]
-        public List<HostInfo> GetHostInfosByConditions(int HouseId = 0, string HostName = "",string HostRole = "")
+        public List<HostInfo> GetHostInfosByConditions(int HouseId = 0, string HostName = "", string HostRole = "")
         {
             return Michael.GetHostInfosByConditions(HouseId, HostName, HostRole);
         }
@@ -406,9 +406,9 @@ namespace H_PMS_WebApi.Controllers
         /// <param name="TheComplain"></param>
         /// <returns></returns>
         [HttpPost]
-        public int AddComplain(Complain TheComplain)
+        public int AddComplain(string CBName, string ReceptionEmp, string Ccontent)
         {
-            return Michael.AddComplain(TheComplain);
+            return Michael.AddComplain(CBName, ReceptionEmp, Ccontent);
         }
 
         /// <summary> 

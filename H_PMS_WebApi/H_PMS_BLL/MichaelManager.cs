@@ -75,9 +75,9 @@ namespace H_PMS_BLL
         /// </summary>
         /// <param name="TheComplain"></param>
         /// <returns></returns>
-        public int AddComplain(Complain TheComplain)
+        public int AddComplain(string CBName, string ReceptionEmp, string Ccontent)
         {
-            return MDAL.AddComplain(TheComplain);
+            return MDAL.AddComplain(CBName, ReceptionEmp, Ccontent);
         }
 
         /// <summary> 
