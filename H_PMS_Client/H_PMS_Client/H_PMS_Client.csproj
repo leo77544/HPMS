@@ -335,7 +335,11 @@
     <Content Include="Views\HPMS\ParkShow.cshtml" />
     <Content Include="Views\HPMS\K_AddRepair.cshtml" />
     <Content Include="Views\HPMS\K_GetRepair.cshtml" />
-    <Content Include="Views\HPMS\_BillManage.cshtml" />
+	<Content Include="Views\HPMS\K_JiGongBaoGao.cshtml" />
+    <Content Include="Views\HPMS\K_WanMeiGuiDang.cshtml" />
+	<Content Include="Views\HPMS\CompainPView.cshtml" />
+    <Content Include="Views\HPMS\HistoryCompainPView.cshtml" />
+	 <Content Include="Views\HPMS\_BillManage.cshtml" />
     <Content Include="Views\HPMS\_InComeManage.cshtml" />
     <Content Include="Views\HPMS\_JiaoFei.cshtml" />
   </ItemGroup>

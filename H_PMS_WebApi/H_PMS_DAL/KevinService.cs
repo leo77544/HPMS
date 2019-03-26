@@ -92,11 +92,19 @@ namespace H_PMS_DAL
             string sql = "select * from repair where 1=1 ";
             if (lx == 1)
             {
-                sql += " and Estimate != '未解决'";
+                sql += " and Estimate = '尚未解决'";
             }
             else if (lx == 2)
             {
-                sql += " and Estimate = '未解决'";
+                sql += " and Estimate = '完美解决'";
+            }
+            else if (lx == 3)
+            {
+                sql += " and Estimate = '等待审核'";
+            }
+            else if (lx == 4)
+            {
+                sql += " and Estimate = '尚有瑕疵'";
             }
             sql += " order by RepairId desc";
             return JsonConvert.DeserializeObject<List<Repair>>(JsonConvert.SerializeObject(DBHelper.GetDataTable(sql)));
@@ -110,12 +118,26 @@ namespace H_PMS_DAL
         /// <returns></returns>
         public string GetHouseInfoByHouse(string PlotName, string BulidName, string HouseNumber)
         {
-            List<HouseInfo> list = JsonConvert.DeserializeObject< List<HouseInfo>>(JsonConvert.SerializeObject(DBHelper.GetDataTable($"select * from HouseInfo where PlotName='{PlotName}' and BulidName='{BulidName}' and HouseNumber='{HouseNumber}'")));
-            HouseInfo house = list[0];
-            List < HostInfo> listh = JsonConvert.DeserializeObject< List<HostInfo>>(JsonConvert.SerializeObject(DBHelper.GetDataTable($"select * from HostInfo where HouseId='{house.HouseId}'")));
-            HostInfo host = listh[0];
-            string jg = house.HouseId + "-" + host.HostName + "-" + house.HouseState;
-            return jg;
+            List<HouseInfo> list = JsonConvert.DeserializeObject<List<HouseInfo>>(JsonConvert.SerializeObject(DBHelper.GetDataTable($"select * from HouseInfo where PlotName='{PlotName}' and BulidName='{BulidName}' and HouseNumber='{HouseNumber}'")));
+            if (list.Count == 0)
+            {
+                return "该房间没有住户";
+            }
+            else
+            {
+                HouseInfo house = list[0];
+                List<HostInfo> listh = JsonConvert.DeserializeObject<List<HostInfo>>(JsonConvert.SerializeObject(DBHelper.GetDataTable($"select * from HostInfo where HouseId='{house.HouseId}'")));
+                if (listh.Count == 0)
+                {
+                    return "该房间没有住户";
+                }
+                else
+                {
+                    HostInfo host = listh[0];
+                    string jg = house.HouseId + "-" + host.HostName + "-" + house.HouseState;
+                    return jg;
+                }
+            }
         }
         /// <summary>
         /// 更改报修单据
@@ -130,7 +152,14 @@ namespace H_PMS_DAL
             {
                 n += DBHelper.ExecuteNonQuery("update HouseInfo set HouseState='" + getHouseState + "' where HouseId=" + repair.HouseId);
             }
-            return n;
+            if (n >= 2)
+            {
+                return n;
+            }
+            else
+            {
+                return 0;
+            }
         }
         #endregion
 

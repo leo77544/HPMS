@@ -125,6 +125,22 @@ namespace H_PMS_Client.Controllers
             return PartialView();
         }
         /// <summary>
+        /// 技工报告页面
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult K_JiGongBaoGao()
+        {
+            return PartialView();
+        }
+        /// <summary>
+        /// 归档页面
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult K_WanMeiGuiDang()
+        {
+            return PartialView();
+        }
+        /// <summary>
         /// 获取技工的信息
         /// </summary>
         public string GetEmpByRep()
@@ -172,6 +188,16 @@ namespace H_PMS_Client.Controllers
         {
             string json = ApiResult.GetAPIResult("GetHouseInfoByHouse/?PlotName=" + PlotName + "&BulidName=" + BulidName + "&HouseNumber=" + HouseNumber, "get");
             return json;
+        }
+        /// <summary>
+        /// 修改报修明细
+        /// </summary>
+        /// <param name="rep"></param>
+        /// <returns></returns>
+        public string PutRepBuREP(string rep)
+        {
+            Repair repair = JsonConvert.DeserializeObject<Repair>(rep);
+            return ApiResult.GetAPIResult("PutRepair", "put", repair);
         }
         #endregion
 
@@ -390,6 +416,7 @@ namespace H_PMS_Client.Controllers
                     }
                 }
             }
+           
 
             return JsonConvert.SerializeObject(list);
         }
@@ -442,8 +469,10 @@ namespace H_PMS_Client.Controllers
 
         #region Michael
 
+        #region 房屋管理
+
         /// <summary>
-        /// 住户登记视图
+        /// 住户登记分部视图
         /// </summary>
         /// <returns></returns>
         public ActionResult HousePView()
@@ -503,7 +532,7 @@ namespace H_PMS_Client.Controllers
         {
             return ApiResult.GetAPIResult("ChangeHouseState?HouseId=" + HouseId + "&HouseState=" + HouseState + "", "put");
         }
-
+         
         #region 根据身份证号获取基本信息
         public string CKIdCardNum(string IdCardNum)
         {
@@ -566,6 +595,26 @@ namespace H_PMS_Client.Controllers
             return ResultStr;
         }
         #endregion
+
+        #endregion
+
+        /// <summary>
+        /// 投诉跟进分部视图
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult CompainPView()
+        {
+            return PartialView();
+        }
+        
+        /// <summary>
+        /// 历史投诉分部视图
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult HistoryCompainPView()
+        {
+            return PartialView();
+        }
 
         #endregion
     }
