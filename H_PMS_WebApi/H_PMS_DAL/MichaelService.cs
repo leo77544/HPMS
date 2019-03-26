@@ -108,7 +108,7 @@ namespace H_PMS_DAL
         /// <param name="CBName">投诉住户名</param>
         /// <param name="CRemark">投诉状态-等待处理 等待反馈 需再处理 结束归档</param>
         /// <returns></returns>
-        public List<Complain> GetComplainsByConditions(string PlotName = "", string BulidName = "", string CBName = "", string CRemark = "")
+        public List<Complain> GetComplainsByConditions(string PlotName = "", string BulidName = "",string HouseNumber = "", string HostName = "", string CRemark = "")
         {
             string SqlStr = "select * from Complain where 1 = 1";
             if (PlotName != "请选择区域")
@@ -119,15 +119,31 @@ namespace H_PMS_DAL
             {
                 SqlStr += "and CBName like '%" + BulidName + "%'";
             }
-            if (CBName != "")
+            if (HouseNumber != "请选择房屋")
             {
-                SqlStr += "and CBName like '%" + CBName + "%'";
+                SqlStr += "and CBName like '%" + HouseNumber + "%'";
             }
-            if (CRemark != "")
+            if (HostName != "请选择住户")
+            {
+                SqlStr += "and CBName like '%" + HostName + "%'";
+            }
+            if (CRemark != "请选择状态")
             {
                 SqlStr += " and CRemark = '" + CRemark + "'";
             }
             return JsonConvert.DeserializeObject<List<Complain>>(JsonConvert.SerializeObject(DBHelper.GetDataTable(SqlStr)));
+        }
+
+        /// <summary>
+        /// 根据房屋信息获取住户
+        /// </summary>
+        /// <param name="PlotName">区域</param>
+        /// <param name="BulidName">单元</param>
+        /// <param name="HouseNumber">房屋</param>
+        /// <returns></returns>
+        public List<HostInfo> GetHostInfosByHouseInfo(string PlotName, string BulidName, string HouseNumber)
+        {
+            return JsonConvert.DeserializeObject<List<HostInfo>>(JsonConvert.SerializeObject(DBHelper.GetDataTable("select * from HostInfo where HouseId = (select HouseId from HouseInfo where PlotName = '" + PlotName + "' and BulidName = '" + BulidName + "' and HouseNumber = '" + HouseNumber + "') ")));
         }
 
         /// <summary>

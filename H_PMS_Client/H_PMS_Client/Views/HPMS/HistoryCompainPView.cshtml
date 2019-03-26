@@ -1,1 +1,80 @@
-﻿
+﻿<div>
+    <p style="margin-left:50px;margin-top:10px;">
+        <select id="SelPlotName" class="ComplainCon" style="width:150px;cursor:pointer;">
+            <option value="请选择区域">请选择区域</option>
+            <option value="A区">A区</option>
+            <option value="B区">B区</option>
+            <option value="C区">C区</option>
+            <option value="D区">D区</option>
+        </select>
+        <select id="SelBulidName" class="ComplainCon" style="width:150px;cursor:pointer;">
+            <option value="请选择单元">请选择单元</option>
+            <option value="1单元">1单元</option>
+            <option value="2单元">2单元</option>
+            <option value="3单元">3单元</option>
+            <option value="4单元">4单元</option>
+        </select>
+        <select id="SelHouseNumber" class="ComplainCon" style="width:150px;cursor:pointer;">
+            <option value="请选择房屋">请选择房屋</option>
+            <option value="101">101</option>
+            <option value="102">102</option>
+            <option value="201">201</option>
+            <option value="202">202</option>
+            <option value="301">301</option>
+            <option value="302">302</option>
+            <option value="401">401</option>
+            <option value="402">402</option>
+            <option value="501">501</option>
+            <option value="502">502</option>
+            <option value="601">601</option>
+            <option value="602">602</option>
+            <option value="701">701</option>
+            <option value="702">702</option>
+            <option value="801">801</option>
+            <option value="802">802</option>
+            <option value="901">901</option>
+            <option value="902">902</option>
+        </select>
+        <input id="TxtHostName" type="text" placeholder="请输入住户姓名" style="width:150px;height:30px;" />
+    </p>
+    <table class="table-hover" style="width:1500px;margin-left:50px;margin-top:10px;font-size:18px;">
+        <tr style="height:40px;">
+            <td width="200">投诉住户</td>
+            <td width="100">接待员工</td>
+            <td width="250">投诉日期</td>
+            <td>投诉内容</td>
+        </tr>
+        <tbody id="TbodyShowHost"></tbody>
+    </table>
+</div>
+<script>
+    var ThePlotName = "";
+    var TheBulidName = "";
+    var TheHouseNumber = "";
+    var TheHostName = "";
+    function GetHistoryComplainsByConditions() {
+        if (ThePlotName == $("#SelPlotName").val() && TheBulidName == $("#SelBulidName").val() && TheHouseNumber == $("#SelHouseNumber").val() && TheHostName == $("#TxtHostName").val()) {
+            return;
+        }
+        ThePlotName = $("#SelPlotName").val();
+        TheBulidName = $("#SelBulidName").val();
+        TheHouseNumber = $("#SelHouseNumber").val();
+        TheHostName = $("#TxtHostName").val();
+        $.ajax({
+            url: "/HPMS/GetComplainsByConditions?PlotName=" + $("#SelPlotName").val() + "&BulidName=" + $("#SelBulidName").val() + "&HouseNumber=" + $("#SelHouseNumber").val() + "&HostName=" + $("#TxtHostName").val() + "&CRemark=结束归档",
+            success: function (data) {
+                $("#TbodyShowHost").empty();
+                $(JSON.parse(data)).each(function () {
+                    $("#TbodyShowHost").append('<tr style="height:80px;">'
+                        + '<td width="200">' + this.cBName + '</td>'
+                        + '<td width="100">' + this.receptionEmp + '</td>'
+                        + '<td width="250">' + this.cSTime + '</td>'
+                        + '<td>' + this.ccontent + '</td>'
+                        + '</tr>');
+                })
+            }
+        })
+    }
+    $(".Conselect").change(function () { GetHouseInfosByConditions(); })
+    setInterval(function () { GetHistoryComplainsByConditions(); }, 1)
+</script>
