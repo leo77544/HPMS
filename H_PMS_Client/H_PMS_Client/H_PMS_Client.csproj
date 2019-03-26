@@ -141,7 +141,9 @@
     <Content Include="assets\avatars\avatar3.png" />
     <Content Include="assets\avatars\avatar4.png" />
     <Content Include="assets\avatars\avatar5.png" />
+    <Content Include="assets\avatars\Padd.png" />
     <Content Include="assets\avatars\profile-pic.jpg" />
+    <Content Include="assets\avatars\Pshow.png" />
     <Content Include="assets\avatars\TP2.jpg" />
     <Content Include="assets\avatars\user.jpg" />
     <Content Include="assets\avatars\XX.jpg" />

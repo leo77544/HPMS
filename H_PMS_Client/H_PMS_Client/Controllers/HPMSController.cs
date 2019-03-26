@@ -175,9 +175,7 @@ namespace H_PMS_Client.Controllers
         #endregion
 
         #endregion
-
-
-
+        
         #region leo
         /// <summary>
         /// 缴费管理
@@ -303,16 +301,23 @@ namespace H_PMS_Client.Controllers
 
 
         #endregion
-
-        List<Park> Parklist = new List<Park>();
+        
         public ActionResult PBShow()
         {
-            Parklist = JsonConvert.DeserializeObject<List<Park>>(ApiResult.GetAPIResult("GetParkBases", "get"));
+            List<Park> Parklist = JsonConvert.DeserializeObject<List<Park>>(ApiResult.GetAPIResult("GetParkBases", "get"));
             ViewBag.list = Parklist;
             return PartialView();
         }
+        /// <summary>
+        /// 多条件查询
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="area"></param>
+        /// <param name="state"></param>
+        /// <returns></returns>
         public string GetParkBase(string type, string area, string state)
         {
+            List<Park> Parklist = JsonConvert.DeserializeObject<List<Park>>(ApiResult.GetAPIResult("GetParkBases", "get"));
             List<Park> list = new List<Park>();
             if (type != "请选择类型")
             {
@@ -367,6 +372,19 @@ namespace H_PMS_Client.Controllers
 
             return JsonConvert.SerializeObject(list);
         }
+
+        public string GetPark(string number)
+        {
+            List<Park> Parklist = JsonConvert.DeserializeObject<List<Park>>(ApiResult.GetAPIResult("GetParkBases", "get"));
+            List<Park> pl = Parklist;
+            number = number.Trim();
+            Park p = Parklist.FirstOrDefault(m => m.PBNumber == number);
+            p.IDCard = p.IDCard.Substring(14, 18);
+            p.InRentSTime = p.InRentSTime.Substring(0, 10);
+            p.OutRentSTime = p.OutRentSTime.Substring(0, 10);
+            return JsonConvert.SerializeObject(p);
+        }
+
         #region 删除
 
         public int DelParkBase(int Id)
