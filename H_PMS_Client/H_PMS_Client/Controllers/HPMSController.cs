@@ -201,6 +201,52 @@ namespace H_PMS_Client.Controllers
         }
         #endregion
 
+        #region 访客
+        public ActionResult K_AddFangKe()
+        {
+            return PartialView();
+        }
+        /// <summary>
+        /// 增添访客信息
+        /// </summary>
+        /// <param name="fangke"></param>
+        /// <returns></returns>
+        public string AddFangKeByFK(string fangke)
+        {
+            Visitor visitor = JsonConvert.DeserializeObject<Visitor>(fangke);
+            string json = ApiResult.GetAPIResult("AddVisitor", "post", visitor);
+            return json;
+        }
+        /// <summary>
+        /// 修改访客页面
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult K_PutFangKe()
+        {
+            return PartialView();
+        }
+        /// <summary>
+        /// 获取访客信息
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public string GetFangKeById(int id)
+        {
+            return ApiResult.GetAPIResult("GetFangKeById/?VId=" + id, "get");
+        }
+        /// <summary>
+        /// 修改访客信息
+        /// </summary>
+        /// <param name="fangke"></param>
+        /// <returns></returns>
+        public string PutFangKeByFK(string fangke)
+        {
+            Visitor visitor = JsonConvert.DeserializeObject<Visitor>(fangke);
+            string json = ApiResult.GetAPIResult("PutVisitor", "put", visitor);
+            return json;
+        }
+        #endregion
+
         #endregion
 
         #region leo
@@ -289,6 +335,7 @@ namespace H_PMS_Client.Controllers
         /// <returns></returns>
         public string GetYearRecord(string str)
         {
+           
             return JsonConvert.SerializeObject(ApiResult.GetAPIResult("GetYearCount?str=" + str, "get"));
         }
         /// <summary>
@@ -365,10 +412,27 @@ namespace H_PMS_Client.Controllers
 
 
         #endregion
-        
+
         public ActionResult PBShow()
         {
             List<Park> Parklist = JsonConvert.DeserializeObject<List<Park>>(ApiResult.GetAPIResult("GetParkBases", "get"));
+            int day = 0;
+            foreach (var item in Parklist)
+            {
+                DateTime start = Convert.ToDateTime(item.InRentSTime);
+                start = Convert.ToDateTime(start.Date.ToShortDateString());
+                DateTime end = Convert.ToDateTime(item.InRentSTime);
+                end = Convert.ToDateTime(end.Date.ToShortDateString());
+
+                TimeSpan sp = end.Subtract(start);
+                day = sp.Days;
+
+                if (day > 2 && item.Remark == "代缴费")
+                {
+
+                }
+            }
+            
             ViewBag.list = Parklist;
             return PartialView();
         }
@@ -438,17 +502,57 @@ namespace H_PMS_Client.Controllers
             return JsonConvert.SerializeObject(list);
         }
 
+        public int AddPark(string park)
+        {
+            Park p = JsonConvert.DeserializeObject<Park>(park);
+            p.InRentSTime = DateTime.Now.ToString("yyyy-MM-dd");
+            int n = 0;
+            p.Remark = "代缴费";
+            string json = WebApiHelper.ApiResult.GetAPIResult("ChaHost?name=" + p.HostId + "&idcard=" + p.IDCard, "get");
+            
+            List<HostInfo> host = JsonConvert.DeserializeObject<List<HostInfo>>(json);
+            if (host.Count == 0)
+            {
+                n = -1;
+            }
+            else
+            {
+                n = int.Parse(ApiResult.GetAPIResult("AddPark", "post", p));
+                if (n >0)
+                {
+                    n = int.Parse(ApiResult.GetAPIResult("UptPBState", "put", p));
+                }
+                else
+                {
+                    n = -2;
+                }
+            }
+            return n;
+            
+        }
+
         public string GetPark(string number)
         {
             List<Park> Parklist = JsonConvert.DeserializeObject<List<Park>>(ApiResult.GetAPIResult("GetParkBases", "get"));
             List<Park> pl = Parklist;
             number = number.Trim();
             Park p = Parklist.FirstOrDefault(m => m.PBNumber == number);
-            p.IDCard = p.IDCard.Substring(14, 18);
-            p.InRentSTime = p.InRentSTime.Substring(0, 10);
-            p.OutRentSTime = p.OutRentSTime.Substring(0, 10);
+            if (p.IDCard != null)
+            {
+                p.IDCard = p.IDCard.Substring(p.IDCard.Length - 4, 4);
+            }
+            if (p.InRentSTime !=null)
+            {
+                p.InRentSTime = p.InRentSTime.Substring(0, 10);
+            }
+            if (p.OutRentSTime !=null)
+            {
+                p.OutRentSTime = p.OutRentSTime.Substring(0, 10);
+            }
             return JsonConvert.SerializeObject(p);
         }
+
+
 
         #region 删除
 
@@ -635,6 +739,60 @@ namespace H_PMS_Client.Controllers
         public ActionResult CompainPView()
         {
             return PartialView();
+        }
+
+        /// <summary>
+        /// 根据条件查询投诉信息
+        /// </summary>
+        /// <param name="CBName">投诉住户名</param>
+        /// <param name="CRemark">投诉状态-受理待处理 处理待反馈 需再处理 归档</param>
+        /// <returns></returns>
+        public string GetComplainsByConditions(string PlotName = "", string BulidName = "", string HouseNumber = "", string HostName = "", string CRemark = "")
+        {
+            return ApiResult.GetAPIResult("GetComplainsByConditions?PlotName=" + PlotName + "&BulidName=" + BulidName + "&HouseNumber=" + HouseNumber + "&HostName=" + HostName + "&CRemark=" + CRemark + "", "get");
+        }
+
+        /// <summary>
+        /// 根据房屋信息获取住户
+        /// </summary>
+        /// <param name="PlotName">区域</param>
+        /// <param name="BulidName">单元</param>
+        /// <param name="HouseNumber">房屋</param>
+        /// <returns></returns>
+        public string GetHostInfosByHouseInfo(string PlotName, string BulidName, string HouseNumber)
+        {
+            return ApiResult.GetAPIResult("GetHostInfosByHouseInfo?PlotName=" + PlotName + "&BulidName=" + BulidName + "&HouseNumber=" + HouseNumber + "", "get");
+        }
+
+        /// <summary>
+        /// 获取所有员工
+        /// </summary>
+        /// <returns></returns>
+        public string GetEmployees()
+        {
+            return ApiResult.GetAPIResult("GetEmployees", "get");
+        }
+
+        /// <summary>
+        /// 添加投诉信息
+        /// </summary>
+        /// <param></param>
+        /// <returns></returns>
+        public string AddComplain(string CBName, string ReceptionEmp, string Ccontent)
+        {
+            return ApiResult.GetAPIResult("AddComplain?CBName="+ CBName + "&ReceptionEmp="+ ReceptionEmp + "&Ccontent="+ Ccontent + "", "post");
+        }
+
+        /// <summary> 
+        /// 投诉跟进
+        /// </summary>
+        /// <param name="CSId">投诉记录Id</param>
+        /// <param name="Ccontent">投诉详情</param>
+        /// <param name="CRemark">投诉状态</param>
+        /// <returns></returns>
+        public string FollowComplain(string CSId, string Ccontent, string CRemark)
+        {
+            return ApiResult.GetAPIResult("FollowComplain?CSId=" + CSId + "&Ccontent=" + Ccontent + "&CRemark=" + CRemark + "", "put");
         }
 
         /// <summary>

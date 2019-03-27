@@ -1,5 +1,6 @@
 ﻿
 
+
 <div class="main-content" style="margin-left:0px">
     <div class="breadcrumbs" id="breadcrumbs">
         <script type="text/javascript">
@@ -52,16 +53,14 @@
                     <div style="width:220px;height:280px;float:left;margin-right:30px;margin-left:20px;margin-bottom:20px;background-image:@(item.Remark2 =="空闲"? "url(../../assets/avatars/TP2.jpg)" : "url(../../assets/avatars/ZS.jpg)");background-repeat: no-repeat;background-size: 100% 100%;text-align:center;">
                         @if (item.Remark2 == "空闲")
                         {
-                            <input id="Button1" type="button" value="×" style="border:none;margin-left:174px;font-size:20px" />
-                            <p style="font-weight:bold;color:#438eb9;">面积：<span style="color:white;">@item.PBArea 平米</span> </p>
-                            <p style="font-weight:bold;color:#438eb9;">价格：<span style="color:red;font-size:24px;font-family:华文隶书">@item.PBPrice 元</span></p>
-                            <p style="font-weight:bold;color:#438eb9">车位类型：<span style="color:white;">@item.PBType</span></p>
-                            <p style="font-weight:bold;color:#438eb9">车位位置：<span style="color:white;">@item.PBPlace</span></p>
-                            <p style="font-weight:bold;color:#438eb9">车位状态：<span style="color:red;font-size:24px;font-family:华文新魏">@item.Remark2</span></p>
+                            <input id="Button1" type="button" value="×" style="border:none;margin-left:178px;font-size:20px" onclick="Del('+@item.PBNumber+')" />
+                            <p style="font-weight:bold;color:#438eb9;font-size:25px"><span style="color:white;">@item.PBType</span></p>
+                            <p style="font-weight:bold;color:#438eb9;font-size:25px;margin-top:10px"><span style="color:white;">@item.PBPlace</span></p>
+                            <p style="font-weight:bold;color:#438eb9;font-size:30px;margin-top:35px"><span style="color:red;font-size:30px;font-family:华文新魏">@item.Remark2</span></p>
 
-                            <p style="font-weight:bold;color:#438eb9;">
-                                <span style="color:yellow;font-family:YouYuan;font-size:24px;">
-                                    <a href="#" id='mt' data-toggle="modal" data-target="#myModal" style="color:greenyellow;font-size:24px;font-family:YouYuan" onclick="MoTai('+@item.PBNumber+')">
+                            <p style="font-weight:bold;color:#438eb9;margin-top:15px">
+                                <span style="color:yellow;font-family:YouYuan;font-size:30px;">
+                                    <a href="#" id='mt2' data-toggle="modal" data-target="#myModal2" style="color:greenyellow;font-size:30px;font-family:YouYuan" onclick="MoTai2('+@item.PBNumber+')">
                                         @item.PBNumber
                                     </a>
                                 </span>
@@ -73,7 +72,7 @@
                                 <a style="color:greenyellow;font-size:24px;font-family:YouYuan" id="mt" data-toggle="modal" data-target="#myModal" onclick="MoTai('+@item.PBNumber+')">@item.PBNumber</a>
                             </p>
 
-                            <p style="margin-top:50px;font-weight:bold;color:#438eb9">车位类型：<span style="color:red;font-size:24px">@item.PBType</span></p>
+                            <p style="margin-top:50px;font-weight:bold;color:#438eb9"><span style="color:red;font-size:24px">@item.PBType</span></p>
                             <p style="margin-top:50px;font-weight:bold;color:#438eb9"><span style="color:red;font-size:24px;font-family:华文新魏">车位 @item.Remark2</span></p>
 
                         }
@@ -87,11 +86,17 @@
     <div id="myModal" class="bg-model" style="position:absolute;top:0%;left:0%;display:none;background:rgba(0,0,0,0.3);width:100%;height:100%;position:fixed;z-index:9999">
         <div id="addMt" class='content' style="position: absolute;left: 25%;top: 25%;border-radius: 8px;width: 50%;height: 60%;background-color: #fff;background-image:url(../../assets/avatars/Pshow.png);background-repeat: no-repeat;background-size: 100% 100%;">
 
-
-
         </div>
     </div>
 
+    <div id="myModal2" class="bg-model2" style="position:absolute;top:0%;left:0%;display:none;background:rgba(0,0,0,0.3);width:100%;height:100%;position:fixed;z-index:9999">
+        <div id="addMt2" class='content2' style="position: absolute;left: 25%;top: 25%;border-radius: 8px;width: 50%;height: 60%;background-color: #fff;background-image:url(../../assets/avatars/Padd.png);background-repeat: no-repeat;background-size: 100% 100%;">
+        </div>
+    </div>
+
+
+    <div class="tbox" id="tbox" style="width:250px;height:80px;z-index:9999;font-size:24px;font-family:微软雅黑;line-height:80px;padding-left:75px;background-color:#bcf5c2;float:left;margin-left:40%;color:#159753;display:none">提交成功！</div>
+    <div class="tbox2" id="tbox2" style="width:250px;height:80px;z-index:9999;font-size:24px;font-family:微软雅黑;line-height:80px;padding-left:75px;background-color:#bcf5c2;float:left;margin-left:40%;color:#159753;display:none">未核查到该住户，请核对住户姓名！</div>
 </div><!-- /.main-content -->
 
 
@@ -106,26 +111,24 @@
                 $(JSON.parse(data)).each(function () {
                     var div = '<div style="width:220px;height:280px;float:left;margin-right:30px;margin-left:20px;margin-bottom:20px;background-image:' + (this.Remark2 == "空闲" ? "url(../../assets/avatars/TP2.jpg)" : "url(../../assets/avatars/ZS.jpg)") + ';background-repeat: no-repeat;background-size: 100% 100%;text-align:center;">';
                     if (this.Remark2 == "空闲") {
-                        div = div + '<input id="Button1" type="button" value="×" style="border:none;margin-left:174px;font-size:20px" />'
-                            + '<p style="font-weight:bold;color:#438eb9;">面积：<span style="color:white;">' + this.PBArea + ' 平米</span> </p>'
-                            + '<p style="font-weight:bold;color:#438eb9;">价格：<span style="color:red;font-size:24px;font-family:华文隶书">' + this.PBPrice + ' 元</span></p>'
-                            + '<p style="font-weight:bold;color:#438eb9">车位类型：<span style="color:white;">' + this.PBType + '</span></p>'
-                            + '<p style="font-weight:bold;color:#438eb9">车位位置：<span style="color:white;">' + this.PBPlace + '</span></p>'
-                            + '<p style="font-weight:bold;color:#438eb9">车位状态：<span style="color:red;font-size:24px;font-family:华文新魏">' + this.Remark2 + '</span></p>'
+                        div = div + '<input id="Button1" type="button" value="×" style="border:none;margin-left:178px;font-size:20px" onclick="Del('+this.PBNumber+')" />'
+                            + '<p style="font-weight:bold;color:#438eb9;font-size:25px"><span style="color:white;">'+this.PBType+'</span></p>'
+                            + '<p style="font-weight:bold;color:#438eb9;font-size:25px;margin-top:10px"><span style="color:white;">'+this.PBPlace+'</span></p></p>'
+                            + '<p style="font-weight:bold;color:#438eb9;font-size:30px;margin-top:35px"><span style="color:red;font-size:30px;font-family:华文新魏">'+this.Remark2+'</span></p>'
 
-                            + '<p style="font-weight:bold;color:#438eb9;">'
-                            + '<span style="color:yellow;font-family:YouYuan;font-size:24px;">'
-                            + '<a href="#" class="btn" data-toggle="modal" data-target="#myModal" style="color:greenyellow;font-size:24px;font-family:YouYuan" onclick="MoTai(' + this.PBNumber + ')">' + this.PBNumber + '</a>'
+                            + '<p style="font-weight:bold;color:#438eb9;margin-top:15px">'
+                            + '<span style="color:yellow;font-family:YouYuan;font-size:30px;">'
+                            + '<a href="#" id="mt2" data-toggle="modal" data-target="#myModal2" style="color:greenyellow;font-size:30px;font-family:YouYuan" onclick="MoTai2('+this.PBNumber+')">'+this.PBNumber+'</a>'
                             + '</span>'
                             + '</p>'
                             + '</div>';
                     }
                     else {
                         div = div + '<p style="margin-top:20px;">'
-                            + '<a style="color:greenyellow;font-size:24px;font-family:YouYuan" href="javascript:;" class="md-trigger" data-modal="modal-13" onclick="MoTai(' + this.PBNumber + ')">' + this.PBNumber + '</a>'
+                            + '<a style="color:greenyellow;font-size:24px;font-family:YouYuan" id="mt" data-toggle="modal" data-target="#myModal" onclick="MoTai(' + this.PBNumber + ')">' + this.PBNumber + '</a>'
                             + '</p>'
 
-                            + '<p style="margin-top:50px;font-weight:bold;color:#438eb9">车位类型：<span style="color:red;font-size:24px">' + this.PBType + '</span></p>'
+                            + '<p style="margin-top:50px;font-weight:bold;color:#438eb9"><span style="color:red;font-size:24px">' + this.PBType + '</span></p>'
                             + '<p style="margin-top:50px;font-weight:bold;color:#438eb9"><span style="color:red;font-size:24px;font-family:华文新魏">车位 ' + this.Remark2 + '</span></p>'
                             + '</div>';
                     }
@@ -151,6 +154,44 @@
             });
         }
     }
+
+    function Addpark() {
+        var park = new Object();
+        park.PBNumber = $("#txtnum").text();
+        park.HostId = $("#Text1").val();
+        park.IDCard = $("#Text2").val();
+        park.OutRentSTime = $("#Text3").val();
+        park.CarType = $("#Text4").val();
+        park.CarNumber = $("#Text5").val();
+        $.ajax({
+            url: "/HPMS/AddPark",
+            data: { park: JSON.stringify(park) },
+            dataType: "json",
+            type: "post",
+            success: function (data) {
+                if (data > 0) {
+                    $("#Text1").val("");
+                    $("#Text2").val("");
+                    $("#Text3").val("");
+                    $("#Text4").val("");
+                    $("#Text5").val("");
+                    $("#tbox").css("display", "inline");
+                    setTimeout("tishiclose()", 1000);
+                }
+                else if (data == -1) {
+                    $("#tbox2").css("display", "inline");
+                    setTimeout("tishiclose2()", 1000);
+                }
+            }
+        })
+    }
+
+    function tishiclose() {
+        $("#tbox").css("display", "none");
+    }
+    function tishiclose2() {
+        $("#tbox2").css("display", "none");
+    }
 </script>
 
 <script>
@@ -162,21 +203,50 @@
                 $("#addMt").empty();
                 $(JSON.parse(data)).each(function () {
                     var div = "";
-                    if (this.remark2 == "空闲") {
+                    div = '<div id="box" style="margin-left:600px;font-size:30px;line-height:55px;margin-top:50px;width:250px;text-align:center">'
+                        + '<p>' + this.PBNumber + '</p>'
+                        + '<p>' + this.HostId + '<span style="color:red">（' + this.IDCard + '）</span></p>'
+                        + '<p>' + this.CarType + '</p>'
+                        + '<p>' + this.CarNumber + '</p>'
+                        + '<p>' + this.InRentSTime + '</p>'
+                        + '<p>' + this.OutRentSTime + '</p>'
+                        + '<p>' + this.Remark + '</p>'
+                        + '</div >';
 
-                    }
-                    else {
-                        div = '<div id="box" style="margin-left:600px;font-size:30px;line-height:55px;margin-top:50px;width:250px;text-align:center">'
-                            + '<p>' + this.PBNumber + '</p>'
-                            + '<p>' + this.HostId + '<span style="color:red">（'+this.IDCard+'）</span></p>'
-                            + '<p>' + this.CarType + '</p>'
-                            + '<p>' + this.CarNumber + '</p>'
-                            + '<p>' + this.InRentSTime + '</p>'
-                            + '<p>' + this.OutRentSTime + '</p>'
-                            + '<p>'+this.Remark+'</p>'
-                            + '</div >';
-                    }
                     $("#addMt").append(div);
+                })
+            }
+        })
+    };
+
+    function MoTai2(id) {
+        $.ajax({
+            url: "/HPMS/GetPark?number=" + id,
+            success: function (data) {
+                $("#addMt2").empty();
+                $(JSON.parse(data)).each(function () {
+                    var div = "";
+                    div = '<div>'
+                        + '<div id = "box" style = "margin-left:100px;font-size:30px;line-height:55px;margin-top:110px;width:250px;text-align:center;float:left" >'
+                        + '<p><span id="txtnum">' + this.PBNumber+ '</span></p>'
+                        + '<p><span id="txtarea">' + this.PBArea + '/平米</span></p>'
+                        + '<p><span id="txtprice">' + this.PBPrice + '/元</span></p>'
+                        + '<p><span id="txttype">' + this.PBType + '</span></p>'
+                        + '<p><span id="txtplace">' + this.PBPlace + '</span></p>'
+                        + '<p><span id="txtremark2">' + this.Remark2 + '</span></p>'
+                        + '</div>'
+                        + '<div id="box2" style="width:450px;margin-top:110px;text-align:center;float:right">'
+                        + '<p style="font-size:23px;margin-top:5px">租户姓名：<input id="Text1" type="text" style="height:50px;width:200px;border:none;background-color:#f9f9f9;font-size:23px;color:blue" /></p>'
+                        + '<p style="font-size:23px;margin-top:12px">身份证号：<input id="Text2" type="text" style="height:50px;width:200px;border:none;background-color:#f9f9f9;font-size:23px;color:blue" /></p>'
+                        + '<p style="font-size:23px;margin-top:16px">到期时间：<input id="Text3" type="text" style="height:50px;width:200px;border:none;background-color:#f9f9f9;font-size:23px;color:blue" onclick="WdatePicker()" /></p>'
+                        + '<p style="font-size:23px;margin-top:18px">车辆类型：<input id="Text4" type="text" style="height:50px;width:200px;border:none;background-color:#f9f9f9;font-size:23px;color:blue" /></p>'
+                        + '<p style="font-size:23px;margin-top:15px">车牌号码：<input id="Text5" type="text" style="height:50px;width:200px;border:none;background-color:#f9f9f9;font-size:23px;color:blue" /></p>'
+                        + '<p>'
+                        + '<button class="btn btn-info" type="button" onclick="Addpark()"><i class="icon-ok bigger-110"></i>提交</button> &nbsp; &nbsp; &nbsp;'
+                        + '<button class="btn" type="reset"><i class="icon-undo bigger-110"></i>重置</button></p>'
+                        + '</div>'
+                        + '</div >';
+                    $("#addMt2").append(div);
                 })
             }
         })
@@ -187,6 +257,13 @@
         //隐藏窗体的滚动条
         $("body").css({ "overflow": "hidden" });
     });
+
+    $("#mt2").click(function () {
+        $(".bg-model2").fadeTo(300, 1)
+        //隐藏窗体的滚动条
+        $("body").css({ "overflow": "hidden" });
+    });
+
 
 
     //模态框OK按钮点击事件

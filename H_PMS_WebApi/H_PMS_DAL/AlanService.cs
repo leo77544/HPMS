@@ -46,7 +46,7 @@ namespace H_PMS_DAL
 
         public int DelParkBase(int id)
         {
-            string sql = "delete from ParkBase where PBId =" + id;
+            string sql = "delete from ParkBase where PBNumber ='" + id+"'";
             return DBHelper.ExecuteNonQuery(sql);
         }
 
@@ -55,12 +55,25 @@ namespace H_PMS_DAL
             string sql = string.Format("update ParkBase set PBNumber='{0}',PBArea='{1}',PBType='{2}',PBPrice='{3}',PBPlace='{4}',Remark='{5}' where PBId='{6}'", p.PBNumber, p.PBArea, p.PBType, p.PBPrice, p.PBPlace, p.Remark, p.PBId);
             return DBHelper.ExecuteNonQuery(sql);
         }
+
+        public List<HostInfo> ChaHost(string name,string idcard)
+        {
+            string sql = "select * from hostinfo where HostName ='" + name + "' and IDCard ='" + idcard + "'";
+            DataTable dt = DBHelper.GetDataTable(sql);
+            return JsonConvert.DeserializeObject<List<HostInfo>>(JsonConvert.SerializeObject(dt));
+        }
+        public int UptPBState(ParkBase p)
+        {
+            string sql = string.Format("update ParkBase set Remark='{0}' where PBNumber='{1}'",p.Remark, p.PBNumber);
+            return DBHelper.ExecuteNonQuery(sql);
+        }
+        
         #endregion
 
         #region 车位租出信息
         public int AddPark(Park p)
         {
-            string sql = string.Format("insert into Park values('{0}','{1}','{2}','{3}','{4}','{5}','{6}')", p.PBId, p.HostId, p.InRentSTime, p.OutRentSTime, p.CarType, p.CarNumber,p.Remark);
+            string sql = string.Format("insert into Park values('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}')", p.PBId, p.HostId, p.InRentSTime, p.OutRentSTime, p.CarType, p.CarNumber,p.Remark,p.IDCard);
             return DBHelper.ExecuteNonQuery(sql);
         }
 

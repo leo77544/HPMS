@@ -65,9 +65,21 @@ namespace H_PMS_BLL
         /// <param name="CBName">投诉住户名</param>
         /// <param name="CRemark">投诉状态-受理待处理 处理待反馈 需再处理 归档</param>
         /// <returns></returns>
-        public List<Complain> GetComplainsByConditions(string CBName = "", string CRemark = "")
+        public List<Complain> GetComplainsByConditions(string PlotName = "", string BulidName = "", string HouseNumber = "", string HostName = "", string CRemark = "")
         {
-            return MDAL.GetComplainsByConditions(CBName, CRemark);
+            return MDAL.GetComplainsByConditions(PlotName, BulidName, HouseNumber, HostName, CRemark);
+        }
+
+        /// <summary>
+        /// 根据房屋信息获取住户
+        /// </summary>
+        /// <param name="PlotName">区域</param>
+        /// <param name="BulidName">单元</param>
+        /// <param name="HouseNumber">房屋</param>
+        /// <returns></returns>
+        public List<HostInfo> GetHostInfosByHouseInfo(string PlotName, string BulidName, string HouseNumber)
+        {
+            return MDAL.GetHostInfosByHouseInfo(PlotName, BulidName, HouseNumber);
         }
 
         /// <summary>
