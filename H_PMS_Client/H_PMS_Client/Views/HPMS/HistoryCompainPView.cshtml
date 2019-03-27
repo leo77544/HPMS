@@ -37,12 +37,12 @@
         </select>
         <input id="TxtHostName" type="text" placeholder="请输入住户姓名" style="width:150px;height:30px;" />
     </p>
-    <table class="table-hover" style="width:1500px;margin-left:50px;margin-top:10px;font-size:18px;">
-        <tr style="height:40px;">
-            <td width="200">投诉住户</td>
-            <td width="100">接待员工</td>
-            <td width="250">投诉日期</td>
-            <td>投诉内容</td>
+    <table class="table-hover" style="width:1600px;margin-left:50px;margin-top:10px;font-size:18px;border:1px solid #000000;background-color:rgba(0, 122, 204, 0.46);">
+        <tr style="height:40px;border:1px solid #000000;text-align:center;">
+            <td style="border:1px solid #000000;" width="200">投诉住户</td>
+            <td style="border:1px solid #000000;" width="100">接待员工</td>
+            <td style="border:1px solid #000000;" width="250">投诉日期</td>
+            <td style="border:1px solid #000000;">投诉内容</td>
         </tr>
         <tbody id="TbodyShowHost"></tbody>
     </table>
@@ -52,6 +52,7 @@
     var TheBulidName = "";
     var TheHouseNumber = "";
     var TheHostName = "";
+    GetHistoryComplainsByConditions();
     function GetHistoryComplainsByConditions() {
         if (ThePlotName == $("#SelPlotName").val() && TheBulidName == $("#SelBulidName").val() && TheHouseNumber == $("#SelHouseNumber").val() && TheHostName == $("#TxtHostName").val()) {
             return;
@@ -65,16 +66,21 @@
             success: function (data) {
                 $("#TbodyShowHost").empty();
                 $(JSON.parse(data)).each(function () {
-                    $("#TbodyShowHost").append('<tr style="height:80px;">'
-                        + '<td width="200">' + this.cBName + '</td>'
-                        + '<td width="100">' + this.receptionEmp + '</td>'
-                        + '<td width="250">' + this.cSTime + '</td>'
-                        + '<td>' + this.ccontent + '</td>'
+                    $("#TbodyShowHost").append('<tr style="height:80px;border:1px solid #000000;">'
+                        + '<td style="border:1px solid #000000;text-align:center;" width="200">' + this.cBName + '</td>'
+                        + '<td style="border:1px solid #000000;text-align:center;" width="100">' + this.receptionEmp + '</td>'
+                        + '<td style="border:1px solid #000000;text-align:center;" width="250">' + this.cSTime + '</td>'
+                        + '<td style="border:1px solid #000000;">' + this.ccontent + '</td>'
                         + '</tr>');
                 })
             }
         })
     }
     $(".Conselect").change(function () { GetHouseInfosByConditions(); })
-    setInterval(function () { GetHistoryComplainsByConditions(); }, 1)
+    setInterval(function () {
+        if ($("#WindowsCode").val() != "历史投诉") {
+            return;
+        }
+        GetHistoryComplainsByConditions();
+    }, 1)
 </script>

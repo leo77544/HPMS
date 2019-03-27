@@ -100,14 +100,25 @@
 </div>
 <script>
     GetHouseInfosByConditions();
-    var TheHouseId = '';
+    var TheHouseId = '0';
     var TheHouseState = '';
     var TheIDCard = '';
     var ThisHouseId = '';
     var TheHostName = '';
     var TheHostRole = '';
     var ThePageIndex = '';
+    var ThisPlotName = "";
+    var ThisBulidName = "";
+    var ThisHouseType = "";
+    var ThisHouseState = "";
     function GetHouseInfosByConditions() {
+        if (ThisPlotName == $("#SelPlotName").val() && ThisBulidName == $("#SelBulidName").val() && ThisHouseType == $("#SelHouseType").val() && ThisHouseState == $("#SelHouseState").val()) {
+            return;
+        }
+        ThisPlotName = $("#SelPlotName").val();
+        ThisBulidName = $("#SelBulidName").val();
+        ThisHouseType = $("#SelHouseType").val();
+        ThisHouseState = $("#SelHouseState").val();
         $.ajax({
             url: "/HPMS/GetHouseInfosByConditions?PlotName=" + $("#SelPlotName").val() + "&BulidName=" + $("#SelBulidName").val() + "&HouseType=" + $("#SelHouseType").val() + "&HouseArea=" + "请选择面积" + "&HouseState=" + $("#SelHouseState").val() + "",
             success: function (data) {
@@ -162,39 +173,41 @@
         })
     }
     setInterval(function () {
-        GetHostInfosByConditions();
-        $("#LabCK").text("");
-        if ($("#TxtIDCard").val().length == 18) {
-            if ($("#TxtIDCard").val() != TheIDCard) {
-                TheIDCard = $("#TxtIDCard").val();
-                CKIdCardNum();
+        if ($("#WindowsCode").val() == "住户登记" || $("#WindowsCode").val() == "住户查询" || $("#WindowsCode").val() == "状态变更") {
+            GetHostInfosByConditions();
+            $("#LabCK").text("");
+            if ($("#TxtIDCard").val().length == 18) {
+                if ($("#TxtIDCard").val() != TheIDCard) {
+                    TheIDCard = $("#TxtIDCard").val();
+                    CKIdCardNum();
+                }
             }
-        }
-        if ($("#SelRole").val() == "请选择住户身份") {
-            $("#LabCK").text("请选择住户身份");
-        }
-        if ($("#SelRole").val() == "户主" && TheHouseState == "入住") {
-            $("#LabCK").text("此房屋已存在户主");
-        }
-        if ($("#SelRole").val() != "户主" && TheHouseState == "空闲") {
-            $("#LabCK").text("请为此房屋添加户主");
-        }
-        if ($("#TxtIDCard").val() == "") {
-            $("#LabCK").text("身份证号不能为空");
-            $(".TxtByIdCard").val('请正确输入身份证号');
-        }
-        if ($("#TxtHostBir").val() == '请正确输入身份证号' || $("#TxtIDCard").val().length != 18) {
-            $("#LabCK").text("请正确输入身份证号");
-            $(".TxtByIdCard").val('请正确输入身份证号');
-        }
-        if ($("#TxtHostPhone").val() == "") {
-            $("#LabCK").text("住户电话不能为空");
-        }
-        if ($("#TxtHostPhone").val().length != 11) {
-            $("#LabCK").text("请正确输入住户电话");
-        }
-        if ($("#TxtHostName").val() == "") {
-            $("#LabCK").text("住户姓名不能为空");
+            if ($("#SelRole").val() == "请选择住户身份") {
+                $("#LabCK").text("请选择住户身份");
+            }
+            if ($("#SelRole").val() == "户主" && TheHouseState == "入住") {
+                $("#LabCK").text("此房屋已存在户主");
+            }
+            if ($("#SelRole").val() != "户主" && TheHouseState == "空闲") {
+                $("#LabCK").text("请为此房屋添加户主");
+            }
+            if ($("#TxtIDCard").val() == "") {
+                $("#LabCK").text("身份证号不能为空");
+                $(".TxtByIdCard").val('请正确输入身份证号');
+            }
+            if ($("#TxtHostBir").val() == '请正确输入身份证号' || $("#TxtIDCard").val().length != 18) {
+                $("#LabCK").text("请正确输入身份证号");
+                $(".TxtByIdCard").val('请正确输入身份证号');
+            }
+            if ($("#TxtHostPhone").val() == "") {
+                $("#LabCK").text("住户电话不能为空");
+            }
+            if ($("#TxtHostPhone").val().length != 11) {
+                $("#LabCK").text("请正确输入住户电话");
+            }
+            if ($("#TxtHostName").val() == "") {
+                $("#LabCK").text("住户姓名不能为空");
+            }
         }
     }, 1)
     function GetHostInfosByConditions() {

@@ -110,7 +110,7 @@
     <p style="margin-left:160px;margin-top:20px;"><input id="BtnAddComplain" type="button" value="受理" style="width:110px;height:32px;background-color:white;border:1px solid #ccc;border-radius:5px;" onclick="AddComplain()" /></p>
 </div>
 <div class="ModalComplainFollowDiv" style="width:100%;height:100%;background-color:#ccc;position:fixed;left:0%;top:0%;visibility:hidden;z-index:100;opacity:0.5;cursor:pointer;" onclick="ModalComplainFollowDivHidden()"></div>
-<div id="ModalComplainFollowDiv" class="ModalComplainFollowDiv" style="width:450px;height:420px;background-color:white;position:fixed;left:37%;top:20%;visibility:hidden;z-index:101;border-radius:25px;box-shadow:darkgrey 10px 10px 30px 5px;">
+<div id="ModalComplainFollowDiv" class="ModalComplainFollowDiv" style="width:450px;height:420px;background-color:white;position:fixed;left:37%;top:25%;visibility:hidden;z-index:101;border-radius:25px;box-shadow:darkgrey 10px 10px 30px 5px;">
     <p style="margin-top:15px;"><h2 style="margin-left:132px;">----投诉跟进----</h2></p>
     <p style="margin-left:30px;margin-top:10px;"><label style="font-size:18px;margin-top:-55px;cursor:pointer;">投诉内容：</label><label id="LabCcontent" title="123" style="font-size:18px;width:270px;word-break:break-all;cursor:pointer;"></label></p>
     <p style="margin-left:30px;margin-top:10px;">
@@ -158,7 +158,11 @@
             }
         })
     }
-    setInterval(function () { GetComplainsByConditions(); }, 1)
+    setInterval(function () {
+        if ($("#WindowsCode").val() == "投诉跟进") {
+            GetComplainsByConditions();
+        }
+    }, 1)
     $(".SelMAddComplainCon").change(function () {
         if ($("#SelMPlotName").val() == "请选择区域" || $("#SelMBulidName").val() == "请选择单元" || $("#SelMHouseType").val() == "请选择房屋") {
             $("#SelMHostName").empty().append('<option value="请选择住户">请选择住户</option>');
@@ -190,7 +194,10 @@
             $.ajax({
                 url: "/HPMS/FollowComplain?CSId=" + TheComplainId + "&Ccontent=" + Followcontent + "&CRemark=" + CRemark+"",
                 success: function (data) {
-                    location.href = location.href;
+                    CompainPView('投诉跟进');
+                    if ($(".CKSbox:checked").val() == "结束归档") {
+                        CompainPView('历史投诉');
+                    }
                     ModalComplainFollowDivHidden();
                 }
             })
@@ -201,7 +208,7 @@
             $.ajax({
                 url: "/HPMS/AddComplain?CBName=" + $("#SelMHostName").val() + "&ReceptionEmp=" + $("#SelMReceptionEmp").val() + "&Ccontent=--投诉内容：" + $("#TxtCcontent").val() + "",
                 success: function (data) {
-                    location.href = location.href;
+                    CompainPView('投诉跟进');
                     ModalComplainAAHDivHidden();
                 }
             })
