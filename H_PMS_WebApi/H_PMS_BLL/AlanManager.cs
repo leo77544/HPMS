@@ -63,6 +63,16 @@ namespace H_PMS_BLL
         {
             return dal.UptRemark(p);
         }
+
+        public ParkBase GetPlace(string place)
+        {
+            return dal.GetPlace(place);
+        }
+
+        public ParkBase GetNumber(string number)
+        {
+            return dal.GetNumber(number);
+        }
         #endregion
 
         #region 车位租出信息
