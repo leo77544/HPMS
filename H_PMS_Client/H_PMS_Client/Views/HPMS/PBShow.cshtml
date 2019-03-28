@@ -50,7 +50,7 @@
             @{
                 foreach (var item in ViewBag.list)
                 {
-                    <div style="width:220px;height:280px;float:left;margin-right:30px;margin-left:20px;margin-bottom:20px;background-image:@(item.Remark2 =="空闲"? "url(../../assets/avatars/TP2.jpg)" : "url(../../assets/avatars/ZS.jpg)");background-repeat: no-repeat;background-size: 100% 100%;text-align:center;">
+                    <div id="'+@item.PBNumber+'" style="width:220px;height:280px;float:left;margin-right:30px;margin-left:20px;margin-bottom:20px;background-image:@(item.Remark2 =="空闲"? "url(../../assets/avatars/TP2.jpg)" : "url(../../assets/avatars/ZS.jpg)");background-repeat: no-repeat;background-size: 100% 100%;text-align:center;">
                         @if (item.Remark2 == "空闲")
                         {
                             <input id="Button1" type="button" value="×" style="border:none;margin-left:178px;font-size:20px" onclick="Del('+@item.PBNumber+')" />
@@ -132,7 +132,6 @@
                             + '<p style="margin-top:50px;font-weight:bold;color:#438eb9"><span style="color:red;font-size:24px;font-family:华文新魏">车位 ' + this.Remark2 + '</span></p>'
                             + '</div>';
                     }
-
                     $("#ShowPB").append(div);
                 })
             }

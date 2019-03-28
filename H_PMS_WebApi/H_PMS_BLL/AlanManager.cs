@@ -53,6 +53,16 @@ namespace H_PMS_BLL
         {
             return dal.UptPBState(p);
         }
+
+        public int DelIdCard(string idcard)
+        {
+            return dal.DelIdCard(idcard);
+        }
+
+        public int UptRemark(Park p)
+        {
+            return dal.UptRemark(p);
+        }
         #endregion
 
         #region 车位租出信息

@@ -429,7 +429,13 @@ namespace H_PMS_Client.Controllers
 
                 if (day > 2 && item.Remark == "代缴费")
                 {
-
+                    int n = int.Parse(ApiResult.GetAPIResult("DelIdCard?idcard=" + item.IDCard, "delete"));
+                    Park p = Parklist.FirstOrDefault(m => m.PBNumber == item.PBNumber);
+                    int n2 = int.Parse(ApiResult.GetAPIResult("UptRemark","put",p));
+                    if (n2>0 && n>0)
+                    {
+                        Parklist = JsonConvert.DeserializeObject<List<Park>>(ApiResult.GetAPIResult("GetParkBases", "get"));
+                    }
                 }
             }
             
@@ -558,7 +564,7 @@ namespace H_PMS_Client.Controllers
 
         public int DelParkBase(int Id)
         {
-            int n = int.Parse(ApiResult.GetAPIResult("AddParkBase?id=" + Id, "delete"));
+            int n = int.Parse(ApiResult.GetAPIResult("DelParkBase?id=" + Id, "delete"));
             return n;
         }
 
