@@ -23,20 +23,20 @@
 
         <div style="height:30px;margin-left:30px;margin-top:10px;margin-bottom:10px">
 
-            <select na="SelBulidName" name="type" style="width:150px;">
+            <select id="SelBulidName" class="SelChange" name="type" style="width:150px;">
                 <option value="请选择类型">请选择类型</option>
                 <option value="地下停车场">地下停车场</option>
                 <option value="户外停车场">户外停车场</option>
             </select>
 
-            <select id="SelPlotName" name="area" style="width:150px;">
+            <select id="SelPlotName" class="SelChange" name="area" style="width:150px;">
                 <option value="请选择区域">请选择区域</option>
                 <option value="A">A区</option>
                 <option value="B">B区</option>
                 <option value="C">C区</option>
             </select>
 
-            <select id="SelHouseState" name="state" style="width:150px;">
+            <select id="SelHouseState" class="SelChange" name="state" style="width:150px;">
                 <option value="请选择状态">请选择状态</option>
                 <option style="background-color:#6ABD78;" value="空闲">空闲</option>
                 <option style="background-color:#7bbfea;" value="已租">已租</option>
@@ -101,11 +101,11 @@
 
 
 <script>
-    $("select").change(function () { GetHouseInfosByConditions(); })
+    $(".SelChange").change(function () { GetParkBaseByConditions(); })
 
-    function GetHouseInfosByConditions() {
+    function GetParkBaseByConditions() {
         $.ajax({
-            url: "/HPMS/GetParkBase?type=" + $("#SelBulidName").val() + "&area=" + $("#SelPlotName").val() + "&state=" + $("#SelHouseState").val(),
+            url: "/HPMS/GetParkBase?type=" + $("#SelBulidName").val() + "&area=" + $("#SelPlotName").val() + "&state=" + $("#SelHouseState").val() + "",
             success: function (data) {
                 $("#ShowPB").empty();
                 $(JSON.parse(data)).each(function () {
