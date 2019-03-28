@@ -57,6 +57,16 @@ namespace H_PMS_WebApi.Controllers
         {
             return Alan.UptParkBase(p);
         }
+        [HttpDelete]
+        public int DelIdCard(string idcard)
+        {
+            return Alan.DelIdCard(idcard);
+        }
+        [HttpPut]
+        public int UptRemark(Park p)
+        {
+            return Alan.UptRemark(p);
+        }
         #endregion
 
         #region 车位租出信息

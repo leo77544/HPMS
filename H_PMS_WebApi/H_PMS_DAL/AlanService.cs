@@ -97,6 +97,17 @@ namespace H_PMS_DAL
             return DBHelper.ExecuteNonQuery(sql);
         }
 
+        public int DelIdCard(string idcard)
+        {
+            string sql = "delete from park where IDCard = '" + idcard + "'";
+            return DBHelper.ExecuteNonQuery(sql);
+        }
+
+        public int UptRemark(Park p)
+        {
+            string sql = string.Format("update parkbase set Remark='ø’œ–' where PBNumber ='{0}'", p.PBNumber);
+            return DBHelper.ExecuteNonQuery(sql);
+        }
         #endregion
     }
 }
