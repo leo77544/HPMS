@@ -311,7 +311,7 @@ namespace H_PMS_WebApi.Controllers
         /// <param name="EId"></param>
         /// <returns></returns>
         [HttpGet]
-        public Employee GetEmployeeByEId(int EId)
+        public List<Employee> GetEmployeeByEId(int EId)
         {
             return Kevin.GetEmployeeByEId(EId);
         }

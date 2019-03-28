@@ -15,22 +15,46 @@
             <li class="active">员工信息</li>
         </ul><!-- .breadcrumb -->
     </div>
+    <style>
+        th {
+            border: 1px solid #808080;
+            vertical-align: middle;
+            text-align: center;
+            font-size: 18px;
+            color: #676565;
+        }
 
+        td {
+            border: 1px solid #808080;
+            vertical-align: middle;
+            text-align: center;
+            font-size: 18px;
+            color: #676565;
+        }
+    </style>
     <div class="page-content">
         <div class="row">
 
             <div class="col-xs-12">
-
+                <div style="margin:10px;">
+                    <span>职务：</span>
+                    <select id="getByDId">
+                        <option value="-1">职务名称</option>
+                        <option value="1">会计</option>
+                        <option value="2">保安</option>
+                        <option value="5">技工</option>
+                        <option value="3">清洁员</option>
+                        <option value="4">接待员</option>
+                    </select>
+                    <span style="margin-left:20px;">员工姓名：</span>
+                    <input type="text" id="getByEName" placeholder="请输入员工姓名" />
+                    <input id="selectEmpByIDandName" class="btn btn-info" style="width:110px;margin-left:20px;" type="button" value="查询" onclick="selectEmpByIDandName()" />
+                </div>
                 <div class="table-responsive">
                     <table id="sample-table-1" class="table table-striped table-bordered table-hover">
                         <thead>
                             <tr>
-                                <th class="center">
-                                    <label>
-                                        <input type="checkbox" class="ace" onclick="quanxuan()" />
-                                        <span class="lbl"></span>
-                                    </label>
-                                </th>
+                                <th>员工ID</th>
                                 <th>员工姓名</th>
                                 <th>性别</th>
                                 <th>年龄</th>
@@ -49,46 +73,88 @@
 
         <div class="box" id="putEmpTanK" style="width:250px;height:80px;z-index:1024;font-size:24px;font-family:微软雅黑;line-height:80px;padding-left:75px;background-color:#bcf5c2;float:left;margin-left:40%;color:#159753;display:none"> 修改成功！</div>
 
-
-
     </div><!-- /.page-content -->
 </div><!-- /.main-content -->
 
 
 <script>
-
-</script>
-<script>
-    GetEmpByDId("", -1);
+    var indexET;
+    var grmEStartTime;
+    var ename = "";
+    var did = "-1";
+    GetEmpByDId(ename, did);
     function GetEmpByDId(EName, DId) {
+        $("#getEmpbyid").empty();
         $.ajax({
-            url: "/HPMS/K_PutEmpById/?EName=" + EName + "&DId=" + DId,
+            url: "/HPMS/GetEmpByDId/?EName=" + EName + "&DId=" + DId,
             type: "get",
             dataType: "json",
             success: function (data) {
-                $("#getEmpbyid").empty();
-                $(JSON.parse(data)).each(function () {
-                    $("#getEmpbyid").append("<tr><td class='center'><label><input type='checkbox' class='ace' /><span class='lbl'></span></label></td ><td>" + this.EName + "</td><td>" + this.ESex + "</td><td>" + this.EAge + "</td><td>" + this.DName + "</td><td>" + this.EStartTime + "</td><td>" + this.ESalary + "</td><td> &nbsp;&nbsp;&nbsp;&nbsp;<div class='ui-pg-div' style='display:inline-block' onclick='putemp(this.EmployeeId)'><span class='ui-icon icon-pencil blue'></span></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class='ui-pg-div' style='display:inline-block' onclick='delemp(this.EmployeeId)'><span class='ui-icon icon-trash red'></span></div></td></tr> ");
-
-                })
+                if (data != "") {
+                    $(JSON.parse(data)).each(function () {
+                        indexET = this.EStartTime.lastIndexOf("\T");
+                        grmEStartTime = this.EStartTime.substring(0, indexET);
+                        $("#getEmpbyid").append("<tr><td>" + this.EmployeeId + "</td ><td>" + this.EName + "</td><td>" + this.ESex + "</td><td>" + this.EAge + "</td><td>" + this.DName + "</td><td>" + grmEStartTime + "</td><td>" + this.ESalary + "</td><td><button class='btn btn-info' type='button' onclick='huoquEmpByDId(" + this.EmployeeId + ")'><i class= 'icon-ok bigger-110' ></i >修改</button >&nbsp;&nbsp;&nbsp;<button class='btn' type='reset' onclick='deleteEmpByEId(" + this.EmployeeId + ")'><i class='icon-undo bigger-110'></i>删除</button></td></tr> ");
+                    })
+                } else {
+                    alert("员工中没有此人！");
+                }
             }
         })
     }
-    function delemp(id) {
+    function selectEmpByIDandName() {
+        ename = $("#getByEName").val();
+        did = $("#getByDId").val();
+        GetEmpByDId(ename, did);
+    }
+    function huoquEmpByDId(id) {
+        $("#kevinModel").empty();
+        $.ajax({
+            url: "/HPMS/GetEmployeeByEId/?EId=" + id,
+            dataType: "json",
+            type: "get",
+            success: function (data) {
+                if (data != "") {
+                    $(JSON.parse(data)).each(function () {
+                        $("#putbyidename").val(this.EName);
+                        if (this.ESex == 1) {
+                            $("#putbyidesex").check = true;
+                        } else {
+                            $("#putbyidRadio1").check = true;
+                        }
+                        if (this.DId == 1) {
+                            $("#putbyidzhiwu").val(1);
+                        } else if (this.DId == 2) {
+                            $("#putbyidzhiwu").val(2);
+                        } else if (this.DId == 3) {
+                            $("#putbyidzhiwu").val(3);
+                        } else if (this.DId == 4) {
+                            $("#putbyidzhiwu").val(4);
+                        } else if (this.DId == 5) {
+                            $("#putbyidzhiwu").val(5);
+                        }
+                        $("#putbyidesalary").val(this.ESalary);
+
+                        $("#kevinModel").css("display", "inline");
+                        $("#kevinModel").append('<div id="puttheempbyid" style = "width:750px;height:400px;margin:10% auto;z-index:1024;background-color:#ffffff;border-radius:15px;" ><table style="width:750px;height:300px;vertical-align:middle;margin:auto;line-height:20px;border: 1px solid #ffffff;"><tr><td style="width:300px;">员工姓名：</td><td><input type="text" id="putbyidename" placeholder="请输入员工姓名" style="width:300px;"/></td></tr><tr><td style="width:300px;">员工性别：</td><td>&nbsp;&nbsp;&nbsp;&nbsp;<input id="putbyidesex" type="radio" name="sex" checked="checked" /> 男&nbsp;&nbsp;&nbsp;&nbsp;<input id="putbyidRadio1" type="radio" name="sex" /> 女</td></tr><tr><td style="width:300px;">员工年龄：</td><td><input type="text" id="putbyideage" placeholder="请填写员工年龄（如：30）/岁！" style="width:300px;"/></td></tr><tr><td style="width:300px;">职务名称：</td><td><select id="putbyidzhiwu" style="width:300px;" ><option value="1">会计</option><option value="2">保安</option><option value="5">技工</option><option value="3">清洁员</option><option value="4">接待员</option></select></td></tr><tr><td style="width:300px;">员工月薪：</td><td><input type="text" id="putbyidesalary" placeholder="请填写员工月薪（如：3000）/元" style="width:300px;" /></td></tr></table><div class="col-md-offset-3 col-md-9" style="width:300px;margin-left:250px;margin-top:20px;"><button class="btn btn-info" type="button" onclick="uptthisEmp(' + id + ')"><i class="icon-ok bigger-110"></i>确认修改</button>&nbsp; &nbsp; &nbsp;<button class="btn" type="reset" onclick="quxiaothismodel()" style="background-color:#a32222"><i class="icon-undo bigger-110"></i>取消手续</button></div></div >');
+                    })
+                } else {
+                    alert("Error!");
+                }
+            }
+        })
+    }
+    function deleteEmpByEId(id) {
         $.ajax({
             url: "/HPMS/K_DelEmp/?id=" + id,
             type: "get",
             dataType: "json",
             success: function (data) {
                 if (data > 0) {
-
-                    var tab = document.getElementById("#sample-table-1");
-                    var row = document.getElementById(id);
-                    var index = row.rowIndex;//rowIndex属性为tr的索引值，从0开始
-                    tab.deleteRow(index);  //从table中删除
-
+                    GetEmpByDId("", -1);
                     $("#box").css("display", "inline");
                     setTimeout("tishiclose()", 1000);
+
                 } else {
                     alert("删除失败！");
                 }
@@ -99,12 +165,50 @@
         $("#box").css("display", "none");
     }
 
-    function putemp(id) {
+    function uptthisEmp(id) {
+        var p = new Object();
+        p.EmployeeId = id;
+        p.EName = $("#putbyidename").val();
+        p.ESex = $("#putbyidesex").check ? "男" : "女";
+        p.EAge = $("#putbyideage").val();
+        p.ESalary = $("#putbyidesalary").val();
+        p.EStartTime = $("#putbyidPutETime").val();
+        var option = $("#putbyidzhiwu option:selected");
+        p.DId = option.val();
+        if (p.EName == "") {
+            document.getElementById('putbyidename').value = "";
+            document.getElementById('putbyidename').placeholder = "信息未录入，请填写员工姓名！";
+        }
+        if (p.EAge == "") {
+            document.getElementById('putbyideage').value = "";
+            document.getElementById('putbyideage').placeholder = "信息未录入，请填写员工年龄！";
+        }
+        if (p.ESalary == "") {
+            document.getElementById('putbyidesalary').value = "";
+            document.getElementById('putbyidesalary').placeholder = "信息未录入，请填写员工月薪！";
+        }
         $.ajax({
-            url: "/HPMS/K_PutEmpById/?id=" + id,
-            type: "get",
+            url: "/HPMS/K_PutEmp",
+            type: "post",
             dataType: "json",
-            success: function (data) { }
+            data: { emp: JSON.stringify(p) },
+            success: function (data) {
+                if (data > 0) {
+                    quxiaothismodel();
+                    GetEmpByDId("", -1);
+                    $("#putEmpTanK").css("display", "inline");
+                    setTimeout("tishiclose()", 1000);
+                } else {
+                    GetEmpByDId("", -1);
+                    alert("失败！");
+                }
+            }
         })
+    }
+    function tishiclose() {
+        $(".box").css("display", "none");
+    }
+    function quxiaothismodel() {
+        $("#kevinModel").css("display", "none");
     }
 </script>

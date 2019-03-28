@@ -40,9 +40,21 @@ namespace H_PMS_Client.Controllers
         /// </summary>
         /// <param name="DId"></param>
         /// <returns></returns>
-        public string GetEmpByDId(string EName, int DId)
+        public string GetEmpByDId(string EName, string DId)
         {
             string json = ApiResult.GetAPIResult("GetEmployees/?EName=" + EName + "&DId=" + DId, "get");
+            json = JsonConvert.SerializeObject(json);
+            return json;
+        }
+        /// <summary>
+        /// 根据ID获取EMP
+        /// </summary>
+        /// <param name="EId"></param>
+        /// <returns></returns>
+        public string GetEmployeeByEId(string EId)
+        {
+            string json = ApiResult.GetAPIResult("GetEmployeeByEId/?EId=" + EId, "get");
+            json= JsonConvert.SerializeObject(json);
             return json;
         }
         /// <summary>
@@ -394,8 +406,8 @@ namespace H_PMS_Client.Controllers
                 {
                     int n = int.Parse(ApiResult.GetAPIResult("DelIdCard?idcard=" + item.IDCard, "delete"));
                     Park p = Parklist.FirstOrDefault(m => m.PBNumber == item.PBNumber);
-                    int n2 = int.Parse(ApiResult.GetAPIResult("UptRemark","put",p));
-                    if (n2>0 && n>0)
+                    int n2 = int.Parse(ApiResult.GetAPIResult("UptRemark", "put", p));
+                    if (n2 > 0 && n > 0)
                     {
                         Parklist = JsonConvert.DeserializeObject<List<Park>>(ApiResult.GetAPIResult("GetParkBases", "get"));
                     }
@@ -772,7 +784,7 @@ namespace H_PMS_Client.Controllers
         public ActionResult HistoryCompainPView()
         {
             return PartialView();
-        } 
+        }
         #endregion
 
         #endregion

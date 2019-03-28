@@ -43,9 +43,9 @@ namespace H_PMS_DAL
         /// </summary>
         /// <param name="EId"></param>
         /// <returns></returns>
-        public Employee GetEmployeeByEId(int EId)
+        public List<Employee> GetEmployeeByEId(int EId)
         {
-            return JsonConvert.DeserializeObject<List<Employee>>(JsonConvert.SerializeObject(DBHelper.GetDataTable("select * from Employee where EmployeeId=" + EId)))[0];
+            return JsonConvert.DeserializeObject<List<Employee>>(JsonConvert.SerializeObject(DBHelper.GetDataTable("select * from Employee where EmployeeId=" + EId)));
         }
         /// <summary>
         /// ÐÞ¸ÄÔ±¹¤
@@ -54,7 +54,7 @@ namespace H_PMS_DAL
         /// <returns></returns>
         public int PutEmpByEId(Employee employee)
         {
-            return DBHelper.ExecuteNonQuery($"update Employee set EName='{employee.EName}' , ESex='{employee.ESex}' , EAge='{employee.EAge}' , ESalary='{employee.ESalary}' , EStartTime='{employee.EStartTime}' , DId='{employee.DId}' where EmployeeId={employee.EmployeeId}");
+            return DBHelper.ExecuteNonQuery($"update Employee set EName='{employee.EName}' , ESex='{employee.ESex}' , EAge='{employee.EAge}' , ESalary='{employee.ESalary}' , DId='{employee.DId}' where EmployeeId={employee.EmployeeId}");
         }
         /// <summary>
         /// É¾³ý

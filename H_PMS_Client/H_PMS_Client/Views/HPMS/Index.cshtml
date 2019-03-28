@@ -38,9 +38,31 @@
     <script src="~/assets/js/html5shiv.js"></script>
     <script src="~/assets/js/respond.min.js"></script>
     <![endif]-->
+
+    <style>
+        td {
+            border: 1px solid;
+            vertical-align: middle;
+            text-align: center;
+
+        }
+
+        #wxtd {
+            width: 100px;
+        }
+
+        #wxtd2 {
+            width: 250px;
+            font-size: 20px;
+        }
+    </style>
+
 </head>
 
-<body>
+<body style="width:100%;height:100%">
+
+    <div id="kevinModel" class="bg-model" style="width:100%;height:100%;background-color:#808080;display:none;z-index:99;position:absolute;background:rgba(0,0,0,0.3);" onclick="closetheModel()">
+    </div>
     <div class="navbar navbar-default" id="navbar">
         <script type="text/javascript">
             try { ace.settings.check('navbar', 'fixed') } catch (e) { }
@@ -185,12 +207,6 @@
                                 </a>
                             </li>
 
-                            <li>
-                                <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#kevin" href="/HPMS/K_GetEmp">
-                                    <i class="icon-double-angle-right"></i>
-                                    岗位调动
-                                </a>
-                            </li>
                         </ul>
                     </li>
 
@@ -218,11 +234,11 @@
                             </li>
 
                             @*<li>
-                    <a href="change.html">
-                        <i class="icon-double-angle-right"></i>
-                        密码设定
-                    </a>
-                </li>*@
+                                    <a href="change.html">
+                                        <i class="icon-double-angle-right"></i>
+                                        密码设定
+                                    </a>
+                                </li>*@
                         </ul>
                     </li>
 
@@ -516,7 +532,7 @@
 
 
     <script type="text/javascript">
-      
+
         jQuery(function ($) {
             $('.easy-pie-chart.percentage').each(function () {
                 var $box = $(this).closest('.infobox');
@@ -762,9 +778,10 @@
                         $(".page-content").append(data);
                     }
                 })
-
             }
         }
+        
     </script>
 </body>
+
 </html>

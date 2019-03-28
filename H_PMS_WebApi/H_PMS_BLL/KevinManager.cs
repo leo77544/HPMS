@@ -34,7 +34,7 @@ namespace H_PMS_BLL
         /// </summary>
         /// <param name="EId"></param>
         /// <returns></returns>
-        public Employee GetEmployeeByEId(int EId)
+        public List<Employee> GetEmployeeByEId(int EId)
         {
             return service.GetEmployeeByEId(EId);
         }
