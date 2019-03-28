@@ -600,7 +600,7 @@ namespace H_PMS_Client.Controllers
         /// <param name="Role"></param>
         /// <param name="HouseId"></param>
         /// <returns></returns>
-        public string HostRegister(string HostName, string HostPhone, string IDCard, string Role, int HouseId)
+        public string HostRegister(string HostName, string HostPhone, string IDCard, string Role, string HouseId)
         {
             return ApiResult.GetAPIResult("HostRegister?HostName=" + HostName + "&HostPhone=" + HostPhone + "&IDCard=" + IDCard + "&Role=" + Role + "&HouseId=" + HouseId + "", "post");
         }
@@ -614,7 +614,7 @@ namespace H_PMS_Client.Controllers
         /// <param name="PageIndex"></param>
         /// <param name="PageSize"></param>
         /// <returns></returns>
-        public string GetHostInfosByConditions(int HouseId, string HostName, string HostRole, int PageIndex, int PageSize)
+        public string GetHostInfosByConditions(string HouseId, string HostName, string HostRole, int PageIndex, int PageSize)
         {
             return JsonConvert.SerializeObject(JsonConvert.DeserializeObject<List<HostInfo>>(ApiResult.GetAPIResult("GetHostInfosByConditions?HouseId=" + HouseId + "&HostName=" + HostName + "&HostRole=" + HostRole + "", "get")).Skip(PageSize * (PageIndex - 1)).Take(PageSize).ToList());
         }
@@ -695,6 +695,7 @@ namespace H_PMS_Client.Controllers
 
         #endregion
 
+        #region 投诉建议
         /// <summary>
         /// 投诉跟进分部视图
         /// </summary>
@@ -765,7 +766,8 @@ namespace H_PMS_Client.Controllers
         public ActionResult HistoryCompainPView()
         {
             return PartialView();
-        }
+        } 
+        #endregion
 
         #endregion
     }
