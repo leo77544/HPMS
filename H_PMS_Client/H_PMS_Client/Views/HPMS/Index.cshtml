@@ -260,14 +260,14 @@
 
                         <ul class="submenu">
                             <li>
-                                <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#tab" href="/HPMS/BillManage">
+                                <a href="JavaScript:BillManage()">
                                     <i class="icon-double-angle-right"></i>
                                     账单管理
                                 </a>
                             </li>
 
                             <li>
-                                <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#tab" href="/HPMS/InComeManage">
+                                <a href="JavaScript:InComeManage()">
                                     <i class="icon-double-angle-right"></i>
                                     收支明细
                                 </a>
@@ -732,7 +732,24 @@
                 }
             })
         }
-
+        function BillManage() {
+            $.ajax({
+                url: "/hpms/BillManage/",
+                success: function (data) {
+                    $(".page-content").empty();
+                    $(".page-content").append(data);
+                }
+            })
+        }
+        function InComeManage() {
+            $.ajax({
+                url: "/hpms/InComeManage/",
+                success: function (data) {
+                    $(".page-content").empty();
+                    $(".page-content").append(data);
+                }
+            })
+        }
         function HousePView(PageCode) {
             $.ajax({
                 url: "/HPMS/HousePView",

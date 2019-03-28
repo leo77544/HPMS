@@ -140,15 +140,12 @@
                                 + "<td style='text-align:center'>" + c + "</td>"
                                 + "</tr >");
                         }
-
-
                     }
                 }
             })
         }
     }
-
-
+    //查询月份统计
     function searchMonth() {
         if ($("#times").val() == "") {
             alert("请选择要查询的日期");
@@ -196,12 +193,12 @@
                                     + "</tr >");
                             }
                         })
-                        
                     }
                 }
             })
         }
     }
+    //查询年度统计
     function searchYear() {
         if ($("#times").val() == "") {
             alert("请选择要查询的日期");
@@ -245,20 +242,17 @@
                                     + "</tr >");
                             }
                         })
-
                     }
                 }
             })
         }
     }
-
-
+    //查询年份统计
     function searchYears() { 
         $.ajax({
             url: "/HPMS/GetYearsdetail",
             dataType: "json",
             success: function (data) {
-                alert(data);
                 $("#content").empty();
                 {
                     var obj = JSON.parse(data);
@@ -286,14 +280,12 @@
                                 + "</tr >");
                         }
                     })
-
                 }
             }
         })
     }
     //获取日统计
     function DayCount(da) {
-
         $.ajax({
             url: "/HPMS/GetDayRecord?str=" + da,
             dataType: "json",
@@ -321,12 +313,9 @@
             url: "/HPMS/GetMonthRecord?str=" + da,
             dataType: "json",
             success: function (data) {
-                // alert(data);
                 var obj = JSON.parse(data);
                 var a = obj[0].sum;
                 var c = a.toString().substring(0, a.toString().indexOf(".") + 3);
-
-                //  alert(c);
                 if (data == "[]") {
                     $("#monthcount").text("截止今日" + new Date().getFullYear() + "年" + (new Date().getMonth() + 1) + "月收入0.00元");
                 }
@@ -363,7 +352,6 @@
                     else {
                         $("#yearcount").text("截止今日" + obj[0].year + "年收入" + c + "元");
                     }
-
                 }
             }
         })

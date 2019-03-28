@@ -129,13 +129,11 @@
         da.Remark = "无";
         da.DMSTime = new Date().getFullYear() + "-" + (new Date().getMonth() + 1) + "-" + new Date().getDate() + " " + new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds();
         da.DMNumber = (new Date().getFullYear().toString() + (new Date().getMonth() + 1).toString() + new Date().getDate().toString() + new Date().getHours().toString() + new Date().getMinutes().toString() + new Date().getSeconds().toString()).toString();
-        alert();
         $.ajax({
             url: "/HPMS/AddDataMoney?m=" + JSON.stringify(da),
             type: "post",
             dataType: "json",
             success: function (data) {
-                alert(data.toString());
                 if (data.toString()=="2") {
                     $.ajax({
                         url: "/hpms/JiaoFei/",
@@ -146,8 +144,6 @@
                     })
                 }
             }
-           
-
         })
     }
   
