@@ -218,11 +218,11 @@
                             </li>
 
                             @*<li>
-                                    <a href="change.html">
-                                        <i class="icon-double-angle-right"></i>
-                                        密码设定
-                                    </a>
-                                </li>*@
+                        <a href="change.html">
+                            <i class="icon-double-angle-right"></i>
+                            密码设定
+                        </a>
+                    </li>*@
                         </ul>
                     </li>
 
@@ -260,14 +260,14 @@
 
                         <ul class="submenu">
                             <li>
-                                <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#tab" href="/HPMS/BillManage">
+                                <a href="JavaScript:BillManage()">
                                     <i class="icon-double-angle-right"></i>
                                     账单管理
                                 </a>
                             </li>
 
                             <li>
-                                <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#tab" href="/HPMS/InComeManage">
+                                <a href="JavaScript:InComeManage()">
                                     <i class="icon-double-angle-right"></i>
                                     收支明细
                                 </a>
@@ -341,6 +341,7 @@
                         </ul>
                     </li>
                 </ul><!-- /.nav-list -->
+                <input id="WindowsCode" type="hidden" value="" />
 
                 <div class="sidebar-collapse" id="sidebar-collapse">
                     <i class="icon-double-angle-left" data-icon1="icon-double-angle-left" data-icon2="icon-double-angle-right"></i>
@@ -364,7 +365,6 @@
                         </li>
                         <li class="active">幸福里控制台</li>
                     </ul><!-- .breadcrumb -->
-                    <input id="WindowsCode" type="hidden" value="" />
                 </div>
 
                 <div class="page-content" id="tab">
@@ -732,7 +732,24 @@
                 }
             })
         }
-
+        function BillManage() {
+            $.ajax({
+                url: "/hpms/BillManage/",
+                success: function (data) {
+                    $(".page-content").empty();
+                    $(".page-content").append(data);
+                }
+            })
+        }
+        function InComeManage() {
+            $.ajax({
+                url: "/hpms/InComeManage/",
+                success: function (data) {
+                    $(".page-content").empty();
+                    $(".page-content").append(data);
+                }
+            })
+        }
         function HousePView(PageCode) {
             $.ajax({
                 url: "/HPMS/HousePView",

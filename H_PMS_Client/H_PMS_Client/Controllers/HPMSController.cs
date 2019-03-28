@@ -33,10 +33,17 @@ namespace H_PMS_Client.Controllers
         /// <returns></returns>
         public ActionResult K_GetEmp()
         {
-            string json = ApiResult.GetAPIResult("GetEmployees", "get");
-            List<GetEmp> list = JsonConvert.DeserializeObject<List<GetEmp>>(json);
-            ViewBag.getEmp = list;
             return PartialView();
+        }
+        /// <summary>
+        /// 根据职务获取员工
+        /// </summary>
+        /// <param name="DId"></param>
+        /// <returns></returns>
+        public string GetEmpByDId(string EName, int DId)
+        {
+            string json = ApiResult.GetAPIResult("GetEmployees/?EName=" + EName + "&DId=" + DId, "get");
+            return json;
         }
         /// <summary>
         /// 员工入职页面
@@ -199,53 +206,9 @@ namespace H_PMS_Client.Controllers
             Repair repair = JsonConvert.DeserializeObject<Repair>(rep);
             return ApiResult.GetAPIResult("PutRepair", "put", repair);
         }
-        #endregion
+        #endregion 
 
-        #region 访客
-        public ActionResult K_AddFangKe()
-        {
-            return PartialView();
-        }
-        /// <summary>
-        /// 增添访客信息
-        /// </summary>
-        /// <param name="fangke"></param>
-        /// <returns></returns>
-        public string AddFangKeByFK(string fangke)
-        {
-            Visitor visitor = JsonConvert.DeserializeObject<Visitor>(fangke);
-            string json = ApiResult.GetAPIResult("AddVisitor", "post", visitor);
-            return json;
-        }
-        /// <summary>
-        /// 修改访客页面
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult K_PutFangKe()
-        {
-            return PartialView();
-        }
-        /// <summary>
-        /// 获取访客信息
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public string GetFangKeById(int id)
-        {
-            return ApiResult.GetAPIResult("GetFangKeById/?VId=" + id, "get");
-        }
-        /// <summary>
-        /// 修改访客信息
-        /// </summary>
-        /// <param name="fangke"></param>
-        /// <returns></returns>
-        public string PutFangKeByFK(string fangke)
-        {
-            Visitor visitor = JsonConvert.DeserializeObject<Visitor>(fangke);
-            string json = ApiResult.GetAPIResult("PutVisitor", "put", visitor);
-            return json;
-        }
-        #endregion
+
 
         #endregion
 

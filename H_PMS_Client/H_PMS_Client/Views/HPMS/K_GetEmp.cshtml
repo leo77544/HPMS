@@ -40,33 +40,7 @@
                                 <th>操作</th>
                             </tr>
                         </thead>
-
-                        <tbody>
-                            @foreach (var item in ViewBag.getEmp)
-                            {
-                                <tr>
-                                    <td class="center">
-                                        <label>
-                                            <input type="checkbox" class="ace" />
-                                            <span class="lbl"></span>
-                                        </label>
-                                    </td>
-                                    <td>@item.EName</td>
-                                    <td>@item.ESex</td>
-                                    <td>@item.EAge</td>
-                                    <td>@item.DName</td>
-                                    <td>@item.EStartTime</td>
-                                    <td>@item.ESalary</td>
-                                    <td>
-                                        &nbsp;&nbsp;&nbsp;&nbsp;
-                                        <div class="ui-pg-div" style="display:inline-block" onclick="putemp(@item.EmployeeId)"><span class="ui-icon icon-pencil blue"></span></div>
-                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        <div class="ui-pg-div" style="display:inline-block" onclick="delemp(@item.EmployeeId)"><span class="ui-icon icon-trash red"></span></div>
-                                    </td>
-                                </tr>
-                            }
-
-                        </tbody>
+                        <tbody id="getEmpbyid"></tbody>
                     </table>
                 </div><!-- /.table-responsive -->
             </div><!-- /span -->
@@ -85,6 +59,21 @@
 
 </script>
 <script>
+    GetEmpByDId("", -1);
+    function GetEmpByDId(EName, DId) {
+        $.ajax({
+            url: "/HPMS/K_PutEmpById/?EName=" + EName + "&DId=" + DId,
+            type: "get",
+            dataType: "json",
+            success: function (data) {
+                $("#getEmpbyid").empty();
+                $(JSON.parse(data)).each(function () {
+                    $("#getEmpbyid").append("<tr><td class='center'><label><input type='checkbox' class='ace' /><span class='lbl'></span></label></td ><td>" + this.EName + "</td><td>" + this.ESex + "</td><td>" + this.EAge + "</td><td>" + this.DName + "</td><td>" + this.EStartTime + "</td><td>" + this.ESalary + "</td><td> &nbsp;&nbsp;&nbsp;&nbsp;<div class='ui-pg-div' style='display:inline-block' onclick='putemp(this.EmployeeId)'><span class='ui-icon icon-pencil blue'></span></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class='ui-pg-div' style='display:inline-block' onclick='delemp(this.EmployeeId)'><span class='ui-icon icon-trash red'></span></div></td></tr> ");
+
+                })
+            }
+        })
+    }
     function delemp(id) {
         $.ajax({
             url: "/HPMS/K_DelEmp/?id=" + id,
@@ -95,7 +84,7 @@
 
                     var tab = document.getElementById("#sample-table-1");
                     var row = document.getElementById(id);
-                    var index = row.rowIndex;//rowIndex属性为tr的索引值，从0开始  
+                    var index = row.rowIndex;//rowIndex属性为tr的索引值，从0开始
                     tab.deleteRow(index);  //从table中删除
 
                     $("#box").css("display", "inline");
