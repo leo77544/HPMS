@@ -363,24 +363,35 @@ namespace H_PMS_Client.Controllers
             string json = WebApiHelper.ApiResult.GetAPIResult("GetPBMax", "get");
             ParkBase emp = JsonConvert.DeserializeObject<ParkBase>(json);
 
+
+
             if (emp.PBNumber == null)
             {
                 n = -1;
             }
             else
             {
-                int number = int.Parse(emp.PBNumber.Substring(1, 5));
-                if (p.PBType == "地下停车场")
+                string s = WebApiHelper.ApiResult.GetAPIResult("GetPlace", "get");
+                ParkBase place = JsonConvert.DeserializeObject<ParkBase>(s);
+                if (place == null)
                 {
-                    p.PBNumber = "D" + number;
+                    n = -2;
                 }
                 else
                 {
-                    p.PBNumber = "H" + number;
+                   
+                    int number = int.Parse(emp.PBNumber.Substring(1, 5));
+                    if (p.PBType == "地下停车场")
+                    {
+                        p.PBNumber = "D" + number;
+                    }
+                    else
+                    {
+                        p.PBNumber = "H" + number;
+                    }
+                    p.Remark = "空闲";
+                    n = int.Parse(ApiResult.GetAPIResult("AddParkBase", "post", p));
                 }
-                p.Remark = "空闲";
-                n = int.Parse(ApiResult.GetAPIResult("AddParkBase", "post", p));
-
             }
             return n;
         }
@@ -485,9 +496,13 @@ namespace H_PMS_Client.Controllers
 
         public int AddPark(string park)
         {
+            string s = WebApiHelper.ApiResult.GetAPIResult("GetPlace", "get");
+            ParkBase num = JsonConvert.DeserializeObject<ParkBase>(s);
+
             Park p = JsonConvert.DeserializeObject<Park>(park);
             p.InRentSTime = DateTime.Now.ToString("yyyy-MM-dd");
             int n = 0;
+            p.PBId = num.PBId;
             p.Remark = "代缴费";
             string json = WebApiHelper.ApiResult.GetAPIResult("ChaHost?name=" + p.HostId + "&idcard=" + p.IDCard, "get");
 

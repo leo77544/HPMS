@@ -33,7 +33,7 @@
                             <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 车位面积 </label>
 
                             <div class="col-sm-9">
-                                <input type="text" id="form-field-1" placeholder="用户名" class="col-xs-10 col-sm-5" />
+                                <input type="text" id="form-field-1" placeholder="车位面积" class="col-xs-10 col-sm-5" />
                             </div>
                         </div>
 
@@ -43,7 +43,7 @@
                             <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 车位价钱 </label>
 
                             <div class="col-sm-9">
-                                <input type="text" id="form-field-2" placeholder="密码" class="col-xs-10 col-sm-5" />
+                                <input type="text" id="form-field-2" placeholder="车位价钱" class="col-xs-10 col-sm-5" />
                             </div>
                         </div>
 
@@ -53,7 +53,7 @@
                             <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 车位位置 </label>
 
                             <div class="col-sm-9">
-                                <input type="text" id="form-field-3" placeholder="用户名" class="col-xs-10 col-sm-5" />
+                                <input type="text" id="form-field-3" placeholder="车位位置" class="col-xs-10 col-sm-5" />
                             </div>
                         </div>
 
@@ -97,6 +97,8 @@
         </div><!-- /.page-content -->
         <div class="box" id="box" style="width:250px;height:80px;z-index:9999;font-size:24px;font-family:微软雅黑;line-height:80px;padding-left:75px;background-color:#bcf5c2;float:left;margin-left:40%;color:#159753;display:none">添加成功！</div>
         <div class="box2" id="box2" style="width:250px;height:80px;z-index:9999;font-size:24px;font-family:微软雅黑;line-height:80px;padding-left:75px;background-color:#bcf5c2;float:left;margin-left:40%;color:#159753;display:none">未核查到该住户，请核对住户姓名！</div>
+
+        <div class="box3" id="box3" style="width:250px;height:80px;z-index:9999;font-size:24px;font-family:微软雅黑;line-height:80px;padding-left:75px;background-color:#bcf5c2;float:left;margin-left:40%;color:#159753;display:none">该车位已存在！</div>
     </div><!-- /.main-content -->
 </div>
 <script>
@@ -121,9 +123,13 @@
                     $("#box").css("display", "inline");
                     setTimeout("tishiclose()", 1000);
                 }
+                else if (data == -2) {
+                    $("#box3").css("display", "inline");
+                    setTimeout("tishiclose2()", 1000);
+                }
                 else if (data == -1) {
                     $("#box2").css("display", "inline");
-                    setTimeout("tishiclose2()", 1000);
+                    setTimeout("tishiclose3()", 1000);
                 }
             }
         })
@@ -133,5 +139,8 @@
     }
     function tishiclose2() {
         $("#box2").css("display", "none");
+    }
+    function tishiclose3() {
+        $("#box3").css("display", "none");
     }
 </script>

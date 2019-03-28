@@ -108,6 +108,18 @@ namespace H_PMS_DAL
             string sql = string.Format("update parkbase set Remark='ø’œ–' where PBNumber ='{0}'", p.PBNumber);
             return DBHelper.ExecuteNonQuery(sql);
         }
+
+        public ParkBase GetPlace(string place)
+        {
+            List<ParkBase> list = JsonConvert.DeserializeObject<List<ParkBase>>(JsonConvert.SerializeObject(DBHelper.GetDataTable("select * from  ParkBase where PBPlace ='" +place+"'")));
+            return list.FirstOrDefault();
+        }
+
+        public ParkBase GetNumber(string number)
+        {
+            List<ParkBase> list = JsonConvert.DeserializeObject<List<ParkBase>>(JsonConvert.SerializeObject(DBHelper.GetDataTable("select * from  ParkBase where PBNumber ='" + number + "'")));
+            return list.FirstOrDefault();
+        }
         #endregion
     }
 }

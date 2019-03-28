@@ -67,6 +67,16 @@ namespace H_PMS_WebApi.Controllers
         {
             return Alan.UptRemark(p);
         }
+        [HttpGet]
+        public ParkBase GetPlace(string place)
+        {
+            return Alan.GetPlace(place);
+        }
+        [HttpGet]
+        public ParkBase GetNumber(string number)
+        {
+            return Alan.GetNumber(number);
+        }
         #endregion
 
         #region 车位租出信息
