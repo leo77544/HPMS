@@ -33,10 +33,17 @@ namespace H_PMS_Client.Controllers
         /// <returns></returns>
         public ActionResult K_GetEmp()
         {
-            string json = ApiResult.GetAPIResult("GetEmployees", "get");
-            List<GetEmp> list = JsonConvert.DeserializeObject<List<GetEmp>>(json);
-            ViewBag.getEmp = list;
             return PartialView();
+        }
+        /// <summary>
+        /// 根据职务获取员工
+        /// </summary>
+        /// <param name="DId"></param>
+        /// <returns></returns>
+        public string GetEmpByDId(string EName, int DId)
+        {
+            string json = ApiResult.GetAPIResult("GetEmployees/?EName=" + EName + "&DId=" + DId, "get");
+            return json;
         }
         /// <summary>
         /// 员工入职页面
@@ -199,53 +206,9 @@ namespace H_PMS_Client.Controllers
             Repair repair = JsonConvert.DeserializeObject<Repair>(rep);
             return ApiResult.GetAPIResult("PutRepair", "put", repair);
         }
-        #endregion
+        #endregion 
 
-        #region 访客
-        public ActionResult K_AddFangKe()
-        {
-            return PartialView();
-        }
-        /// <summary>
-        /// 增添访客信息
-        /// </summary>
-        /// <param name="fangke"></param>
-        /// <returns></returns>
-        public string AddFangKeByFK(string fangke)
-        {
-            Visitor visitor = JsonConvert.DeserializeObject<Visitor>(fangke);
-            string json = ApiResult.GetAPIResult("AddVisitor", "post", visitor);
-            return json;
-        }
-        /// <summary>
-        /// 修改访客页面
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult K_PutFangKe()
-        {
-            return PartialView();
-        }
-        /// <summary>
-        /// 获取访客信息
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public string GetFangKeById(int id)
-        {
-            return ApiResult.GetAPIResult("GetFangKeById/?VId=" + id, "get");
-        }
-        /// <summary>
-        /// 修改访客信息
-        /// </summary>
-        /// <param name="fangke"></param>
-        /// <returns></returns>
-        public string PutFangKeByFK(string fangke)
-        {
-            Visitor visitor = JsonConvert.DeserializeObject<Visitor>(fangke);
-            string json = ApiResult.GetAPIResult("PutVisitor", "put", visitor);
-            return json;
-        }
-        #endregion
+
 
         #endregion
 
@@ -335,7 +298,7 @@ namespace H_PMS_Client.Controllers
         /// <returns></returns>
         public string GetYearRecord(string str)
         {
-           
+
             return JsonConvert.SerializeObject(ApiResult.GetAPIResult("GetYearCount?str=" + str, "get"));
         }
         /// <summary>
@@ -343,7 +306,7 @@ namespace H_PMS_Client.Controllers
         /// </summary>
         /// <param name="str"></param>
         /// <returns></returns>
-        public string  GetYeardetail(string str)
+        public string GetYeardetail(string str)
         {
             return JsonConvert.SerializeObject(ApiResult.GetAPIResult("GetYeardetail?str=" + str, "get"));
         }
@@ -432,7 +395,7 @@ namespace H_PMS_Client.Controllers
 
                 }
             }
-            
+
             ViewBag.list = Parklist;
             return PartialView();
         }
@@ -509,7 +472,7 @@ namespace H_PMS_Client.Controllers
             int n = 0;
             p.Remark = "代缴费";
             string json = WebApiHelper.ApiResult.GetAPIResult("ChaHost?name=" + p.HostId + "&idcard=" + p.IDCard, "get");
-            
+
             List<HostInfo> host = JsonConvert.DeserializeObject<List<HostInfo>>(json);
             if (host.Count == 0)
             {
@@ -518,7 +481,7 @@ namespace H_PMS_Client.Controllers
             else
             {
                 n = int.Parse(ApiResult.GetAPIResult("AddPark", "post", p));
-                if (n >0)
+                if (n > 0)
                 {
                     n = int.Parse(ApiResult.GetAPIResult("UptPBState", "put", p));
                 }
@@ -528,7 +491,7 @@ namespace H_PMS_Client.Controllers
                 }
             }
             return n;
-            
+
         }
 
         public string GetPark(string number)
@@ -541,11 +504,11 @@ namespace H_PMS_Client.Controllers
             {
                 p.IDCard = p.IDCard.Substring(p.IDCard.Length - 4, 4);
             }
-            if (p.InRentSTime !=null)
+            if (p.InRentSTime != null)
             {
                 p.InRentSTime = p.InRentSTime.Substring(0, 10);
             }
-            if (p.OutRentSTime !=null)
+            if (p.OutRentSTime != null)
             {
                 p.OutRentSTime = p.OutRentSTime.Substring(0, 10);
             }
@@ -780,7 +743,7 @@ namespace H_PMS_Client.Controllers
         /// <returns></returns>
         public string AddComplain(string CBName, string ReceptionEmp, string Ccontent)
         {
-            return ApiResult.GetAPIResult("AddComplain?CBName="+ CBName + "&ReceptionEmp="+ ReceptionEmp + "&Ccontent="+ Ccontent + "", "post");
+            return ApiResult.GetAPIResult("AddComplain?CBName=" + CBName + "&ReceptionEmp=" + ReceptionEmp + "&Ccontent=" + Ccontent + "", "post");
         }
 
         /// <summary> 
