@@ -145,21 +145,23 @@
         })
     }
     function deleteEmpByEId(id) {
-        $.ajax({
-            url: "/HPMS/K_DelEmp/?id=" + id,
-            type: "get",
-            dataType: "json",
-            success: function (data) {
-                if (data > 0) {
-                    GetEmpByDId("", -1);
-                    $("#box").css("display", "inline");
-                    setTimeout("tishiclose()", 1000);
+        if (confirm("确认要辞退该员工吗？")) {
+            $.ajax({
+                url: "/HPMS/K_DelEmp/?id=" + id,
+                type: "get",
+                dataType: "json",
+                success: function (data) {
+                    if (data > 0) {
+                        GetEmpByDId("", -1);
+                        $("#box").css("display", "inline");
+                        setTimeout("tishiclose()", 1000);
 
-                } else {
-                    alert("删除失败！");
+                    } else {
+                        alert("删除失败！");
+                    }
                 }
-            }
-        })
+            })
+        }
     }
     function tishiclose() {
         $("#box").css("display", "none");
