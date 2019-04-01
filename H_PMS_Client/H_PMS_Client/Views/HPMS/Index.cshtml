@@ -194,14 +194,14 @@
 
                         <ul class="submenu">
                             <li>
-                                <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#kevin" href="/HPMS/K_AddEmp">
+                                <a href="JavaScript:CompainPView('员工入职')">
                                     <i class="icon-double-angle-right"></i>
                                     员工入职
                                 </a>
                             </li>
 
                             <li>
-                                <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#kevin" href="/HPMS/K_GetEmp">
+                                <a href="JavaScript:CompainPView('员工信息')">
                                     <i class="icon-double-angle-right"></i>
                                     员工信息
                                 </a>
@@ -301,42 +301,41 @@
 
                         <ul class="submenu">
                             <li>
-                                <a href="/HPMS/K_AddRepair" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#kevin">
+                                <a href="JavaScript:CompainPView('新增报修')">
                                     <i class="icon-double-angle-right"></i>
                                     新增报修
                                 </a>
                             </li>
 
                             <li>
-                                <a href="/HPMS/K_JiGongBaoGao" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#kevin">
+                                <a href="JavaScript:CompainPView('技工报告')">
                                     <i class="icon-double-angle-right"></i>
                                     技工报告
                                 </a>
                             </li>
 
                             <li>
-                                <a href="/HPMS/K_GetRepair" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#kevin">
+                                <a href="JavaScript:CompainPView('正在克服')">
                                     <i class="icon-double-angle-right"></i>
                                     正在克服
                                 </a>
                             </li>
 
                             <li>
-                                <a href="/HPMS/K_WanMeiGuiDang" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#kevin">
+                                <a href="JavaScript:CompainPView('归档明细')">
                                     <i class="icon-double-angle-right"></i>
                                     归档明细
                                 </a>
                             </li>
 
-
                         </ul>
-                    </li>
+                    </li>  
                     <li>
                         <a href="#" class="dropdown-toggle">
                             <i class="icon-remove"></i>
                             <span class="menu-text"> 投诉建议 </span>
 
-                            <b class="arrow icon-angle-down"></b>
+                            <b class="arrow icon-angle-down"></b    >
                         </a>
 
                         <ul class="submenu">
@@ -776,6 +775,60 @@
                         $("#WindowsCode").val(PageCode);
                         $(".page-content").empty();
                         $(".page-content").append(data);
+                    }
+                })
+            } else if (PageCode == "员工入职") {
+                $.ajax({
+                    url: "/HPMS/K_AddEmp",
+                    success: function (data) {
+                        $("#WindowsCode").val(PageCode);
+                        $(".main-content").empty();
+                        $(".main-content").append(data);
+                    }
+                })
+            } else if (PageCode == "员工信息") {
+                $.ajax({
+                    url: "/HPMS/K_GetEmp",
+                    success: function (data) {
+                        $("#WindowsCode").val(PageCode);
+                        $(".main-content").empty();
+                        $(".main-content").append(data);
+                    }
+                })
+            } else if (PageCode == "新增报修") {
+                $.ajax({
+                    url: "/HPMS/K_AddRepair",
+                    success: function (data) {
+                        $("#WindowsCode").val(PageCode);
+                        $(".main-content").empty();
+                        $(".main-content").append(data);
+                    }
+                })
+            } else if (PageCode == "技工报告") {
+                $.ajax({
+                    url: "/HPMS/K_JiGongBaoGao",
+                    success: function (data) {
+                        $("#WindowsCode").val(PageCode);
+                        $(".main-content").empty();
+                        $(".main-content").append(data);
+                    }
+                })
+            } else if (PageCode == "正在克服") {
+                $.ajax({
+                    url: "/HPMS/K_GetRepair",
+                    success: function (data) {
+                        $("#WindowsCode").val(PageCode);
+                        $(".main-content").empty();
+                        $(".main-content").append(data);
+                    }
+                })
+            } else if (PageCode == "归档明细") {
+                $.ajax({
+                    url: "/HPMS/K_WanMeiGuiDang",
+                    success: function (data) {
+                        $("#WindowsCode").val(PageCode);
+                        $(".main-content").empty();
+                        $(".main-content").append(data);
                     }
                 })
             }
