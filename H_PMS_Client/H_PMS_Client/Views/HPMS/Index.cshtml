@@ -61,7 +61,7 @@
 
 <body style="width:100%;height:100%">
 
-    <div id="kevinModel" class="bg-model" style="width:100%;height:100%;background-color:#808080;display:none;z-index:99;position:absolute;background:rgba(0,0,0,0.3);" onclick="closetheModel()">
+    <div id="kevinModel" class="bg-model" style="width:100%;height:100%;background-color:#808080;display:none;z-index:99;position:absolute;background:rgba(0,0,0,0.3);">
     </div>
     <div class="navbar navbar-default" id="navbar">
         <script type="text/javascript">
@@ -366,7 +366,7 @@
                 </script>
             </div>
 
-            <div class="main-content" id="kevin">
+            <div class="main-content">
                 <div class="breadcrumbs" id="breadcrumbs">
                     <script type="text/javascript">
                         try { ace.settings.check('breadcrumbs', 'fixed') } catch (e) { }
@@ -782,8 +782,8 @@
                     url: "/HPMS/K_AddEmp",
                     success: function (data) {
                         $("#WindowsCode").val(PageCode);
-                        $(".main-content").empty();
-                        $(".main-content").append(data);
+                        $(".page-content").empty();
+                        $(".page-content").append(data);
                     }
                 })
             } else if (PageCode == "员工信息") {
@@ -791,8 +791,8 @@
                     url: "/HPMS/K_GetEmp",
                     success: function (data) {
                         $("#WindowsCode").val(PageCode);
-                        $(".main-content").empty();
-                        $(".main-content").append(data);
+                        $(".page-content").empty();
+                        $(".page-content").append(data);
                     }
                 })
             } else if (PageCode == "新增报修") {
@@ -800,8 +800,8 @@
                     url: "/HPMS/K_AddRepair",
                     success: function (data) {
                         $("#WindowsCode").val(PageCode);
-                        $(".main-content").empty();
-                        $(".main-content").append(data);
+                        $(".page-content").empty();
+                        $(".page-content").append(data);
                     }
                 })
             } else if (PageCode == "技工报告") {
@@ -809,8 +809,8 @@
                     url: "/HPMS/K_JiGongBaoGao",
                     success: function (data) {
                         $("#WindowsCode").val(PageCode);
-                        $(".main-content").empty();
-                        $(".main-content").append(data);
+                        $(".page-content").empty();
+                        $(".page-content").append(data);
                     }
                 })
             } else if (PageCode == "正在克服") {
@@ -818,8 +818,8 @@
                     url: "/HPMS/K_GetRepair",
                     success: function (data) {
                         $("#WindowsCode").val(PageCode);
-                        $(".main-content").empty();
-                        $(".main-content").append(data);
+                        $(".page-content").empty();
+                        $(".page-content").append(data);
                     }
                 })
             } else if (PageCode == "归档明细") {
@@ -827,8 +827,8 @@
                     url: "/HPMS/K_WanMeiGuiDang",
                     success: function (data) {
                         $("#WindowsCode").val(PageCode);
-                        $(".main-content").empty();
-                        $(".main-content").append(data);
+                        $(".page-content").empty();
+                        $(".page-content").append(data);
                     }
                 })
             }
