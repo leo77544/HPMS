@@ -44,9 +44,10 @@ namespace H_PMS_DAL
             return list;
         }
 
-        public int DelParkBase(int id)
+        public int DelParkBase(string id)
         {
-            string sql = "delete from ParkBase where PBNumber ='" + id+"'";
+            id = id.Trim();
+            string sql = "delete from ParkBase where PBNumber ='"+id+"'";
             return DBHelper.ExecuteNonQuery(sql);
         }
 
