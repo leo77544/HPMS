@@ -93,12 +93,6 @@
                         </a>
 
                         <ul class="user-menu pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
-                            <li>
-                                <a href="#">
-                                    <i class="icon-user"></i>
-                                    个人资料
-                                </a>
-                            </li>
 
                             <li class="divider"></li>
 
@@ -146,7 +140,7 @@
                 <ul class="nav nav-list">
                     <li class="active">
                         <a href="">
-                            <i class="icon-cog"></i>
+                            <i class="icon-bar"></i>
                             <span class="menu-text"> 幸福里物业管理系统 </span>
                         </a>
                     </li>
@@ -244,7 +238,7 @@
 
                     <li>
                         <a href="#" class="dropdown-toggle">
-                            <i class="icon-off "></i>
+                            <i class="icon-cog"></i>
                             <span class="menu-text"> 车位管理 </span>
 
                             <b class="arrow icon-angle-down"></b>
@@ -252,14 +246,14 @@
 
                         <ul class="submenu">
                             <li>
-                                <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#kevin" href="/HPMS/PBShow">
+                                <a href="JavaScript:Park('车位查看')">
                                     <i class="icon-double-angle-right"></i>
                                     车位查看
                                 </a>
                             </li>
 
                             <li>
-                                <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#kevin" href="/HPMS/PBAddIndex">
+                                <a href="JavaScript:Park('新增车位')">
                                     <i class="icon-double-angle-right"></i>
                                     新增车位
                                 </a>
@@ -833,8 +827,31 @@
                 })
             }
         }
+        function Park(PageCode) {
+            if (PageCode == "车位查看") {
+                $.ajax({
+                    url: "/HPMS/PBShow",
+                    success: function (data) {
+                        $("#WindowsCode").val(PageCode);
+                        $(".main-content").empty();
+                        $(".main-content").append(data);
+                    }
+                })
+            }
+            else {
+                $.ajax({
+                    url: "/HPMS/PBAddIndex",
+                    success: function (data) {
+                        $("#WindowsCode").val(PageCode);
+                        $(".main-content").empty();
+                        $(".main-content").append(data);
+                    }
+                })
+            }
+        }
         
     </script>
 </body>
 
 </html>
+

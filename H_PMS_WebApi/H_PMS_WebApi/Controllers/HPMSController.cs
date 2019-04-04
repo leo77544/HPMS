@@ -51,7 +51,7 @@ namespace H_PMS_WebApi.Controllers
             return Alan.GetParkBases();
         }
         [HttpDelete]
-        public int DelParkBase(int id)
+        public int DelParkBase(string id)
         {
             return Alan.DelParkBase(id);
         }

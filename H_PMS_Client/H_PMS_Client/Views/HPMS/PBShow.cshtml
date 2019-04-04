@@ -1,6 +1,4 @@
 ﻿
-
-
 <div class="main-content" style="margin-left:0px">
     <div class="breadcrumbs" id="breadcrumbs">
         <script type="text/javascript">
@@ -50,7 +48,7 @@
             @{
                 foreach (var item in ViewBag.list)
                 {
-                    <div id="'+@item.PBNumber+'" style="width:220px;height:280px;float:left;margin-right:30px;margin-left:20px;margin-bottom:20px;background-image:@(item.Remark2 =="空闲"? "url(../../assets/avatars/TP2.jpg)" : "url(../../assets/avatars/ZS.jpg)");background-repeat: no-repeat;background-size: 100% 100%;text-align:center;">
+                    <div id="'@item.PBNumber'" style="width:220px;height:280px;float:left;margin-right:30px;margin-left:20px;margin-bottom:20px;background-image:@(item.Remark2 =="空闲"? "url(../../assets/avatars/TP2.jpg)" : "url(../../assets/avatars/ZS.jpg)");background-repeat: no-repeat;background-size: 100% 100%;text-align:center;">
                         @if (item.Remark2 == "空闲")
                         {
                             <input id="Button1" type="button" value="×" style="border:none;margin-left:178px;font-size:20px" onclick="Del('+@item.PBNumber+')" />
@@ -143,10 +141,8 @@
             $.ajax({
                 url: "/HPMS/DelParkBase?Id=" + id,
                 async: false,
-                type: "post",
-                dataType: "json",
                 success: function (data) {
-                    if (data > 0) {
+                    if (data == "1") {
                         $("#" + Id).remove();
                     }
                 }
@@ -154,36 +150,7 @@
         }
     }
 
-    function Addpark() {
-        var park = new Object();
-        park.PBNumber = $("#txtnum").text();
-        park.HostId = $("#Text1").val();
-        park.IDCard = $("#Text2").val();
-        park.OutRentSTime = $("#Text3").val();
-        park.CarType = $("#Text4").val();
-        park.CarNumber = $("#Text5").val();
-        $.ajax({
-            url: "/HPMS/AddPark",
-            data: { park: JSON.stringify(park) },
-            dataType: "json",
-            type: "post",
-            success: function (data) {
-                if (data > 0) {
-                    $("#Text1").val("");
-                    $("#Text2").val("");
-                    $("#Text3").val("");
-                    $("#Text4").val("");
-                    $("#Text5").val("");
-                    $("#tbox").css("display", "inline");
-                    setTimeout("tishiclose()", 1000);
-                }
-                else if (data == -1) {
-                    $("#tbox2").css("display", "inline");
-                    setTimeout("tishiclose2()", 1000);
-                }
-            }
-        })
-    }
+    
 
     function tishiclose() {
         $("#tbox").css("display", "none");
@@ -241,7 +208,7 @@
                         + '<p style="font-size:23px;margin-top:18px">车辆类型：<input id="Text4" type="text" style="height:50px;width:200px;border:none;background-color:#f9f9f9;font-size:23px;color:blue" /></p>'
                         + '<p style="font-size:23px;margin-top:15px">车牌号码：<input id="Text5" type="text" style="height:50px;width:200px;border:none;background-color:#f9f9f9;font-size:23px;color:blue" /></p>'
                         + '<p>'
-                        + '<button class="btn btn-info" type="button" onclick="Addpark()"><i class="icon-ok bigger-110"></i>提交</button> &nbsp; &nbsp; &nbsp;'
+                        + '<button class="btn btn-info" type="button" onclick="AddparkInfo()"><i class="icon-ok bigger-110"></i>提交</button> &nbsp; &nbsp; &nbsp;'
                         + '<button class="btn" type="reset"><i class="icon-undo bigger-110"></i>重置</button></p>'
                         + '</div>'
                         + '</div >';
@@ -250,6 +217,7 @@
             }
         })
     };
+
 
     $("#mt").click(function () {
         $(".bg-model").fadeTo(300, 1)
@@ -275,4 +243,37 @@
     }, function () {
         $(this).css({ "backgroundColor": "#8CD4E6" });
     });
+</script>
+<script>
+    function AddparkInfo() {
+        var park = new Object();
+        park.PBNumber = $("#txtnum").text();
+        park.HostId = $("#Text1").val();
+        park.IDCard = $("#Text2").val();
+        park.OutRentSTime = $("#Text3").val();
+        park.CarType = $("#Text4").val();
+        park.CarNumber = $("#Text5").val();
+
+        $.ajax({
+            url: "/HPMS/AddPark/",
+            data: { park: JSON.stringify(park) },
+            dataType: "json",
+            type: "post",
+            success: function (data) {
+                if (data == "1") {
+                    $("#Text1").val("");
+                    $("#Text2").val("");
+                    $("#Text3").val("");
+                    $("#Text4").val("");
+                    $("#Text5").val("");
+                    $("#tbox").css("display", "inline");
+                    setTimeout("tishiclose()", 1000);
+                }
+                else if (data == "-1") {
+                    $("#tbox2").css("display", "inline");
+                    setTimeout("tishiclose2()", 1000);
+                }
+            }
+        })
+    }
 </script>

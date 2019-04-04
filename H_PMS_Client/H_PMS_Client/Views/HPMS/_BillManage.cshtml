@@ -82,7 +82,7 @@
     //当前页码
     var index = 1;
     //每页显示的条数
-    var size = 10;
+    var size = 20;
     //总页数
     var allPage;
     //总条数
@@ -109,7 +109,7 @@
                     $("#content").append(tr);
                 });
                 var page = "<ul class='pagination'>"
-                    + "<li><a href = '#' class='active'> 共" + data.TotalCount + "条记录，当前显示第" + index + " 页， 共" + data.TotalPage + "页</a></li>"
+                    + "<li><a href = '#' class='active'>每页20条 共" + data.TotalCount + "条记录，当前显示第" + index + " 页， 共" + data.TotalPage + "页</a></li>"
                     + "<li><a href='javascript:datalist(1," + size + ")'>首页</a></li>"
                     + "<li><a href='javascript:datalist(" + (index == 1 ? 1 : index - 1) + "," + size + ")'>上一页</a></li>"
                     + "<li><a href='javascript:datalist("+(index == allPage ? allPage : index + 1)+","+size+ ")'>下一页</a></li>"
