@@ -34,7 +34,7 @@ namespace H_PMS_BLL
             return dal.GetParkBases();
         }
 
-        public int DelParkBase(int id)
+        public int DelParkBase(string id)
         {
             return dal.DelParkBase(id);
         }

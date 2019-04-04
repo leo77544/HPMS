@@ -53,8 +53,8 @@ namespace H_PMS_Client.Controllers
         /// <returns></returns>
         public string GetEmployeeByEId(string EId)
         {
-            string json = ApiResult.GetAPIResult("GetEmployeeByEId/?EId=" + EId, "get");
-            json= JsonConvert.SerializeObject(json);
+            List<Employee> emp = JsonConvert.DeserializeObject<List<Employee>>(ApiResult.GetAPIResult("GetEmployeeByEId/?EId=" + EId, "get"));
+            string json = JsonConvert.SerializeObject(emp);
             return json;
         }
         /// <summary>
@@ -90,8 +90,6 @@ namespace H_PMS_Client.Controllers
         /// <returns></returns>
         public ActionResult K_PutEmpById(string id)
         {
-            Employee employee = JsonConvert.DeserializeObject<Employee>(ApiResult.GetAPIResult("GetEmployeeByEId/?EId=" + id, "get"));
-            ViewBag.PutEmpById = employee;
             return PartialView();
         }
         /// <summary>
@@ -102,7 +100,9 @@ namespace H_PMS_Client.Controllers
         public int K_PutEmp(string emp)
         {
             Employee employee = JsonConvert.DeserializeObject<Employee>(emp);
-            string json = ApiResult.GetAPIResult("PutEmpByEId", "put", employee);
+            Employee empsession = Session["TheU"] as Employee;
+            Guid TheToken = JsonConvert.DeserializeObject<Guid>(ApiResult.GetAPIResult("GetToken/?Name=" + empsession.EName + "&Pwd=" + empsession.ESex, "get"));
+            string json = ApiResult.GetAPIResult("PutEmpByEId/?TokenGuid=" + TheToken + "&TokenDateTime=" + DateTime.Now.ToString() + "", "put", employee);
             if (json != "")
             {
                 return 1;
@@ -373,14 +373,15 @@ namespace H_PMS_Client.Controllers
             {
                 string s = WebApiHelper.ApiResult.GetAPIResult("GetPlace", "get");
                 ParkBase place = JsonConvert.DeserializeObject<ParkBase>(s);
-                if (place == null)
+                if (place != null)
                 {
                     n = -2;
                 }
                 else
                 {
-                   
-                    int number = int.Parse(emp.PBNumber.Substring(1, 5));
+
+                    string nbm2 = emp.PBNumber.Substring(1, 4);
+                    int number = int.Parse(nbm2) + 1;
                     if (p.PBType == "地下停车场")
                     {
                         p.PBNumber = "D" + number;
@@ -403,24 +404,38 @@ namespace H_PMS_Client.Controllers
         {
             List<Park> Parklist = JsonConvert.DeserializeObject<List<Park>>(ApiResult.GetAPIResult("GetParkBases", "get"));
             int day = 0;
+
+            DateTime now = Convert.ToDateTime(DateTime.Now);
             foreach (var item in Parklist)
             {
+                
+
                 DateTime start = Convert.ToDateTime(item.InRentSTime);
                 start = Convert.ToDateTime(start.Date.ToShortDateString());
                 DateTime end = Convert.ToDateTime(item.InRentSTime);
                 end = Convert.ToDateTime(end.Date.ToShortDateString());
 
-                TimeSpan sp = end.Subtract(start);
-                day = sp.Days;
-
-                if (day > 2 && item.Remark == "代缴费")
+                if (end < now)
                 {
                     int n = int.Parse(ApiResult.GetAPIResult("DelIdCard?idcard=" + item.IDCard, "delete"));
                     Park p = Parklist.FirstOrDefault(m => m.PBNumber == item.PBNumber);
                     int n2 = int.Parse(ApiResult.GetAPIResult("UptRemark", "put", p));
-                    if (n2 > 0 && n > 0)
+                    Parklist = JsonConvert.DeserializeObject<List<Park>>(ApiResult.GetAPIResult("GetParkBases", "get"));
+                }
+                else
+                {
+                    TimeSpan sp = end.Subtract(start);
+                    day = sp.Days;
+
+                    if (day > 2 && item.Remark == "代缴费")
                     {
-                        Parklist = JsonConvert.DeserializeObject<List<Park>>(ApiResult.GetAPIResult("GetParkBases", "get"));
+                        int n = int.Parse(ApiResult.GetAPIResult("DelIdCard?idcard=" + item.IDCard, "delete"));
+                        Park p = Parklist.FirstOrDefault(m => m.PBNumber == item.PBNumber);
+                        int n2 = int.Parse(ApiResult.GetAPIResult("UptRemark", "put", p));
+                        if (n2 > 0 && n > 0)
+                        {
+                            Parklist = JsonConvert.DeserializeObject<List<Park>>(ApiResult.GetAPIResult("GetParkBases", "get"));
+                        }
                     }
                 }
             }
@@ -496,10 +511,12 @@ namespace H_PMS_Client.Controllers
 
         public int AddPark(string park)
         {
-            string s = WebApiHelper.ApiResult.GetAPIResult("GetPlace", "get");
+           
+            Park p = JsonConvert.DeserializeObject<Park>(park);
+
+            string s = WebApiHelper.ApiResult.GetAPIResult("GetNumber?number="+p.PBNumber, "get");
             ParkBase num = JsonConvert.DeserializeObject<ParkBase>(s);
 
-            Park p = JsonConvert.DeserializeObject<Park>(park);
             p.InRentSTime = DateTime.Now.ToString("yyyy-MM-dd");
             int n = 0;
             p.PBId = num.PBId;
@@ -552,7 +569,7 @@ namespace H_PMS_Client.Controllers
 
         #region 删除
 
-        public int DelParkBase(int Id)
+        public int DelParkBase(string Id)
         {
             int n = int.Parse(ApiResult.GetAPIResult("DelParkBase?id=" + Id, "delete"));
             return n;
