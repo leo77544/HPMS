@@ -424,7 +424,7 @@ namespace H_PMS_Client.Controllers
                 }
                 else
                 {
-                    TimeSpan sp = end.Subtract(start);
+                    TimeSpan sp = now.Subtract(start);
                     day = sp.Days;
 
                     if (day > 2 && item.Remark == "代缴费")
@@ -460,7 +460,7 @@ namespace H_PMS_Client.Controllers
                 {
                     if (state != "请选择状态")
                     {
-                        list = Parklist.Where(m => m.PBType == type && m.PBPlace.Contains(area) && m.Remark == state).ToList();
+                        list = Parklist.Where(m => m.PBType == type && m.PBPlace.Contains(area) && m.Remark2 == state).ToList();
                     }
                     else
                     {
@@ -471,7 +471,7 @@ namespace H_PMS_Client.Controllers
                 {
                     if (state != "请选择状态")
                     {
-                        list = Parklist.Where(m => m.PBType == type && m.Remark == state).ToList();
+                        list = Parklist.Where(m => m.PBType == type && m.Remark2 == state).ToList();
                     }
                     else
                     {
@@ -485,7 +485,7 @@ namespace H_PMS_Client.Controllers
                 {
                     if (state != "请选择状态")
                     {
-                        list = Parklist.Where(m => m.PBPlace.Contains(area) && m.Remark == state).ToList();
+                        list = Parklist.Where(m => m.PBPlace.Contains(area) && m.Remark2 == state).ToList();
                     }
                     else
                     {
@@ -496,7 +496,7 @@ namespace H_PMS_Client.Controllers
                 {
                     if (state != "请选择状态")
                     {
-                        list = Parklist.Where(m => m.Remark == state).ToList();
+                        list = Parklist.Where(m => m.Remark2 == state).ToList();
                     }
                     else
                     {

@@ -44,7 +44,6 @@
             border: 1px solid;
             vertical-align: middle;
             text-align: center;
-
         }
 
         #wxtd {
@@ -270,14 +269,16 @@
 
                         <ul class="submenu">
                             <li>
-                                <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#tab" href="/HPMS/BillManage">
+                                <a href="JavaScript:BillManage()">
+
                                     <i class="icon-double-angle-right"></i>
                                     账单管理
                                 </a>
                             </li>
 
                             <li>
-                                <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#tab" href="/HPMS/InComeManage">
+                                <a href="JavaScript:InComeManage()">
+
                                     <i class="icon-double-angle-right"></i>
                                     收支明细
                                 </a>
@@ -323,13 +324,13 @@
                             </li>
 
                         </ul>
-                    </li>  
+                    </li>
                     <li>
                         <a href="#" class="dropdown-toggle">
                             <i class="icon-remove"></i>
                             <span class="menu-text"> 投诉建议 </span>
 
-                            <b class="arrow icon-angle-down"></b    >
+                            <b class="arrow icon-angle-down"></b>
                         </a>
 
                         <ul class="submenu">
@@ -369,9 +370,10 @@
                     <ul class="breadcrumb">
                         <li>
                             <i class="icon-home home-icon"></i>
-                            <a href="#">首页</a>
+                            <a href="">首页</a>
                         </li>
-                        <li class="active">幸福里控制台</li>
+                      
+
                     </ul><!-- .breadcrumb -->
                     <input id="WindowsCode" type="hidden" value="" />
                 </div>
@@ -405,7 +407,9 @@
                                 </strong>
                                 ,这里为您提供更更方便的物业管理。
                             </div>
-
+                            <div id="indexcontent">
+                                @*视图内容跟新页面*@
+                            </div>
 
 
 
@@ -413,6 +417,7 @@
                         </div><!-- /.col -->
 
                     </div><!-- /.row -->
+                   
                 </div><!-- /.page-content -->
             </div><!-- /.main-content -->
 
@@ -487,7 +492,7 @@
     <!-- <![endif]-->
     <!--[if IE]>
     <script type="text/javascript">
-     window.jQuery || document.write("<script src='~/assets/js/jquery-1.10.2.min.js'>"+"<"+"script>");
+        window.jQuery || document.write("<script src='~/assets/js/jquery-1.10.2.min.js'>"+"<"+"script>");
     </script>
     <![endif]-->
 
@@ -645,27 +650,27 @@
                 { label: "Hosting", data: d2 },
                 { label: "Services", data: d3 }
             ], {
-                    hoverable: true,
-                    shadowSize: 0,
-                    series: {
-                        lines: { show: true },
-                        points: { show: true }
-                    },
-                    xaxis: {
-                        tickLength: 0
-                    },
-                    yaxis: {
-                        ticks: 10,
-                        min: -2,
-                        max: 2,
-                        tickDecimals: 3
-                    },
-                    grid: {
-                        backgroundColor: { colors: ["#fff", "#fff"] },
-                        borderWidth: 1,
-                        borderColor: '#555'
-                    }
-                });
+                hoverable: true,
+                shadowSize: 0,
+                series: {
+                    lines: { show: true },
+                    points: { show: true }
+                },
+                xaxis: {
+                    tickLength: 0
+                },
+                yaxis: {
+                    ticks: 10,
+                    min: -2,
+                    max: 2,
+                    tickDecimals: 3
+                },
+                grid: {
+                    backgroundColor: { colors: ["#fff", "#fff"] },
+                    borderWidth: 1,
+                    borderColor: '#555'
+                }
+            });
 
 
             $('#recent-box [data-rel="tooltip"]').tooltip({ placement: tooltip_placement });
@@ -700,16 +705,16 @@
                 });
 
             $('#tasks').sortable({
-                opacity: 0.8,
-                revert: true,
-                forceHelperSize: true,
-                placeholder: 'draggable-placeholder',
-                forcePlaceholderSize: true,
-                tolerance: 'pointer',
-                stop: function (event, ui) {//just for Chrome!!!! so that dropdowns on items don't appear below other items after being moved
-                    $(ui.item).css('z-index', 'auto');
+                    opacity: 0.8,
+                    revert: true,
+                    forceHelperSize: true,
+                    placeholder: 'draggable-placeholder',
+                    forcePlaceholderSize: true,
+                    tolerance: 'pointer',
+                    stop: function (event, ui) {//just for Chrome!!!! so that dropdowns on items don't appear below other items after being moved
+                        $(ui.item).css('z-index', 'auto');
+                    }
                 }
-            }
             );
             $('#tasks').disableSelection();
             $('#tasks input:checkbox').removeAttr('checked').on('click', function () {
@@ -722,12 +727,31 @@
     </script>
 
     <script>
+       
+        function BillManage() {
+            $.ajax({
+                url: "/hpms/BillManage/",
+                success: function (data) {
+                    $("#indexcontent").empty();
+                    $("#indexcontent").append(data);
+                }
+            })
+        }
+        function InComeManage() {
+            $.ajax({
+                url: "/hpms/InComeManage/",
+                success: function (data) {
+                    $("#indexcontent").empty();
+                    $("#indexcontent").append(data);
+                }
+            })
+        }
         function charge() {
             $.ajax({
                 url: "/hpms/JiaoFei/",
                 success: function (data) {
-                    $(".page-content").empty();
-                    $(".page-content").append(data);
+                    $("#indexcontent").empty();
+                    $("#indexcontent").append(data);
                 }
             })
         }
@@ -735,8 +759,8 @@
             $.ajax({
                 url: "/hpms/ChargeRecord",
                 success: function (data) {
-                    $(".page-content").empty();
-                    $(".page-content").append(data);
+                    $("#indexcontent").empty();
+                    $("#indexcontent").append(data);
 
                 }
             })
@@ -747,8 +771,8 @@
                 url: "/HPMS/HousePView",
                 success: function (data) {
                     $("#WindowsCode").val(PageCode);
-                    $(".page-content").empty();
-                    $(".page-content").append(data);
+                    $("#indexcontent").empty();
+                    $("#indexcontent").append(data);
                 }
             })
         }
@@ -758,8 +782,8 @@
                     url: "/HPMS/CompainPView",
                     success: function (data) {
                         $("#WindowsCode").val(PageCode);
-                        $(".page-content").empty();
-                        $(".page-content").append(data);
+                        $("#indexcontent").empty();
+                        $("#indexcontent").append(data);
                     }
                 })
             } else if (PageCode == "历史投诉") {
@@ -767,8 +791,8 @@
                     url: "/HPMS/HistoryCompainPView",
                     success: function (data) {
                         $("#WindowsCode").val(PageCode);
-                        $(".page-content").empty();
-                        $(".page-content").append(data);
+                        $("#indexcontent").empty();
+                        $("#indexcontent").append(data);
                     }
                 })
             } else if (PageCode == "员工入职") {
@@ -776,8 +800,8 @@
                     url: "/HPMS/K_AddEmp",
                     success: function (data) {
                         $("#WindowsCode").val(PageCode);
-                        $(".page-content").empty();
-                        $(".page-content").append(data);
+                        $("#indexcontent").empty();
+                        $("#indexcontent").append(data);
                     }
                 })
             } else if (PageCode == "员工信息") {
@@ -785,8 +809,8 @@
                     url: "/HPMS/K_GetEmp",
                     success: function (data) {
                         $("#WindowsCode").val(PageCode);
-                        $(".page-content").empty();
-                        $(".page-content").append(data);
+                        $("#indexcontent").empty();
+                        $("#indexcontent").append(data);
                     }
                 })
             } else if (PageCode == "新增报修") {
@@ -794,8 +818,8 @@
                     url: "/HPMS/K_AddRepair",
                     success: function (data) {
                         $("#WindowsCode").val(PageCode);
-                        $(".page-content").empty();
-                        $(".page-content").append(data);
+                        $("#indexcontent").empty();
+                        $("#indexcontent").append(data);
                     }
                 })
             } else if (PageCode == "技工报告") {
@@ -803,8 +827,8 @@
                     url: "/HPMS/K_JiGongBaoGao",
                     success: function (data) {
                         $("#WindowsCode").val(PageCode);
-                        $(".page-content").empty();
-                        $(".page-content").append(data);
+                        $("#indexcontent").empty();
+                        $("#indexcontent").append(data);
                     }
                 })
             } else if (PageCode == "正在克服") {
@@ -812,8 +836,8 @@
                     url: "/HPMS/K_GetRepair",
                     success: function (data) {
                         $("#WindowsCode").val(PageCode);
-                        $(".page-content").empty();
-                        $(".page-content").append(data);
+                        $("#indexcontent").empty();
+                        $("#indexcontent").append(data);
                     }
                 })
             } else if (PageCode == "归档明细") {
@@ -821,8 +845,8 @@
                     url: "/HPMS/K_WanMeiGuiDang",
                     success: function (data) {
                         $("#WindowsCode").val(PageCode);
-                        $(".page-content").empty();
-                        $(".page-content").append(data);
+                        $("#indexcontent").empty();
+                        $("#indexcontent").append(data);
                     }
                 })
             }
@@ -833,8 +857,8 @@
                     url: "/HPMS/PBShow",
                     success: function (data) {
                         $("#WindowsCode").val(PageCode);
-                        $(".main-content").empty();
-                        $(".main-content").append(data);
+                        $("#indexcontent").empty();
+                        $("#indexcontent").append(data);
                     }
                 })
             }
@@ -843,15 +867,47 @@
                     url: "/HPMS/PBAddIndex",
                     success: function (data) {
                         $("#WindowsCode").val(PageCode);
-                        $(".main-content").empty();
-                        $(".main-content").append(data);
+                        $("#indexcontent").empty();
+                        $("#indexcontent").append(data);
                     }
                 })
             }
         }
-        
+
     </script>
 </body>
 
 </html>
 
+    <script>
+        function AddparkInfo() {
+            var park = new Object();
+            park.PBNumber = $("#txtnum").text();
+            park.HostId = $("#Text1").val();
+            park.IDCard = $("#Text2").val();
+            park.OutRentSTime = $("#Text3").val();
+            park.CarType = $("#Text4").val();
+            park.CarNumber = $("#Text5").val();
+
+            $.ajax({
+                url: "/HPMS/AddPark/",
+                data: { park: JSON.stringify(park) },
+                dataType: "json",
+                type: "post",
+                success: function (data) {
+                    if (data == "1") {
+                        $("#Text1").val("");
+                        $("#Text2").val("");
+                        $("#Text3").val("");
+                        $("#Text4").val("");
+                        $("#Text5").val("");
+                        
+                        GetParkBaseByConditions();
+                    }
+                    else if (data == "-1") {
+                        alert("未核查到该住户，请核对住户姓名！");
+                    }
+                }
+            })
+        }
+    </script>
