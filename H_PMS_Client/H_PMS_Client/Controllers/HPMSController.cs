@@ -14,13 +14,47 @@ namespace H_PMS_Client.Controllers
         //  [HttpPost]
 
         // GET: HPMS
+        #region 登录
+
+        public ActionResult Login()
+        {
+            if (Session["TheU"] is null)
+            {
+                return View();
+            }
+            else
+            {
+                Session["TheU"] = null;
+                return View();
+            }
+        }
+        public int LoginUser(string name, string pwd)
+        {
+            string json = WebApiHelper.ApiResult.GetAPIResult("Login?emp=" + name + "&pwd=" + pwd, "get");
+            Employee emp = JsonConvert.DeserializeObject<Employee>(json);
+
+            if (emp != null)
+            {
+                Session["TheU"] = emp;
+                return 1;
+            }
+            else
+            {
+                return -1;
+            }
+        }
+
+        #endregion
         public ActionResult Index()
         {
-            //   ApiResult.GetAPIResult();
-            //GetDayRecord(str);
-            //GetMonthRecord(str);
-            //GetYearRecord(str);
-            return View();
+            if (Session["TheU"] is null)
+            {
+                return View("Login");
+            }
+            else
+            {
+                return View();
+            }
         }
 
         #region Kevin
@@ -412,7 +446,7 @@ namespace H_PMS_Client.Controllers
 
                 DateTime start = Convert.ToDateTime(item.InRentSTime);
                 start = Convert.ToDateTime(start.Date.ToShortDateString());
-                DateTime end = Convert.ToDateTime(item.InRentSTime);
+                DateTime end = Convert.ToDateTime(item.OutRentSTime);
                 end = Convert.ToDateTime(end.Date.ToShortDateString());
 
                 if (end < now)
@@ -436,6 +470,10 @@ namespace H_PMS_Client.Controllers
                         {
                             Parklist = JsonConvert.DeserializeObject<List<Park>>(ApiResult.GetAPIResult("GetParkBases", "get"));
                         }
+                    }
+                    else
+                    {
+                        Parklist = Parklist;
                     }
                 }
             }
@@ -577,37 +615,7 @@ namespace H_PMS_Client.Controllers
 
         #endregion
 
-        #region 登录
-
-        public ActionResult Login()
-        {
-            if (Session["TheU"] is null)
-            {
-                return View();
-            }
-            else
-            {
-                Session["TheU"] = null;
-                return View();
-            }
-        }
-        public int LoginUser(string name, string pwd)
-        {
-            string json = WebApiHelper.ApiResult.GetAPIResult("Login?emp=" + name + "&pwd=" + pwd, "get");
-            Employee emp = JsonConvert.DeserializeObject<Employee>(json);
-
-            if (emp != null)
-            {
-                Session["TheU"] = emp;
-                return 1;
-            }
-            else
-            {
-                return -1;
-            }
-        }
-
-        #endregion
+        
         public ActionResult ParkShow()
         {
             return PartialView();
