@@ -888,7 +888,7 @@
             park.OutRentSTime = $("#Text3").val();
             park.CarType = $("#Text4").val();
             park.CarNumber = $("#Text5").val();
-
+            var num = $("#txtnum").text();
             $.ajax({
                 url: "/HPMS/AddPark/",
                 data: { park: JSON.stringify(park) },
@@ -902,6 +902,7 @@
                         $("#Text4").val("");
                         $("#Text5").val("");
                         
+                        $("#addMt2").css("overflow", "hidden");
                         GetParkBaseByConditions();
                     }
                     else if (data == "-1") {
@@ -910,4 +911,5 @@
                 }
             })
         }
+        
     </script>

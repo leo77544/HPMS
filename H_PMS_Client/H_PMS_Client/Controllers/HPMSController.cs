@@ -49,11 +49,10 @@ namespace H_PMS_Client.Controllers
         {
             if (Session["TheU"] is null)
             {
-                return View();
+                return View("Login");
             }
             else
             {
-                Session["TheU"] = null;
                 return View();
             }
         }
@@ -447,7 +446,7 @@ namespace H_PMS_Client.Controllers
 
                 DateTime start = Convert.ToDateTime(item.InRentSTime);
                 start = Convert.ToDateTime(start.Date.ToShortDateString());
-                DateTime end = Convert.ToDateTime(item.InRentSTime);
+                DateTime end = Convert.ToDateTime(item.OutRentSTime);
                 end = Convert.ToDateTime(end.Date.ToShortDateString());
 
                 if (end < now)
@@ -471,6 +470,10 @@ namespace H_PMS_Client.Controllers
                         {
                             Parklist = JsonConvert.DeserializeObject<List<Park>>(ApiResult.GetAPIResult("GetParkBases", "get"));
                         }
+                    }
+                    else
+                    {
+                        Parklist = Parklist;
                     }
                 }
             }

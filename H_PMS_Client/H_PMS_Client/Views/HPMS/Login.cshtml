@@ -46,15 +46,6 @@
                             <img src="~/LoginCss/imgs/icons/lock.svg">
                             <p class="tips hidden">请检查您的密码</p>
                         </div>
-                        <div class="b_clear">
-                            <label for="auth_code" class="b_clear">验证码</label>
-                            <input type="text" name="" id="auth_code" placeholder="" class="l_float" maxlength="6">
-
-                            <button class="auth_code l_float">获取验证码</button>
-                            <img src="~/LoginCss/imgs/icons/auth_code.svg">
-                            <p class="tips hidden">验证码错误</p>
-
-                        </div>
                         <div class="b_clear submit">
                             <button type="button" style="width:150px;height:50px;background-color:blue;border-radius:10px;color:white;font-weight:bold;border:none;margin-left:30px" onclick="Login()">登&nbsp;&nbsp;录</button>
                             <p class="tips hidden">登录失败，请检查您的账户与密码</p>
@@ -80,7 +71,7 @@
             </div>
         </div>
     </div>
-
+    <div class="boxlogin" id="boxlogin" style="width:270px;height:80px;z-index:9999;font-size:20px;font-family:微软雅黑;line-height:80px;padding-left:75px;background-color:red;float:left;margin-left:30%;color:white;display:none">登录失败，请核对账户信息！</div>
     <script src="~/LoginCss/js/login.js"></script>
 
 </body>
@@ -101,9 +92,14 @@
                     location.href = '/HPMS/Index';
                 }
                 else {
-                    alert("登录失败");
+                    $("#boxlogin").css("display", "inline");
+                    setTimeout("loginclose()", 1000);
                 }
             }
         })
+    }
+
+    function loginclose() {
+        $("#boxlogin").css("display", "none");
     }
 </script>
