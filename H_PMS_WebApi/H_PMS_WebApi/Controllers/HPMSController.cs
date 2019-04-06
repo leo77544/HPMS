@@ -19,7 +19,8 @@ namespace H_PMS_WebApi.Controllers
         LeoManager leo = new LeoManager();
         KevinManager Kevin = new KevinManager();
         MichaelManager Michael = new MichaelManager();
-                                      
+        IRedisClient Redis = RedisManager.GetClient();
+
         #region Alan
 
         #region 登录
@@ -333,7 +334,6 @@ namespace H_PMS_WebApi.Controllers
         [HttpGet]
         public Guid GetToken(string Name, string Pwd)
         {
-            IRedisClient Redis = RedisManager.GetClient();
             if (Name == "admin" && Pwd == "123")
             {
                 if (Redis.ContainsKey("MyToken"))
@@ -345,7 +345,7 @@ namespace H_PMS_WebApi.Controllers
                     Redis.Set<string>("MyToken", Guid.NewGuid().ToString());
                 }
             }
-            return JsonConvert.DeserializeObject<Guid>(Redis.Get<string>("MyToken"));
+            return Guid.Parse(Redis.Get<string>("MyToken"));
         }
         /// <summary>
         /// 修改员工
@@ -355,7 +355,6 @@ namespace H_PMS_WebApi.Controllers
         [HttpPut]
         public int PutEmpByEId(string TokenGuid, string TokenDateTime, Employee employee)
         {
-            IRedisClient Redis = RedisManager.GetClient();
             DateTime TheTokenDateTime = Convert.ToDateTime(TokenDateTime);
             DateTime ResultDateTime = TheTokenDateTime + new TimeSpan(0, 0, 0, 5);
             if (Redis.ContainsKey("MyToken") || DateTime.Now >= ResultDateTime)
