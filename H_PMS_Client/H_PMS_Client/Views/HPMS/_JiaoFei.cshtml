@@ -109,8 +109,9 @@
                         $.ajax({
                             url: "/hpms/JiaoFei/",
                             success: function (data) {
-                                $(".page-content").empty();
-                                $(".page-content").append(data);
+                                $("#indexcontent").empty();
+                                $("#indexcontent").append(data);
+
                             }
                         })
                     }
