@@ -88,8 +88,8 @@ namespace H_PMS_Client.Controllers
         /// <returns></returns>
         public string GetEmployeeByEId(string EId)
         {
-            string json = ApiResult.GetAPIResult("GetEmployeeByEId/?EId=" + EId, "get");
-            json= JsonConvert.SerializeObject(json);
+            List<Employee> emp = JsonConvert.DeserializeObject<List<Employee>>(ApiResult.GetAPIResult("GetEmployeeByEId/?EId=" + EId, "get"));
+            string json = JsonConvert.SerializeObject(emp);
             return json;
         }
         /// <summary>
@@ -125,8 +125,6 @@ namespace H_PMS_Client.Controllers
         /// <returns></returns>
         public ActionResult K_PutEmpById(string id)
         {
-            Employee employee = JsonConvert.DeserializeObject<Employee>(ApiResult.GetAPIResult("GetEmployeeByEId/?EId=" + id, "get"));
-            ViewBag.PutEmpById = employee;
             return PartialView();
         }
         /// <summary>
@@ -137,7 +135,9 @@ namespace H_PMS_Client.Controllers
         public int K_PutEmp(string emp)
         {
             Employee employee = JsonConvert.DeserializeObject<Employee>(emp);
-            string json = ApiResult.GetAPIResult("PutEmpByEId", "put", employee);
+            Employee empsession = Session["TheU"] as Employee;
+            Guid TheToken = JsonConvert.DeserializeObject<Guid>(ApiResult.GetAPIResult("GetToken/?Name=" + empsession.EName + "&Pwd=" + empsession.ESex, "get"));
+            string json = ApiResult.GetAPIResult("PutEmpByEId/?TokenGuid=" + TheToken + "&TokenDateTime=" + DateTime.Now.ToString() + "", "put", employee);
             if (json != "")
             {
                 return 1;
@@ -414,6 +414,7 @@ namespace H_PMS_Client.Controllers
                 }
                 else
                 {
+
                     string nbm2 = emp.PBNumber.Substring(1, 4);
                     int number = int.Parse(nbm2) + 1;
                     if (p.PBType == "地下停车场")
@@ -458,7 +459,7 @@ namespace H_PMS_Client.Controllers
                 }
                 else
                 {
-                    TimeSpan sp = end.Subtract(start);
+                    TimeSpan sp = now.Subtract(start);
                     day = sp.Days;
 
                     if (day > 2 && item.Remark == "代缴费")
@@ -494,7 +495,7 @@ namespace H_PMS_Client.Controllers
                 {
                     if (state != "请选择状态")
                     {
-                        list = Parklist.Where(m => m.PBType == type && m.PBPlace.Contains(area) && m.Remark == state).ToList();
+                        list = Parklist.Where(m => m.PBType == type && m.PBPlace.Contains(area) && m.Remark2 == state).ToList();
                     }
                     else
                     {
@@ -505,7 +506,7 @@ namespace H_PMS_Client.Controllers
                 {
                     if (state != "请选择状态")
                     {
-                        list = Parklist.Where(m => m.PBType == type && m.Remark == state).ToList();
+                        list = Parklist.Where(m => m.PBType == type && m.Remark2 == state).ToList();
                     }
                     else
                     {
@@ -519,7 +520,7 @@ namespace H_PMS_Client.Controllers
                 {
                     if (state != "请选择状态")
                     {
-                        list = Parklist.Where(m => m.PBPlace.Contains(area) && m.Remark == state).ToList();
+                        list = Parklist.Where(m => m.PBPlace.Contains(area) && m.Remark2 == state).ToList();
                     }
                     else
                     {
@@ -530,7 +531,7 @@ namespace H_PMS_Client.Controllers
                 {
                     if (state != "请选择状态")
                     {
-                        list = Parklist.Where(m => m.Remark == state).ToList();
+                        list = Parklist.Where(m => m.Remark2 == state).ToList();
                     }
                     else
                     {
